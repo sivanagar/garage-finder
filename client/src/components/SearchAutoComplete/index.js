@@ -1,3 +1,4 @@
+import { Input } from "@chakra-ui/react";
 import { useState } from "react";
 import PlacesAutoComplete, {
   geocodeByAddress,
@@ -31,7 +32,10 @@ const SearchAutoComplete = () => {
             <p>Latitude: {coordinates.lat}</p>
             <p>Longitude: {coordinates.lng}</p>
 
-            <input {...getInputProps({ placeholder: "Type address" })} />
+            <Input
+              size="lg"
+              {...getInputProps({ placeholder: "Type address" })}
+            />
 
             <div>
               {loading ? <div>...loading</div> : null}
