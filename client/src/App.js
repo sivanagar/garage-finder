@@ -2,9 +2,10 @@ import {
   ApolloClient,
   ApolloProvider,
   createHttpLink,
-  InMemoryCache,
+  InMemoryCache
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { Container, Flex } from "@chakra-ui/react";
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -15,6 +16,7 @@ import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Search from "./pages/Search";
 import Signup from "./pages/Signup";
+
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -39,9 +41,9 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <div className="flex-column justify-flex-start min-100-vh">
+        <Flex flexDirection="column" justifyContent="flex-start" minHeight="100vh">
           <Header />
-          <div className="container">
+          <Container>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/login" component={Login} />
@@ -51,9 +53,9 @@ function App() {
 
               <Route component={NoMatch} />
             </Switch>
-          </div>
+          </Container>
           <Footer />
-        </div>
+        </Flex>
       </Router>
     </ApolloProvider>
   );
