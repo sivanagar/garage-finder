@@ -1,9 +1,10 @@
 import { Box, Button, Center } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import SearchAutoComplete from "../components/SearchAutoComplete";
 
-
 const Search = () => {
+  const history = useHistory();
   const [search, setSearch] = useState({
     lat: null,
     lng: null,
@@ -12,6 +13,11 @@ const Search = () => {
 
   function handleOnClick() {
     console.log("Search: ", search);
+
+    history.push({
+      pathname: "/results",
+      state: { search },
+    });
   }
 
   return (

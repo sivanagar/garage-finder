@@ -14,6 +14,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
+import Results from "./pages/Results";
 import Search from "./pages/Search";
 import Signup from "./pages/Signup";
 
@@ -53,6 +54,7 @@ function App() {
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/search" component={Search} />
+              <Route exact path="/results/" component={Results} />
 
               <Route component={NoMatch} />
             </Switch>

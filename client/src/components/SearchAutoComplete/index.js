@@ -17,12 +17,9 @@ const SearchAutoComplete = (props) => {
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
     const latLng = await getLatLng(results[0]);
+
     setAddress(value);
     setCoordinates(latLng);
-
-    console.log("latLng: ", latLng);
-
-    console.log("Coordinnates", coordinates);
 
     //get zip code
     const zip = getAddressComponents(
