@@ -33,7 +33,15 @@ const typeDefs = gql`
     users: [User]
     user(username: String!): User
     listing(_id: ID!): Listing
-    listings(type: String): [Listing]
+    listings(
+      type: String
+      rate: Float
+      accessType: String
+      climateControl: Boolean
+      height: Float
+      width: Float
+      depth: Float
+    ): [Listing]
   }
 
   type Mutation {

@@ -19,15 +19,25 @@ const resolvers = {
       return User.find().select('-__v -password');
     },
     user: async (parent, { username }) => {
-      return User.findOne({ username }).select('-__v -password');
+      return User.findOne({ username })
+        .populate('listings')
+        .select('-__v -password');
     },
     listing: async (parent, { _id }) => {
       return Listing.findOne({ _id });
     },
-    listings: async (parent, { type, rate }) => {
+    listings: async (
+      parent,
+      { type, rate, accessType, climateControl, height, width, depth }
+    ) => {
       const params = {};
       type ? (params.type = type) : null;
       rate ? (params.rate = rate) : null;
+      climateControl == null ? null : (params.climateControl = climateControl);
+      accessType ? (params.accessType = accessType) : null;
+      height ? (params.height = height) : null;
+      width ? (params.width = width) : null;
+      depth ? (params.depth = depth) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },
