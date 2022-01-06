@@ -4,10 +4,11 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
+import { myTheme } from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider resetCSS theme={myTheme}>
       <App />
     </ChakraProvider>
   </React.StrictMode>,

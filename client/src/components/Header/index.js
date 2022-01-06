@@ -1,9 +1,10 @@
-import { Box, Flex, Heading, Spacer } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, useColorMode } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link as ReactLink } from "react-router-dom";
 import Auth from "../../utils/auth";
 
 const Header = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
@@ -17,25 +18,55 @@ const Header = () => {
       color="white"
       fontSize="lg"
       fontWeight="semibold"
+      direction="row"
+      justify="space-between"
     >
       <Box m="2" p="2">
-        <Heading size="md">Cache App</Heading>
+        <Heading as={ReactLink} to="/" size="md">
+          Cache App
+        </Heading>
       </Box>
-      <Spacer />
       <Box m="2" p="2">
         {Auth.loggedIn() ? (
           <>
-            <Link m="1" to="/profile">
+            <Button as={ReactLink} variant="secondary" m="1" to="/profile">
               Me
-            </Link>
-            <a href="/" onClick={logout}>
+            </Button>
+            <Button variant="secondary" onClick={logout}>
               Logout
-            </a>
+            </Button>
+            <Button variant="primary" m="1" onClick={toggleColorMode}>
+              M
+            </Button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              size="sm"
+              m="0.5"
+              to="/login"
+            >
+              Login
+            </Button>
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              size="sm"
+              m="0.5"
+              to="/signup"
+            >
+              Signup
+            </Button>
+            <Button
+              variant="primary"
+              size="sm"
+              m="0.5"
+              onClick={toggleColorMode}
+            >
+              {colorMode === "light" ? "🌙" : "☀️"}
+            </Button>
           </>
         )}
       </Box>

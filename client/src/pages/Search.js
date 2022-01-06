@@ -24,7 +24,7 @@ const Search = () => {
     <Box w="100%" mt="20">
       <SearchAutoComplete setSearch={setSearch} />
       <Center mt="4">
-        <Button onClick={handleOnClick} colorScheme="purple">
+        <Button onClick={handleOnClick} variant="primary" size="lg">
           Search Spaces
         </Button>
       </Center>

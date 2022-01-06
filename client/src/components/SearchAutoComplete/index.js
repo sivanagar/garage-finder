@@ -50,7 +50,8 @@ const SearchAutoComplete = (props) => {
 
               {suggestions.map((suggestion) => {
                 const style = {
-                  backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                  color: suggestion.active ? "#fff" : "#805ad5",
+                  backgroundColor: suggestion.active ? "#805ad5" : "#fff",
                 };
                 return (
                   <div

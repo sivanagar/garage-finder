@@ -12,18 +12,12 @@ import {
   FormLabel,
   Image,
   Input,
-  useColorMode,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
 
 const Login = (props) => {
-  const { toggleColorMode } = useColorMode();
-  const formBackgroundColor = useColorModeValue("gray.100", "gray.700");
-  const formBorderColor = useColorModeValue("gray.300", "gray.800");
-  const formFontColor = useColorModeValue("black", "white");
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
 
@@ -59,14 +53,7 @@ const Login = (props) => {
   };
 
   return (
-    <Box
-      w="100%"
-      borderWidth="1px"
-      borderRadius="lg"
-      mt="20"
-      bg={formBackgroundColor}
-      boxShadow="lg"
-    >
+    <Box w="100%" borderWidth="1px" borderRadius="lg" mt="20" boxShadow="lg">
       <Box p="6">
         <form onSubmit={handleFormSubmit}>
           <Center>
@@ -101,10 +88,9 @@ const Login = (props) => {
             />
           </FormControl>
           <Center mt="4">
-            <Button type="submit" colorScheme="blue" size="lg">
+            <Button type="submit" variant="primary" size="lg">
               Login
             </Button>
-            <Button onClick={toggleColorMode}>Color Mode</Button>
           </Center>
         </form>
         <Center mt="4">
