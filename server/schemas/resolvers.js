@@ -24,8 +24,11 @@ const resolvers = {
     listing: async (parent, { _id }) => {
       return Listing.findOne({ _id });
     },
-    listings: async (parent, args) => {
-      return Listing.find({ args }).sort({ createdAt: -1 });
+    listings: async (parent, { type, rate }) => {
+      const params = {};
+      type ? (params.type = type) : null;
+      rate ? (params.rate = rate) : null;
+      return Listing.find(params).sort({ createdAt: -1 });
     },
   },
 

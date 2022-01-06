@@ -36,7 +36,7 @@ const listingSchema = new Schema(
     },
     accessType: {
       type: String,
-      enum: ['24hr', 'sheduled'],
+      enum: ['24hr', 'scheduled'],
     },
     height: {
       type: Number,
