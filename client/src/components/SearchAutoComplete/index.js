@@ -4,8 +4,10 @@ import PlacesAutoComplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-places-autocomplete";
+import getAddressComponents from "../../utils/getAddressComponents";
 
-const SearchAutoComplete = () => {
+const SearchAutoComplete = (props) => {
+  const { setSearch } = props;
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: null,
@@ -17,6 +19,18 @@ const SearchAutoComplete = () => {
     const latLng = await getLatLng(results[0]);
     setAddress(value);
     setCoordinates(latLng);
+
+    console.log("latLng: ", latLng);
+
+    console.log("Coordinnates", coordinates);
+
+    //get zip code
+    const zip = getAddressComponents(
+      results[0].address_components,
+      "postal_code"
+    );
+
+    setSearch({ lat: latLng.lat, lng: latLng.lng, zip });
     console.log("Resutls", results);
   };
 
@@ -29,9 +43,6 @@ const SearchAutoComplete = () => {
       >
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
-            <p>Latitude: {coordinates.lat}</p>
-            <p>Longitude: {coordinates.lng}</p>
-
             <Input
               size="lg"
               {...getInputProps({ placeholder: "Type address" })}
