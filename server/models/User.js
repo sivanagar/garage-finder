@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
@@ -11,14 +11,28 @@ const userSchema = new Schema(
     },
     email: {
       type: String,
-      required: true,
+      trim: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must match an email address!'],
+      required: 'Email address is required',
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Please fill a valid email address',
+      ],
     },
     password: {
       type: String,
       required: true,
-      minlength: 5,
+      minlength: 6,
+    },
+    listings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Listing',
+      },
+    ],
+    host: {
+      type: Boolean,
+      required: true,
     },
   },
   {
@@ -42,6 +56,11 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+// get total count of listings on retrieval
+userSchema.virtual('listingCount').get(function () {
+  return this.listings.length;
+});
 
 const User = model('User', userSchema);
 

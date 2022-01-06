@@ -1,6 +1,4 @@
 const { Schema, model, Types } = require('mongoose');
-const bcrypt = require('bcrypt');
-
 
 // the following block of code tests address geocoding
 // const NodeGeocoder = require('node-geocoder');
@@ -24,69 +22,66 @@ const bcrypt = require('bcrypt');
 
 const listingSchema = new Schema(
   {
-    listingId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId()
-    },
+    // listingId: {
+    //   type: Schema.Types.ObjectId,
+    //   default: () => new Types.ObjectId()
+    // },
     address: {
       type: String,
       required: true,
     },
     type: {
-        type: String,
-        enum: ['garage', 'shed', 'basement', 'attic']
+      type: String,
+      enum: ['garage', 'shed', 'basement', 'attic'],
     },
     accessType: {
-        type: String,
-        enum: ['24hr', 'sheduled']
+      type: String,
+      enum: ['24hr', 'scheduled'],
     },
     height: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     width: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     depth: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     description: {
-        type: String,
-        required: 'Description is required',
-        trim: true
+      type: String,
+      required: 'Description is required',
+      trim: true,
     },
     rate: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
-    user: 
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-      },
-    climateControl: 
-    {
-        type: Boolean,
-        required: true
-    }
+    username: {
+      type: String,
+      required: true,
+    },
+    climateControl: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
-    toJSON: {
-      virtuals: true,
-      getters: true
-    },
-    id: false
+    // toJSON: {
+    //   virtuals: true,
+    //   getters: true
+    // },
+    // id: false
   }
 );
 
 // get volume on retrieval
-listingSchema.virtual('volume').get(function() {
-    return (this.height * this.width * this.depth) 
-    }
-  );
+// listingSchema.virtual('volume').get(function() {
+//     return (this.height * this.width * this.depth)
+//     }
+//   );
 
 const Listing = model('Listing', listingSchema);
 

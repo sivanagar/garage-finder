@@ -19,3 +19,39 @@ export const QUERY_ME = gql`
     }
   }
 `;
+
+export const QUERY_LISTING = gql`
+  query listing($_id: ID!) {
+    listing(_id: $_id) {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
+    }
+  }
+`;
+
+export const QUERY_LISTINGS = gql`
+  query listings($type: String) {
+    listings(type: $type) {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
+    }
+  }
+`;
