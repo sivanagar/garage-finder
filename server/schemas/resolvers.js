@@ -1,14 +1,14 @@
+const { User, Listing } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
-const { User } = require('../models');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
   Query: {
     me: async (parent, args, context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id }).select(
-          '-__v -password'
-        );
+        const userData = await User.findOne({ _id: context.user._id })
+          .populate('listings')
+          .select('-__v -password');
 
         return userData;
       }
@@ -20,6 +20,12 @@ const resolvers = {
     },
     user: async (parent, { username }) => {
       return User.findOne({ username }).select('-__v -password');
+    },
+    listing: async (parent, { _id }) => {
+      return Listing.findOne({ _id });
+    },
+    listings: async (parent, args) => {
+      return Listing.find({ args }).sort({ createdAt: -1 });
     },
   },
 
@@ -45,6 +51,23 @@ const resolvers = {
 
       const token = signToken(user);
       return { token, user };
+    },
+    addListing: async (parent, args, context) => {
+      if (context.user) {
+        const listing = await Listing.create({
+          ...args,
+          username: context.user.username,
+        });
+        const user = await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { listings: listing._id } },
+          { new: true }
+        );
+
+        return listing;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
     },
   },
 };

@@ -5,6 +5,22 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
+    listings: [Listing]
+    host: Boolean
+  }
+
+  type Listing {
+    _id: ID
+    address: String
+    type: String
+    accessType: String
+    height: Float
+    width: Float
+    depth: Float
+    description: String
+    rate: Float
+    username: String
+    climateControl: Boolean
   }
 
   type Auth {
@@ -16,11 +32,29 @@ const typeDefs = gql`
     me: User
     users: [User]
     user(username: String!): User
+    listing(_id: ID!): Listing
+    listings(type: String): [Listing]
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(
+      username: String!
+      email: String!
+      password: String!
+      host: Boolean!
+    ): Auth
+    addListing(
+      address: String!
+      type: String!
+      accessType: String!
+      height: Float!
+      width: Float!
+      depth: Float!
+      description: String!
+      rate: Float!
+      climateControl: Boolean!
+    ): Listing
   }
 `;
 
