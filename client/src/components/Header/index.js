@@ -1,7 +1,7 @@
-import { Box, Flex, Heading, Link, Spacer } from "@chakra-ui/react";
+import { Box, Flex, Heading, Spacer } from "@chakra-ui/react";
 import React from "react";
+import { Link } from "react-router-dom";
 import Auth from "../../utils/auth";
-
 
 const Header = () => {
   const logout = (event) => {
@@ -10,7 +10,14 @@ const Header = () => {
   };
 
   return (
-    <Flex  borderBottom="1px" borderColor="gray.200">
+    <Flex
+      borderBottom="1px"
+      borderColor="gray.200"
+      bg="purple.400"
+      color="white"
+      fontSize="lg"
+      fontWeight="semibold"
+    >
       <Box m="2" p="2">
         <Heading size="md">Cache App</Heading>
       </Box>
@@ -27,12 +34,8 @@ const Header = () => {
           </>
         ) : (
           <>
-            <Link m="1" to="/login">
-              Login
-            </Link>
-            <Link m="1" to="/signup">
-              Signup
-            </Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
           </>
         )}
       </Box>
@@ -41,4 +44,3 @@ const Header = () => {
 };
 
 export default Header;
-

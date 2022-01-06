@@ -1,10 +1,20 @@
-import React from 'react';
+import { Box, Container } from "@chakra-ui/react";
+import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
-      <div className="container">&copy;{new Date().getFullYear()} by team</div>
-    </footer>
+    <Box
+      w="100%"
+      mt="auto"
+      p="4"
+      bg="gray.200"
+      fontSize="lg"
+      fontWeight="semibold"
+    >
+      <Container centerContent>
+        &copy;{new Date().getFullYear()} by team
+      </Container>
+    </Box>
   );
 };
 
