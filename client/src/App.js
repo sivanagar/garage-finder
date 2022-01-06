@@ -17,6 +17,7 @@ import Profile from "./pages/Profile";
 import Results from "./pages/Results";
 import Search from "./pages/Search";
 import Signup from "./pages/Signup";
+import Space from "./pages/Space";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -54,7 +55,8 @@ function App() {
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/search" component={Search} />
-              <Route exact path="/results/" component={Results} />
+              <Route exact path="/results" component={Results} />
+              <Route exact path="/space" component={Space} />
 
               <Route component={NoMatch} />
             </Switch>
