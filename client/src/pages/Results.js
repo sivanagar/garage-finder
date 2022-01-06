@@ -1,5 +1,38 @@
+import { Flex } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import Result from "../components/Result";
+
+const results = [
+  {
+    _id: "1",
+    type: "Apartment",
+    rate: "$1,000",
+    address: "123 Main St",
+    size: "10`x10`",
+    accessType: "24h",
+    description: "",
+    username: "roblox65",
+  },
+  {
+    _id: "2",
+    type: "Garage",
+    rate: "$1,000",
+    address: "123 Main St",
+    size: "10`x10`",
+    accessType: "By Appointment Only",
+    username: "roblox65",
+  },
+  {
+    _id: "3",
+    type: "Room",
+    rate: "$1,000",
+    address: "123 Main St",
+    size: "10`x10`",
+    accessType: "24h",
+    username: "roblox65",
+  },
+];
 
 const Resutls = (props) => {
   const location = useLocation();
@@ -11,6 +44,11 @@ const Resutls = (props) => {
   return (
     <>
       <p>Results</p>
+      <Flex direction="row" wrap="wrap" m="-2">
+        {results.map((result) => (
+          <Result key={result._id} result={result} />
+        ))}
+      </Flex>
     </>
   );
 };
