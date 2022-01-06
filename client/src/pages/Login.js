@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import { useMutation } from '@apollo/client';
-import { LOGIN_USER } from '../utils/mutations';
-
-import Auth from '../utils/auth';
+import { useMutation } from "@apollo/client";
+import {
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
+  Box,
+  Button,
+  Center,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Image,
+  Input,
+} from "@chakra-ui/react";
+import React, { useState } from "react";
+import Auth from "../utils/auth";
+import { LOGIN_USER } from "../utils/mutations";
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
 
   // update state based on form input changes
@@ -34,46 +47,63 @@ const Login = (props) => {
 
     // clear form values
     setFormState({
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     });
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-md-6">
-        <div className="card">
-          <h4 className="card-header">Login</h4>
-          <div className="card-body">
-            <form onSubmit={handleFormSubmit}>
-              <input
-                className="form-input"
-                placeholder="Your email"
-                name="email"
-                type="email"
-                id="email"
-                value={formState.email}
-                onChange={handleChange}
-              />
-              <input
-                className="form-input"
-                placeholder="******"
-                name="password"
-                type="password"
-                id="password"
-                value={formState.password}
-                onChange={handleChange}
-              />
-              <button className="btn d-block w-100" type="submit">
-                Submit
-              </button>
-            </form>
-
-            {error && <div>Login failed</div>}
-          </div>
-        </div>
-      </div>
-    </main>
+    <Box w="100%" borderWidth="1px" borderRadius="lg" mt="20" boxShadow="lg">
+      <Box p="6">
+        <form onSubmit={handleFormSubmit}>
+          <Center>
+            <Image
+              boxSize="100px"
+              src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"
+            />
+          </Center>
+          <FormControl>
+            <FormLabel htmlFor="email">Email address</FormLabel>
+            <Input
+              id="email"
+              name="email"
+              type="email"
+              size="lg"
+              placeholder="Enter email"
+              value={formState.email}
+              onChange={handleChange}
+            />
+            <FormHelperText>We'll never share your email.</FormHelperText>
+          </FormControl>
+          <FormControl pt="2">
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <Input
+              placeholder="******"
+              name="password"
+              type="password"
+              id="password"
+              size="lg"
+              value={formState.password}
+              onChange={handleChange}
+            />
+          </FormControl>
+          <Center mt="4">
+            <Button type="submit" variant="primary" size="lg">
+              Login
+            </Button>
+          </Center>
+        </form>
+        <Center mt="4">
+          {error && (
+            <Alert status="error">
+              <AlertIcon />
+              <AlertTitle mr={2}>Error</AlertTitle>
+              <AlertDescription>Login Error</AlertDescription>
+            </Alert>
+          )}
+        </Center>
+      </Box>
+    </Box>
   );
 };
 
