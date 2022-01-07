@@ -61,3 +61,40 @@ export const ADD_LISTING = gql`
     }
   }
 `;
+export const EDIT_LISTING = gql`
+  mutation editListing(
+    $address: String
+    $type: String
+    $accessType: String
+    $height: Float
+    $width: Float
+    $depth: Float
+    $description: String
+    $rate: Float
+    $climateControl: Boolean
+  ) {
+    editListing(
+      address: $address
+      type: $type
+      accessType: $accessType
+      height: $height
+      width: $width
+      depth: $depth
+      description: $description
+      rate: $rate
+      climateControl: $climateControl
+    ) {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
+    }
+  }
+`;
