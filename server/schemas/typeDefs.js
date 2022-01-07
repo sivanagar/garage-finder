@@ -63,6 +63,17 @@ const typeDefs = gql`
       rate: Float!
       climateControl: Boolean!
     ): Listing
+    updateListing(
+      address: String
+      type: String
+      accessType: String
+      height: Float
+      width: Float
+      depth: Float
+      description: String
+      rate: Float
+      climateControl: Boolean
+    ): Listing
   }
 `;
 
