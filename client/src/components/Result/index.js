@@ -12,10 +12,10 @@ const Result = ({ result }) => {
   return (
     <Box
       onClick={() => handleClick(result)}
-      w="100%"
+      w={[300, 400]}
       borderWidth="1px"
       borderRadius="lg"
-      mt="4"
+      m="2"
       p="4"
       cursor="pointer"
       boxShadow="lg"
@@ -29,13 +29,13 @@ const Result = ({ result }) => {
         <Text fontWeight="bold">{result.rate}/m</Text>
       </Flex>
       <Flex h="24px">
-        <Text p="2">{result.address}</Text>
+        <Text pl="2">{result.address}</Text>
       </Flex>
       <Flex h="24px">
-        <Text p="2">{result.size}</Text>
+        <Text pl="2">{result.size}</Text>
       </Flex>
       <Flex h="24px" justify="end">
-        <Text p="2">{result.accessType}</Text>
+        <Text pl="2">{result.accessType}</Text>
       </Flex>
     </Box>
   );
