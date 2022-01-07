@@ -28,7 +28,7 @@ const resolvers = {
     },
     listings: async (
       parent,
-      { type, rate, accessType, climateControl, height, width, depth }
+      { type, rate, accessType, climateControl, height, width, depth, location }
     ) => {
       const params = {};
       type ? (params.type = type) : null;
@@ -38,6 +38,7 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
+      location ? (params.location = location) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },
