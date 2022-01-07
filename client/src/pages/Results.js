@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Heading, Link } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Result from "../components/Result";
@@ -41,9 +41,21 @@ const Resutls = (props) => {
     console.log("search Info", location.state.search);
   }, [location]);
 
+  function handleSort(sortBy) {
+    console.log("sortBy", sortBy);
+  }
+
   return (
     <>
-      <p>Results</p>
+      <Heading mt="10" mb="4">
+        Results
+      </Heading>
+      <Flex w="50%" mb="2" direction="row" justifyContent="space-around">
+        <Link onClick={() => handleSort("price")}>Price</Link>
+        <Link onClick={() => handleSort("size")}>Size</Link>
+        <Link onClick={() => handleSort("distance")}>Distance</Link>
+        <Link>View Map</Link>
+      </Flex>
       <Flex direction="row" wrap="wrap" m="-2">
         {results.map((result) => (
           <Result key={result._id} result={result} />
