@@ -21,11 +21,22 @@ const typeDefs = gql`
     rate: Float
     username: String
     climateControl: Boolean
+    location: Location
   }
 
   type Auth {
     token: ID!
     user: User
+  }
+
+  type Location {
+    type: String
+    coordinates: [Float]
+  }
+
+  input locationInput {
+    type: String
+    coordinates: [Float]!
   }
 
   type Query {
@@ -41,6 +52,7 @@ const typeDefs = gql`
       height: Float
       width: Float
       depth: Float
+      location: locationInput
     ): [Listing]
   }
 
@@ -50,7 +62,7 @@ const typeDefs = gql`
       username: String!
       email: String!
       password: String!
-      host: Boolean!
+      host: Boolean
     ): Auth
     addListing(
       address: String!
@@ -62,6 +74,7 @@ const typeDefs = gql`
       description: String!
       rate: Float!
       climateControl: Boolean!
+      location: locationInput!
     ): Listing
   }
 `;
