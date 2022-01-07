@@ -7,7 +7,7 @@ import PlacesAutoComplete, {
 import getAddressComponents from "../../utils/getAddressComponents";
 
 const SearchAutoComplete = (props) => {
-  const { setSearch } = props;
+  const { setResult } = props;
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: null,
@@ -21,13 +21,36 @@ const SearchAutoComplete = (props) => {
     setAddress(value);
     setCoordinates(latLng);
 
-    //get zip code
+    //Get Address Components
+    const street_number = getAddressComponents(
+      results[0].address_components,
+      "street_number"
+    );
+
+    const street = getAddressComponents(results[0].address_components, "route");
+    const city = getAddressComponents(
+      results[0].address_components,
+      "locality"
+    );
+    const state = getAddressComponents(
+      results[0].address_components,
+      "administrative_area_level_1"
+    );
     const zip = getAddressComponents(
       results[0].address_components,
       "postal_code"
     );
 
-    setSearch({ lat: latLng.lat, lng: latLng.lng, zip });
+    const addressLine1 = `${street_number} ${street}`;
+
+    setResult({
+      addressLine1,
+      city,
+      state,
+      zip,
+      lat: latLng.lat,
+      lng: latLng.lng,
+    });
     console.log("Resutls", results);
   };
 
@@ -42,7 +65,9 @@ const SearchAutoComplete = (props) => {
           <div>
             <Input
               size="lg"
-              {...getInputProps({ placeholder: "Type address" })}
+              _placeholder={{ color: "primary" }}
+              _focus={{ color: "primary", borderColor: "primary" }}
+              {...getInputProps({ placeholder: "Type the address" })}
             />
 
             <div>

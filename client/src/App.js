@@ -10,13 +10,14 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import ButtonVariants from "./pages/ButtonVariants";
+import CreateSpace from "./pages/CreateSpace";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Results from "./pages/Results";
 import Search from "./pages/Search";
+import SearchAddressCreate from "./pages/SearchAddressCreate";
 import Signup from "./pages/Signup";
 import Space from "./pages/Space";
 
@@ -58,8 +59,12 @@ function App() {
               <Route exact path="/search" component={Search} />
               <Route exact path="/results" component={Results} />
               <Route exact path="/space" component={Space} />
-
-              <Route exact path="/button-variants" component={ButtonVariants} />
+              <Route exact path="/createSpace" component={CreateSpace} />
+              <Route
+                exact
+                path="/searchCreate"
+                component={SearchAddressCreate}
+              />
 
               <Route component={NoMatch} />
             </Switch>
