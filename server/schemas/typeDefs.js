@@ -21,6 +21,10 @@ const typeDefs = gql`
     rate: Float
     username: String
     climateControl: Boolean
+    location {
+      type: String
+      coordinates: [Float]
+    }
   }
 
   type Auth {
@@ -41,6 +45,10 @@ const typeDefs = gql`
       height: Float
       width: Float
       depth: Float
+      location: {
+        type: String
+        coordinates: [Float]
+      }
     ): [Listing]
   }
 
@@ -62,6 +70,10 @@ const typeDefs = gql`
       description: String!
       rate: Float!
       climateControl: Boolean!
+      location: {
+        type: String
+        coordinates: [Float]
+      }
     ): Listing
   }
 `;
