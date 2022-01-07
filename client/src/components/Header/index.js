@@ -14,7 +14,7 @@ const Header = () => {
     <Flex
       borderBottom="1px"
       borderColor="gray.200"
-      bg="purple.400"
+      bg={colorMode === "light" ? "primary" : "gray.900"}
       color="white"
       fontSize="lg"
       fontWeight="semibold"
