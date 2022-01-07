@@ -67,6 +67,17 @@ const listingSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    location: {
+      type: {
+        type: String, 
+        enum: ['Point'], 
+        required: true
+      },
+      coordinates: {
+        type: [Number],
+        required: true
+      }
+    }
   },
   {
     // toJSON: {
