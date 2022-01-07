@@ -50,13 +50,20 @@ const Resutls = (props) => {
       <Heading mt="10" mb="4">
         Results
       </Heading>
-      <Flex w="50%" mb="2" direction="row" justifyContent="space-around">
+      <Flex w={[300, 400]} mb="2" direction="row" justifyContent="space-around">
         <Link onClick={() => handleSort("price")}>Price</Link>
         <Link onClick={() => handleSort("size")}>Size</Link>
         <Link onClick={() => handleSort("distance")}>Distance</Link>
         <Link>View Map</Link>
       </Flex>
-      <Flex direction="row" wrap="wrap" m="-2">
+      <Flex
+        w="100%"
+        direction="row"
+        wrap="wrap"
+        justifyContent="center"
+        alignItems="center"
+        m="2"
+      >
         {results.map((result) => (
           <Result key={result._id} result={result} />
         ))}

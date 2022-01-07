@@ -12,10 +12,10 @@ const Result = ({ result }) => {
   return (
     <Box
       onClick={() => handleClick(result)}
-      w="100%"
+      w={[300, 400]}
       borderWidth="1px"
       borderRadius="lg"
-      mt="4"
+      m="2"
       p="4"
       cursor="pointer"
       boxShadow="lg"

@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, useColorMode } from "@chakra-ui/react";
+import { Button, Flex, Heading, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import { Link as ReactLink } from "react-router-dom";
 import Auth from "../../utils/auth";
@@ -18,15 +18,15 @@ const Header = () => {
       color="white"
       fontSize="lg"
       fontWeight="semibold"
-      direction="row"
+      direction={["column", "row"]}
       justify="space-between"
     >
-      <Box m="2" p="2">
+      <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
         <Heading as={ReactLink} to="/" size="md">
           Cache App
         </Heading>
-      </Box>
-      <Box m="2" p="2">
+      </Flex>
+      <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
         {Auth.loggedIn() ? (
           <>
             <Button as={ReactLink} variant="secondary" m="1" to="/profile">
@@ -69,7 +69,7 @@ const Header = () => {
             </Button>
           </>
         )}
-      </Box>
+      </Flex>
     </Flex>
   );
 };

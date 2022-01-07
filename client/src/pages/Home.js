@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <Flex direction="column" align="center" justify="center" mt="40">
-      <Button as={ReactLink} to="/search" variant="primary" m="4" size="lg">
+      <Button as={ReactLink} to="search" variant="primary" m="4" size="lg">
         I need to rent space
       </Button>
       <Button as={ReactLink} to="/rent" variant="primary" m="4" size="lg">
