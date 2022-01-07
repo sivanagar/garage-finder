@@ -34,6 +34,10 @@ export const QUERY_LISTING = gql`
       rate
       username
       climateControl
+      location {
+        type
+        coordinates
+      }
     }
   }
 `;
@@ -52,6 +56,10 @@ export const QUERY_LISTINGS = gql`
       rate
       username
       climateControl
+      location {
+        type
+        coordinates
+      }
     }
   }
 `;
