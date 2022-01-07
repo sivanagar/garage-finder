@@ -48,8 +48,10 @@ const SearchAutoComplete = (props) => {
       city,
       state,
       zip,
-      lat: latLng.lat,
-      lng: latLng.lng,
+      location: {
+        type: "Point",
+        coordinates: [latLng.lat, latLng.lng],
+      },
     });
     console.log("Resutls", results);
   };

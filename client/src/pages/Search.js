@@ -10,8 +10,10 @@ const Search = () => {
     city: null,
     state: null,
     zip: null,
-    lat: null,
-    lng: null,
+    location: {
+      type: "Point",
+      coordinates: [0, 0],
+    },
   });
 
   function handleOnClick() {
