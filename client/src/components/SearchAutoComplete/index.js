@@ -42,8 +42,10 @@ const SearchAutoComplete = (props) => {
     );
 
     const addressLine1 = `${street_number} ${street}`;
+    const fullAddress = `${addressLine1}, ${city}, ${state} ${zip}`;
 
     setResult({
+      address: fullAddress,
       addressLine1,
       city,
       state,
