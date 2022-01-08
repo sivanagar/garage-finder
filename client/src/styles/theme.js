@@ -3,7 +3,7 @@ import { ButtonStyles as Button } from "./components/ButtonStyles";
 
 export const myTheme = extendTheme({
   colors: {
-    primary: "#805ad5",
+    primary: "#8F93D9",
     secondary: "#FF6F91",
     warning: "#FFC75F",
     success: "#4caf50",
