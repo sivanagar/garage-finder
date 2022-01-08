@@ -1,31 +1,12 @@
 const { Schema, model, Types } = require('mongoose');
 
-// the following block of code tests address geocoding
-// const NodeGeocoder = require('node-geocoder');
-
-// const options = {
-//   provider: 'google',
-
-//   apiKey: '', // for Mapquest, OpenCage, Google Premier
-//   formatter: null // 'gpx', 'string', ...
-// };
-
-// const geocoder = NodeGeocoder(options);
-
-// ( async function () {
-// // Using callback
-// const res = await geocoder.geocode('227 mangels ave san francisco ca');
-// console.log(res);
-// }
-// ()
-// )
-
 const listingSchema = new Schema(
   {
-    // listingId: {
-    //   type: Schema.Types.ObjectId,
-    //   default: () => new Types.ObjectId()
-    // },
+    title: {
+      type: String,
+      required: 'Title is required',
+      trim: true,
+    },
     address: {
       type: String,
       required: true,

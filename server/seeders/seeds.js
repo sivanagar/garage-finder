@@ -25,6 +25,7 @@ db.once("open", async () => {
 
   const listingData = [];
   for (let i = 0; i < 100; i += 1) {
+    const title = faker.lorem.sentence();
     const address = faker.address.streetAddress();
     const type = faker.random.arrayElement([
       "garage",
@@ -47,6 +48,7 @@ db.once("open", async () => {
     };
 
     const createListing = await Listing.create({
+      title,
       address,
       type,
       accessType,
