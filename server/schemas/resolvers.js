@@ -38,7 +38,16 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
-      location ? (params.location = location) : null;
+      params.location = {
+        $near: {
+          $maxDistance: 100000, //distance in meters
+          $geometry: {
+            type: 'Point',
+            coordinates: location.coordinates,
+          },
+        },
+      };
+      // location ? (params.location = location) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },
