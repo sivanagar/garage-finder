@@ -41,6 +41,11 @@ db.once('open', async () => {
     const climateControl = faker.random.boolean();
     const randomUserIndex = Math.floor(Math.random() * userData.length);
     const { username, _id: userId } = createdUsers[randomUserIndex];
+    const location = {
+      type: 'Point',
+      coordinates: [faker.address.longitude(), faker.address.latitude()],
+    };
+    const active = faker.random.boolean();
 
     const createListing = await Listing.create({
       address,
@@ -53,6 +58,8 @@ db.once('open', async () => {
       rate,
       climateControl,
       username,
+      location,
+      active,
     });
     const updateUser = await User.updateOne(
       { _id: userId },

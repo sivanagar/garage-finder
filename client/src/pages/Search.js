@@ -5,24 +5,29 @@ import SearchAutoComplete from "../components/SearchAutoComplete";
 
 const Search = () => {
   const history = useHistory();
-  const [search, setSearch] = useState({
-    lat: null,
-    lng: null,
+  const [addressResult, setAddressResult] = useState({
+    addressLine1: null,
+    city: null,
+    state: null,
     zip: null,
+    location: {
+      type: "Point",
+      coordinates: [0, 0],
+    },
   });
 
   function handleOnClick() {
-    console.log("Search: ", search);
+    console.log("Search: ", addressResult);
 
     history.push({
       pathname: "/results",
-      state: { search },
+      state: { addressResult },
     });
   }
 
   return (
     <Box w="100%" mt="20">
-      <SearchAutoComplete setSearch={setSearch} />
+      <SearchAutoComplete setResult={setAddressResult} />
       <Center mt="4">
         <Button onClick={handleOnClick} variant="primary" size="lg">
           Search Spaces

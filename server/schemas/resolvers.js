@@ -28,7 +28,17 @@ const resolvers = {
     },
     listings: async (
       parent,
-      { type, rate, accessType, climateControl, height, width, depth }
+      {
+        type,
+        rate,
+        accessType,
+        climateControl,
+        height,
+        width,
+        depth,
+        location,
+        distance,
+      }
     ) => {
       const params = {};
       type ? (params.type = type) : null;
@@ -38,6 +48,19 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
+      if ((distance = 0)) {
+        params.location = {
+          $near: {
+            $maxDistance: distance, //distance in meters
+            $geometry: {
+              type: 'Point',
+              coordinates: location.coordinates,
+            },
+          },
+        };
+      }
+      params.active = true;
+      // location ? (params.location = location) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },

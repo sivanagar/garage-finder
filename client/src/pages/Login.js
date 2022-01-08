@@ -1,15 +1,13 @@
 import { useMutation } from "@apollo/client";
+import { LockIcon } from "@chakra-ui/icons";
 import {
-  Alert,
-  AlertDescription,
-  AlertIcon,
-  AlertTitle,
   Box,
   Button,
   Center,
+  Flex,
   FormControl,
-  FormHelperText,
-  FormLabel,
+  FormErrorMessage,
+  Heading,
   Image,
   Input,
 } from "@chakra-ui/react";
@@ -31,9 +29,21 @@ const Login = (props) => {
     });
   };
 
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isEmailError, setIsEmailError] = useState(false);
+
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    //Validate Form Values
+    if (formState.email === "") {
+      setIsEmailError(true);
+      return;
+    } else if (formState.password === "") {
+      setIsPasswordError(true);
+      return;
+    }
 
     try {
       const { data } = await login({
@@ -53,57 +63,57 @@ const Login = (props) => {
   };
 
   return (
-    <Box w="100%" borderWidth="1px" borderRadius="lg" mt="20" boxShadow="lg">
-      <Box p="6">
-        <form onSubmit={handleFormSubmit}>
-          <Center>
-            <Image
-              boxSize="100px"
-              src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"
-            />
-          </Center>
-          <FormControl>
-            <FormLabel htmlFor="email">Email address</FormLabel>
+    <Flex w={[300, 400]} direction="column" alignItems="center" mt="20">
+      <Box
+        borderWidth="1px"
+        borderColor="primary"
+        borderRadius="lg"
+        boxShadow="lg"
+        w="100%"
+        p={[4, 10]}
+      >
+        <Center>
+          <Image
+            boxSize="100px"
+            src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"
+          />
+        </Center>
+        <Flex mb="6" justify="center">
+          <Heading>Login</Heading>
+        </Flex>
+        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+          <FormControl mb="6" isInvalid={isEmailError}>
             <Input
-              id="email"
+              placeholder="Your email"
               name="email"
               type="email"
-              size="lg"
-              placeholder="Enter email"
+              id="email"
               value={formState.email}
               onChange={handleChange}
             />
-            <FormHelperText>We'll never share your email.</FormHelperText>
           </FormControl>
-          <FormControl pt="2">
-            <FormLabel htmlFor="password">Password</FormLabel>
+          <FormErrorMessage>Email is required.</FormErrorMessage>
+          <FormControl mb="6" isInvalid={isPasswordError}>
             <Input
-              placeholder="******"
+              placeholder="Your password"
               name="password"
               type="password"
               id="password"
-              size="lg"
               value={formState.password}
               onChange={handleChange}
             />
           </FormControl>
-          <Center mt="4">
-            <Button type="submit" variant="primary" size="lg">
-              Login
+
+          <Center>
+            <Button variant="primary" size="lg" type="submit">
+              <LockIcon /> Login
             </Button>
           </Center>
         </form>
-        <Center mt="4">
-          {error && (
-            <Alert status="error">
-              <AlertIcon />
-              <AlertTitle mr={2}>Error</AlertTitle>
-              <AlertDescription>Login Error</AlertDescription>
-            </Alert>
-          )}
-        </Center>
+
+        {error && <div>Signup failed</div>}
       </Box>
-    </Box>
+    </Flex>
   );
 };
 

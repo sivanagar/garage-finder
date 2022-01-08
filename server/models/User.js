@@ -32,7 +32,7 @@ const userSchema = new Schema(
     ],
     host: {
       type: Boolean,
-      required: true,
+      default: false,
     },
   },
   {

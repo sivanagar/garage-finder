@@ -34,13 +34,49 @@ export const QUERY_LISTING = gql`
       rate
       username
       climateControl
+      location {
+        type
+        coordinates
+      }
     }
   }
 `;
 
 export const QUERY_LISTINGS = gql`
-  query listings($type: String) {
-    listings(type: $type) {
+  query listings(
+    $type: String
+    $rate: Float
+    $accessType: String
+    $climateControl: Boolean
+    $height: Float
+    $width: Float
+    $depth: Float
+    $location: locationInput
+    $distance: Int
+  ) {
+    listings(type: $type, location: $location, distance: $distance) {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
+      location {
+        type
+        coordinates
+      }
+    }
+  }
+`;
+
+export const QUERY_ALL_LISTINGS = gql`
+  query Listings {
+    listings {
       _id
       address
       type

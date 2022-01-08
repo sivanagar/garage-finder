@@ -35,6 +35,7 @@ export const ADD_LISTING = gql`
     $description: String!
     $rate: Float!
     $climateControl: Boolean!
+    $location: locationInput!
   ) {
     addListing(
       address: $address
@@ -46,6 +47,7 @@ export const ADD_LISTING = gql`
       description: $description
       rate: $rate
       climateControl: $climateControl
+      location: $location
     ) {
       _id
       address
@@ -58,6 +60,10 @@ export const ADD_LISTING = gql`
       rate
       username
       climateControl
+      location {
+        type
+        coordinates
+      }
     }
   }
 `;
