@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const QUERY_USER = gql`
   query user($username: String!) {
@@ -43,8 +43,8 @@ export const QUERY_LISTING = gql`
 `;
 
 export const QUERY_LISTINGS = gql`
-  query listings($type: String) {
-    listings(type: $type) {
+  query listings($type: String, $location: locationInput, $distance: Int) {
+    listings(type: $type, location: $location, distance: $distance) {
       _id
       address
       type

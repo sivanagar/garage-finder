@@ -67,6 +67,10 @@ const listingSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
     location: {
       type: {
         type: String,

@@ -6,17 +6,23 @@ import { useQuery } from '@apollo/client';
 import { QUERY_LISTINGS } from '../utils/queries';
 
 const Resutls = (props) => {
-  const { loading, data } = useQuery(QUERY_LISTINGS, {
-    // variables: {
-    // }
-  });
-  const results = data ? data.listings : [];
-
   const location = useLocation();
 
+  const searchedLocation = location.state.search;
+  console.log('searchedLocation', searchedLocation);
+  const { loading, data } = useQuery(QUERY_LISTINGS, {
+    variables: {
+      location: {
+        type: 'Point',
+        coordinates: [0, 0], //addressResult.location.coordinates,
+      },
+      distance: 0, //if 0 returns all listings, else need coordinates
+    },
+  });
   useEffect(() => {
     console.log('search Info', location.state.search);
   }, [location]);
+  const results = data ? data.listings : [];
 
   function handleSort(sortBy) {
     console.log('sortBy', sortBy);
