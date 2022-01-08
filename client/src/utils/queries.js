@@ -43,7 +43,17 @@ export const QUERY_LISTING = gql`
 `;
 
 export const QUERY_LISTINGS = gql`
-  query listings($type: String, $location: locationInput, $distance: Int) {
+  query listings(
+    $type: String
+    $rate: Float
+    $accessType: String
+    $climateControl: Boolean
+    $height: Float
+    $width: Float
+    $depth: Float
+    $location: locationInput
+    $distance: Int
+  ) {
     listings(type: $type, location: $location, distance: $distance) {
       _id
       address
