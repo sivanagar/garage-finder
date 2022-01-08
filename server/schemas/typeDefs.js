@@ -78,6 +78,17 @@ const typeDefs = gql`
       climateControl: Boolean!
       location: locationInput!
     ): Listing
+    updateListing(
+      address: String
+      type: String
+      accessType: String
+      height: Float
+      width: Float
+      depth: Float
+      description: String
+      rate: Float
+      climateControl: Boolean
+    ): Listing
   }
 `;
 

@@ -40,6 +40,13 @@ const Home = () => {
         coordinates: [-139.4711, -32.5336], //addressResult.location.coordinates,
       },
       distance: 0, //if 0 returns all listings, else need coordinates
+      rate: null,
+      type: null,
+      accessType: null,
+      climateControl: null,
+      height: null,
+      width: null,
+      depth: null,
     },
   });
   console.log(listingsData);

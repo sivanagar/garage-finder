@@ -16,7 +16,7 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     users: async () => {
-      return User.find().select('-__v -password');
+      return User.find().populate('listings').select('-__v -password');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
@@ -97,6 +97,19 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { listings: listing._id } },
+          { new: true }
+        );
+
+        return listing;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    updateListing: async (parent, args, context) => {
+      if (context.user) {
+        const listing = await Listing.findOneAndUpdate(
+          { _id: args._id },
+          { $set: args },
           { new: true }
         );
 
