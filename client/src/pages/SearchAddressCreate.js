@@ -9,6 +9,7 @@ const SearchAddressCreate = () => {
   const [addressError, setAddressError] = useState(true);
   //Manage state for search address result
   const [addressResult, setAddressResult] = useState({
+    address: "",
     addressLine1: null,
     city: null,
     state: null,

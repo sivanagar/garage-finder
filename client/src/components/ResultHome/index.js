@@ -21,8 +21,7 @@ const ResultHome = ({ result }) => {
   const history = useHistory();
   function handleClick(result) {
     history.push({
-      pathname: "/space",
-      state: { result },
+      pathname: `/listing/${result._id}`,
     });
   }
 

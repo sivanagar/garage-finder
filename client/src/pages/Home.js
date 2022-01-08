@@ -54,12 +54,9 @@ const Home = () => {
 
   if (!listingsLoading) {
     randomListings = _.sampleSize(listingsData.listings, 3);
-    console.log(randomListings);
   }
 
   function handleClickSearch() {
-    console.log("Search: ", addressResult);
-
     history.push({
       pathname: "/results",
       state: { addressResult },

@@ -1,11 +1,20 @@
-import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-
-import { useQuery } from '@apollo/client';
-import { QUERY_USER, QUERY_ME } from '../utils/queries';
-import Auth from '../utils/auth';
+import { useQuery } from "@apollo/client";
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
+import React from "react";
+import { Redirect, useHistory, useParams } from "react-router-dom";
+import Auth from "../utils/auth";
+import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const Profile = () => {
+  const history = useHistory();
   const { username: userParam } = useParams();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -17,6 +26,10 @@ const Profile = () => {
   }
 
   const user = data?.me || data?.user || {};
+
+  function handleClickCreateListing() {
+    history.push(`/searchCreate`);
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -32,19 +45,44 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <div className="flex-row mb-3">
-        <h2 className="bg-dark text-secondary p-3 display-inline-block">
-          Viewing {userParam ? `${user.username}'s` : 'your'} profile.
-        </h2>
-      </div>
-
-      <div className="flex-row justify-space-between mb-3">
-        <div className="col-12 mb-3 col-lg-8">Garage List</div>
-
-        <div className="col-12 col-lg-3 mb-3">My Garages List? Favorites?</div>
-      </div>
-    </div>
+    <>
+      <Center>
+        <Box mt="10" p="4" w={[320, 500]} borderWidth="1px" borderRadius="lg">
+          <Flex
+            w="100%"
+            alignItems="center"
+            justify="center"
+            direction="column"
+          >
+            <Avatar size="2xl" name={user.username} src="" mb="4" />
+            <Text>{user.username}</Text>
+            <Text>{user.email}</Text>
+            <Flex mt="4" w="100%">
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={handleClickCreateListing}
+              >
+                {" "}
+                Create Listing
+              </Button>
+            </Flex>
+          </Flex>
+        </Box>
+      </Center>
+      <Center>
+        <Box mt="4" p="4" w={[320, 1024]} borderWidth="1px" borderRadius="lg">
+          <Flex
+            w="100%"
+            alignItems="center"
+            justify="center"
+            direction="column"
+          >
+            <Heading>My Listings</Heading>
+          </Flex>
+        </Box>
+      </Center>
+    </>
   );
 };
 
