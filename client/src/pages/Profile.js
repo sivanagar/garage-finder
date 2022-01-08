@@ -1,7 +1,14 @@
-
 import { useQuery } from "@apollo/client";
 import { AddIcon, DragHandleIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Button, Center, Flex, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Center,
+  Flex,
+  Heading,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import {
   Link as ReactLink,
@@ -9,9 +16,9 @@ import {
   useHistory,
   useParams,
 } from "react-router-dom";
+import Result from "../components/Result";
 import Auth from "../utils/auth";
 import { QUERY_ME, QUERY_USER } from "../utils/queries";
-
 
 const Profile = () => {
   const history = useHistory();
@@ -75,7 +82,6 @@ const Profile = () => {
               >
                 <DragHandleIcon />
                 &nbsp;My Listings
-
               </Button>
             </Flex>
           </Flex>
@@ -108,7 +114,6 @@ const Profile = () => {
           </Box>
         </Center>
       }
-
     </>
   );
 };
