@@ -18,6 +18,20 @@ export const QUERY_ME = gql`
       email
       listings {
         _id
+        address
+        type
+        accessType
+        height
+        width
+        depth
+        description
+        rate
+        username
+        climateControl
+        location {
+          type
+          coordinates
+        }
       }
     }
   }
