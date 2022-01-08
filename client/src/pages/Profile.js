@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import {
   Avatar,
   Box,
@@ -7,11 +7,12 @@ import {
   Flex,
   Heading,
   Text,
-} from "@chakra-ui/react";
-import React from "react";
-import { Redirect, useHistory, useParams } from "react-router-dom";
-import Auth from "../utils/auth";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
+} from '@chakra-ui/react';
+import React from 'react';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
+import Auth from '../utils/auth';
+import Result from '../components/Result';
+import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
 const Profile = () => {
   const history = useHistory();
@@ -24,7 +25,7 @@ const Profile = () => {
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/profile" />;
   }
-
+  console.log(data);
   const user = data?.me || data?.user || {};
 
   function handleClickCreateListing() {
@@ -63,14 +64,14 @@ const Profile = () => {
                 size="lg"
                 onClick={handleClickCreateListing}
               >
-                {" "}
+                {' '}
                 Create Listing
               </Button>
             </Flex>
           </Flex>
         </Box>
       </Center>
-      <Center>
+      {/* <Center>
         <Box mt="4" p="4" w={[320, 1024]} borderWidth="1px" borderRadius="lg">
           <Flex
             w="100%"
@@ -79,9 +80,21 @@ const Profile = () => {
             direction="column"
           >
             <Heading>My Listings</Heading>
+            <Flex
+              w="100%"
+              direction="row"
+              wrap="wrap"
+              justifyContent="center"
+              alignItems="center"
+              m="2"
+            >
+              {data.listings.map((listing) => {
+                <Result result={listing} key={listing._id} />;
+              })}
+            </Flex>
           </Flex>
         </Box>
-      </Center>
+      </Center> */}
     </>
   );
 };

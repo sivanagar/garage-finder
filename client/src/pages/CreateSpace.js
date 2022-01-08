@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery } from '@apollo/client';
 import {
   Box,
   Button,
@@ -12,15 +12,15 @@ import {
   Textarea,
   Switch,
   FormLabel,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Redirect, useHistory, useLocation, useParams } from "react-router-dom";
-import Auth from "../utils/auth";
-import { ADD_LISTING } from "../utils/mutations";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { Redirect, useHistory, useLocation, useParams } from 'react-router-dom';
+import Auth from '../utils/auth';
+import { ADD_LISTING } from '../utils/mutations';
+import { QUERY_ME, QUERY_USER } from '../utils/queries';
 
-const spaceTypes = ["garage", "shed", "basement", "attic"];
-const accessTypes = ["24hr", "scheduled"];
+const spaceTypes = ['garage', 'shed', 'basement', 'attic'];
+const accessTypes = ['24hr', 'scheduled'];
 
 const CreateSpace = () => {
   const { username: userParam } = useParams();
@@ -30,20 +30,19 @@ const CreateSpace = () => {
   const [addressResult, setAddressResult] = useState(location.state);
   //set the form values
   const [formState, setFormState] = useState({
-    type: "",
-    password: "",
+    type: '',
     height: null,
     width: null,
     depth: null,
-    description: "",
+    description: '',
     rate: null,
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    state: "",
-    zip: "",
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    zip: '',
     climateControl: false,
-    accessType: "",
+    accessType: '',
   });
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -65,16 +64,16 @@ const CreateSpace = () => {
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === "climateControl") {
+    if (name === 'climateControl') {
       setFormState({
         ...formState,
         [name]: event.target.checked,
       });
     } else if (
-      name === "width" ||
-      name === "height" ||
-      name === "depth" ||
-      name === "rate"
+      name === 'width' ||
+      name === 'height' ||
+      name === 'depth' ||
+      name === 'rate'
     ) {
       setFormState({
         ...formState,
@@ -91,12 +90,15 @@ const CreateSpace = () => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("formState", formState);
+    console.log('formState', formState);
 
     try {
       const { data } = await addListing({
         variables: { ...formState },
       });
+      if (data) {
+        history.push('/profile');
+      }
     } catch (e) {
       console.error(e);
     }
@@ -108,7 +110,7 @@ const CreateSpace = () => {
 
   return (
     <Flex
-      w={["98%", 400, 800]}
+      w={['98%', 400, 800]}
       direction="column"
       alignItems="center"
       mt="20"
@@ -125,7 +127,7 @@ const CreateSpace = () => {
         <Flex mb="6" justify="center">
           <Heading>Create Space</Heading>
         </Flex>
-        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+        <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <FormControl mb="6">
             <Input
               placeholder="Address Line 1"
@@ -133,8 +135,8 @@ const CreateSpace = () => {
               type="text"
               id="addressLine1"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.addressLine1}
               onChange={handleChange}
             />
@@ -146,8 +148,8 @@ const CreateSpace = () => {
               type="text"
               id="addressLine2"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.addressLine2}
               onChange={handleChange}
             />
@@ -159,8 +161,8 @@ const CreateSpace = () => {
               type="text"
               id="city"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.city}
               onChange={handleChange}
             />
@@ -173,8 +175,8 @@ const CreateSpace = () => {
               type="text"
               id="state"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.state}
               onChange={handleChange}
             />
@@ -187,8 +189,8 @@ const CreateSpace = () => {
               type="text"
               id="zip"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.zip}
               onChange={handleChange}
             />
@@ -202,7 +204,7 @@ const CreateSpace = () => {
               value={formState.type}
               onChange={handleChange}
               color="primary"
-              _active={{ color: "primary", borderColor: "primary" }}
+              _active={{ color: 'primary', borderColor: 'primary' }}
             >
               <option value="">--Select Listing Type--</option>
               {spaceTypes.map((type) => (
@@ -220,7 +222,7 @@ const CreateSpace = () => {
               value={formState.accessType}
               onChange={handleChange}
               color="primary"
-              _active={{ color: "primary", borderColor: "primary" }}
+              _active={{ color: 'primary', borderColor: 'primary' }}
             >
               <option value="">--Select Access Type--</option>
               {accessTypes.map((type) => (
@@ -252,8 +254,8 @@ const CreateSpace = () => {
                 textAlign="right"
                 id="height"
                 size="lg"
-                _placeholder={{ color: "primary" }}
-                _focus={{ color: "primary", borderColor: "primary" }}
+                _placeholder={{ color: 'primary' }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
                 value={formState.height}
                 onChange={handleChange}
               />
@@ -266,8 +268,8 @@ const CreateSpace = () => {
                 textAlign="right"
                 id="width"
                 size="lg"
-                _focus={{ color: "primary", borderColor: "primary" }}
-                _placeholder={{ color: "primary" }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
+                _placeholder={{ color: 'primary' }}
                 value={formState.width}
                 onChange={handleChange}
               />
@@ -280,8 +282,8 @@ const CreateSpace = () => {
                 textAlign="right"
                 id="depth"
                 size="lg"
-                _focus={{ color: "primary", borderColor: "primary" }}
-                _placeholder={{ color: "primary" }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
+                _placeholder={{ color: 'primary' }}
                 value={formState.depth}
                 onChange={handleChange}
               />
@@ -296,8 +298,8 @@ const CreateSpace = () => {
               id="rate"
               size="lg"
               textAlign="right"
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.rate}
               onChange={handleChange}
             />
@@ -309,8 +311,8 @@ const CreateSpace = () => {
               id="description"
               size="lg"
               h={[100, 150]}
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.description}
               onChange={handleChange}
             />
@@ -322,7 +324,7 @@ const CreateSpace = () => {
               type="button"
               size="lg"
               mr="2"
-              onClick={() => history.push("/searchCreate")}
+              onClick={() => history.push('/searchCreate')}
             >
               Change Address
             </Button>
