@@ -9,7 +9,7 @@ const Footer = () => {
       mt="auto"
       p="4"
       color="white"
-      bg={colorMode === "light" ? "primary" : "gray.900"}
+      bg={colorMode === "light" ? "primary" : "primarydark"}
       fontSize="lg"
       fontWeight="semibold"
     >

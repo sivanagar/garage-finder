@@ -14,7 +14,7 @@ const Header = () => {
     <Flex
       borderBottom="1px"
       borderColor="gray.200"
-      bg={colorMode === "light" ? "primary" : "gray.900"}
+      bg={colorMode === "light" ? "primary" : "primarydark"}
       color="white"
       fontSize="lg"
       fontWeight="semibold"
