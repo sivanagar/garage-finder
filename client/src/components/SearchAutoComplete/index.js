@@ -1,14 +1,14 @@
-import { Input } from "@chakra-ui/react";
-import { useState } from "react";
+import { Input } from '@chakra-ui/react';
+import { useState } from 'react';
 import PlacesAutoComplete, {
   geocodeByAddress,
   getLatLng,
-} from "react-places-autocomplete";
-import getAddressComponents from "../../utils/getAddressComponents";
+} from 'react-places-autocomplete';
+import getAddressComponents from '../../utils/getAddressComponents';
 
 const SearchAutoComplete = (props) => {
   const { setResult } = props;
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState('');
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null,
@@ -16,7 +16,9 @@ const SearchAutoComplete = (props) => {
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
+    console.log(results);
     const latLng = await getLatLng(results[0]);
+    console.log(latLng);
 
     setAddress(value);
     setCoordinates(latLng);
@@ -24,21 +26,21 @@ const SearchAutoComplete = (props) => {
     //Get Address Components
     const street_number = getAddressComponents(
       results[0].address_components,
-      "street_number"
+      'street_number'
     );
 
-    const street = getAddressComponents(results[0].address_components, "route");
+    const street = getAddressComponents(results[0].address_components, 'route');
     const city = getAddressComponents(
       results[0].address_components,
-      "locality"
+      'locality'
     );
     const state = getAddressComponents(
       results[0].address_components,
-      "administrative_area_level_1"
+      'administrative_area_level_1'
     );
     const zip = getAddressComponents(
       results[0].address_components,
-      "postal_code"
+      'postal_code'
     );
 
     const addressLine1 = `${street_number} ${street}`;
@@ -51,11 +53,11 @@ const SearchAutoComplete = (props) => {
       state,
       zip,
       location: {
-        type: "Point",
-        coordinates: [latLng.lat, latLng.lng],
+        type: 'Point',
+        coordinates: [latLng.lng, latLng.lat],
       },
     });
-    console.log("Resutls", results);
+    console.log('Resutls', results);
   };
 
   return (
@@ -69,9 +71,9 @@ const SearchAutoComplete = (props) => {
           <div>
             <Input
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
-              {...getInputProps({ placeholder: "Type the address" })}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              {...getInputProps({ placeholder: 'Type the address' })}
             />
 
             <div>
@@ -79,8 +81,8 @@ const SearchAutoComplete = (props) => {
 
               {suggestions.map((suggestion) => {
                 const style = {
-                  color: suggestion.active ? "#fff" : "#805ad5",
-                  backgroundColor: suggestion.active ? "#805ad5" : "#fff",
+                  color: suggestion.active ? '#fff' : '#805ad5',
+                  backgroundColor: suggestion.active ? '#805ad5' : '#fff',
                 };
                 return (
                   <div

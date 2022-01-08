@@ -16,6 +16,9 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      listings {
+        _id
+      }
     }
   }
 `;
@@ -54,7 +57,18 @@ export const QUERY_LISTINGS = gql`
     $location: locationInput
     $distance: Int
   ) {
-    listings(type: $type, location: $location, distance: $distance) {
+    listings(
+      type: $type
+      rate: $rate
+      accessType: $accessType
+      climateControl: $climateControl
+      height: $height
+      width: $width
+      depth: $depth
+
+      location: $location
+      distance: $distance
+    ) {
       _id
       address
       type

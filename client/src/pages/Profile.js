@@ -1,3 +1,4 @@
+
 import { useQuery } from "@apollo/client";
 import { AddIcon, DragHandleIcon } from "@chakra-ui/icons";
 import { Avatar, Box, Button, Center, Flex, Text } from "@chakra-ui/react";
@@ -11,6 +12,7 @@ import {
 import Auth from "../utils/auth";
 import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
+
 const Profile = () => {
   const history = useHistory();
   const { username: userParam } = useParams();
@@ -22,7 +24,7 @@ const Profile = () => {
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/profile" />;
   }
-
+  console.log(data);
   const user = data?.me || data?.user || {};
 
   function handleClickCreateListing() {
@@ -73,6 +75,7 @@ const Profile = () => {
               >
                 <DragHandleIcon />
                 &nbsp;My Listings
+
               </Button>
             </Flex>
           </Flex>
