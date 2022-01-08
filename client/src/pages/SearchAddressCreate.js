@@ -13,8 +13,10 @@ const SearchAddressCreate = () => {
     city: null,
     state: null,
     zip: null,
-    lat: null,
-    lng: null,
+    location: {
+      type: "Point",
+      coordinates: [0, 0],
+    },
   });
 
   //useEffect to check if address is valid
@@ -23,9 +25,7 @@ const SearchAddressCreate = () => {
       addressResult.addressLine1 &&
       addressResult.city &&
       addressResult.state &&
-      addressResult.zip &&
-      addressResult.lat &&
-      addressResult.lng
+      addressResult.zip
     ) {
       setAddressError(false);
     } else {

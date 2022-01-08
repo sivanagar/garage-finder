@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const QUERY_USER = gql`
   query user($username: String!) {
@@ -60,6 +60,24 @@ export const QUERY_LISTINGS = gql`
         type
         coordinates
       }
+    }
+  }
+`;
+
+export const QUERY_ALL_LISTINGS = gql`
+  query Listings {
+    listings {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
     }
   }
 `;
