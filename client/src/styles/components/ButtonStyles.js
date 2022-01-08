@@ -10,6 +10,7 @@ export const ButtonStyles = {
     primary: (props) => ({
       bg: "primary",
       color: "white",
+      border: "2px solid white",
       _hover: {
         bg: mode(darken("primary", 30), whiten("primary", 30))(props),
         boxShadow: "md",
@@ -18,6 +19,7 @@ export const ButtonStyles = {
     secondary: (props) => ({
       bg: "secondary",
       color: "white",
+      border: "2px solid white",
       _hover: {
         bg: mode(darken("secondary", 30), whiten("secondary", 30))(props),
         boxShadow: "md",

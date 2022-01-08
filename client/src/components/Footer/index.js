@@ -1,4 +1,4 @@
-import { Box, Container, useColorMode } from "@chakra-ui/react";
+import { Box, Stack, Container, useColorMode } from "@chakra-ui/react";
 import React from "react";
 
 const Footer = () => {
@@ -8,12 +8,13 @@ const Footer = () => {
       w="100%"
       mt="auto"
       p="4"
-      bg={colorMode === "light" ? "gray.200" : "gray.900"}
+      color="white"
+      bg={colorMode === "light" ? "primary" : "primarydark"}
       fontSize="lg"
       fontWeight="semibold"
     >
       <Container centerContent>
-        &copy;{new Date().getFullYear()} by team
+        &copy;{new Date().getFullYear()} JSSW Collaboration
       </Container>
     </Box>
   );
