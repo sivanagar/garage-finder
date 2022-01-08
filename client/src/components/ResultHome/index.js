@@ -1,7 +1,8 @@
 import { StarIcon } from "@chakra-ui/icons";
 import { Badge, Box } from "@chakra-ui/react";
+import { useHistory } from "react-router-dom";
 
-const ResultHome = ({ listing }) => {
+const ResultHome = ({ result }) => {
   const {
     rate,
     address,
@@ -15,9 +16,24 @@ const ResultHome = ({ listing }) => {
     height,
     depth,
     type,
-  } = listing;
+  } = result;
+
+  const history = useHistory();
+  function handleClick(result) {
+    history.push({
+      pathname: "/space",
+      state: { result },
+    });
+  }
+
   return (
-    <Box minW={[340, 240]} borderWidth="1px" borderRadius="lg" m="1">
+    <Box
+      onClick={() => handleClick(result)}
+      minW={[340, 240]}
+      borderWidth="1px"
+      borderRadius="lg"
+      m="1"
+    >
       <Box p="6">
         <Box display="flex" alignItems="baseline">
           <Badge borderRadius="full" px="2" colorScheme="teal">
