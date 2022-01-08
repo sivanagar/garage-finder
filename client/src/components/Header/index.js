@@ -29,14 +29,25 @@ const Header = () => {
       <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
         {Auth.loggedIn() ? (
           <>
-            <Button as={ReactLink} variant="secondary" m="1" to="/profile">
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              size="sm"
+              m="0.5"
+              to="/profile"
+            >
               Me
             </Button>
-            <Button variant="secondary" onClick={logout}>
+            <Button variant="secondary" size="sm" m="0.5" onClick={logout}>
               Logout
             </Button>
-            <Button variant="primary" m="1" onClick={toggleColorMode}>
-              M
+            <Button
+              variant="primary"
+              size="sm"
+              m="0.5"
+              onClick={toggleColorMode}
+            >
+              {colorMode === "light" ? "🌙" : "☀️"}
             </Button>
           </>
         ) : (
