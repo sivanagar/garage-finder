@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
   Box,
   Button,
@@ -10,35 +10,49 @@ import {
   Input,
   Select,
   Textarea,
+  Switch,
+  FormLabel,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { ADD_USER } from "../utils/mutations";
+import { Redirect, useHistory, useLocation, useParams } from "react-router-dom";
+import Auth from "../utils/auth";
+import { ADD_LISTING } from "../utils/mutations";
+import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const spaceTypes = ["garage", "shed", "basement", "attic"];
+const accessTypes = ["24hr", "scheduled"];
 
 const CreateSpace = () => {
+  const { username: userParam } = useParams();
   const history = useHistory();
   const location = useLocation();
+
   const [addressResult, setAddressResult] = useState(location.state);
   //set the form values
   const [formState, setFormState] = useState({
     type: "",
     password: "",
-    height: "",
-    width: "",
-    depth: "",
+    height: null,
+    width: null,
+    depth: null,
     description: "",
-    rate: "",
+    rate: null,
     addressLine1: "",
     addressLine2: "",
     city: "",
     state: "",
     zip: "",
-    lat: "",
-    lng: "",
+    climateControl: false,
+    accessType: "",
   });
-  const [addUser, { error }] = useMutation(ADD_USER);
+
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
+
+  const user = data?.me || data?.user || {};
+
+  const [addListing, { error }] = useMutation(ADD_LISTING);
 
   useEffect(() => {
     setAddressResult(location.state);
@@ -51,10 +65,27 @@ const CreateSpace = () => {
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    if (name === "climateControl") {
+      setFormState({
+        ...formState,
+        [name]: event.target.checked,
+      });
+    } else if (
+      name === "width" ||
+      name === "height" ||
+      name === "depth" ||
+      name === "rate"
+    ) {
+      setFormState({
+        ...formState,
+        [name]: Number(value),
+      });
+    } else {
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
+    }
   };
 
   // submit form
@@ -62,16 +93,18 @@ const CreateSpace = () => {
     event.preventDefault();
     console.log("formState", formState);
 
-    // try {
-    //   const { data } = await addUser({
-    //     variables: { ...formState },
-    //   });
-
-    //   Auth.login(data.addUser.token);
-    // } catch (e) {
-    //   console.error(e);
-    // }
+    try {
+      const { data } = await addListing({
+        variables: { ...formState },
+      });
+    } catch (e) {
+      console.error(e);
+    }
   };
+
+  // if (!Auth.loggedIn()) {
+  //   return <Redirect to="/profile" />;
+  // }
 
   return (
     <Flex
@@ -171,12 +204,44 @@ const CreateSpace = () => {
               color="primary"
               _active={{ color: "primary", borderColor: "primary" }}
             >
+              <option value="">--Select Listing Type--</option>
               {spaceTypes.map((type) => (
                 <option key={type} value={type}>
                   {type}
                 </option>
               ))}
             </Select>
+          </FormControl>
+          <FormControl mb="6">
+            <Select
+              id="accessType"
+              name="accessType"
+              size="lg"
+              value={formState.accessType}
+              onChange={handleChange}
+              color="primary"
+              _active={{ color: "primary", borderColor: "primary" }}
+            >
+              <option value="">--Select Access Type--</option>
+              {accessTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl display="flex" alignItems="center" my="4">
+            <FormLabel htmlFor="climateControl" mb="0">
+              Climate Control?
+            </FormLabel>
+            <Switch
+              colorScheme="purple"
+              size="lg"
+              id="climateControl"
+              name="climateControl"
+              checked={formState.climateControl}
+              onChange={handleChange}
+            />
           </FormControl>
           <HStack mb="6">
             <FormControl>

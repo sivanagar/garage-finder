@@ -5,8 +5,7 @@ const Result = ({ result }) => {
   function handleClick(result) {
     console.log("clicked", result);
     history.push({
-      pathname: "/space",
-      state: { result },
+      pathname: `/listing/${result._id}`,
     });
   }
   return (

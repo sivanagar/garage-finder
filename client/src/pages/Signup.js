@@ -1,5 +1,8 @@
 import { useMutation } from "@apollo/client";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Center,
@@ -19,6 +22,11 @@ const Signup = () => {
     email: "",
     password: "",
   });
+  const [isPasswordError, setIsPasswordError] = useState(false);
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isUsernameError, setIsUsernameError] = useState(false);
+  const [errorMesage, setErrorMessage] = useState("");
+
   const [addUser, { error }] = useMutation(ADD_USER);
 
   // update state based on form input changes
@@ -35,6 +43,26 @@ const Signup = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
+    //Validate Inputs
+    if (formState.username === "") {
+      setIsUsernameError(true);
+      return;
+    }
+    if (formState.email === "") {
+      setIsEmailError(true);
+      return;
+    }
+    if (formState.password === "") {
+      setIsPasswordError(true);
+      return;
+    }
+
+    if (formState.password.length < 6) {
+      setIsPasswordError(true);
+      setErrorMessage("Password must be at least 6 characters long");
+      return;
+    }
+
     try {
       const { data } = await addUser({
         variables: { ...formState },
@@ -42,7 +70,15 @@ const Signup = () => {
 
       Auth.login(data.addUser.token);
     } catch (e) {
-      console.error(e);
+      console.error(e.message);
+      if (e.message.includes("E11000")) {
+        if (e.message.includes("username"))
+          setErrorMessage("Username already exists");
+        else if (e.message.includes("email"))
+          setErrorMessage("Email already exists");
+      } else {
+        setErrorMessage("Something went wrong");
+      }
     }
   };
 
@@ -66,7 +102,7 @@ const Signup = () => {
           <Heading>Signup</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
-          <FormControl mb="6">
+          <FormControl mb="6" isInvalid={isUsernameError}>
             <Input
               placeholder="Your username"
               name="username"
@@ -76,7 +112,7 @@ const Signup = () => {
               onChange={handleChange}
             />
           </FormControl>
-          <FormControl mb="6">
+          <FormControl mb="6" isInvalid={isEmailError}>
             <Input
               placeholder="Your email"
               name="email"
@@ -87,7 +123,7 @@ const Signup = () => {
             />
           </FormControl>
 
-          <FormControl mb="6">
+          <FormControl mb="6" isInvalid={isPasswordError}>
             <Input
               placeholder="Your password"
               name="password"
@@ -100,12 +136,17 @@ const Signup = () => {
 
           <Center>
             <Button variant="primary" type="submit">
-              Submit
+              <ChevronRightIcon /> Submit
             </Button>
           </Center>
         </form>
 
-        {error && <div>Signup failed</div>}
+        {errorMesage && (
+          <Alert status="error" mt="2">
+            <AlertIcon />
+            {errorMesage}
+          </Alert>
+        )}
       </Box>
     </Flex>
   );
