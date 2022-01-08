@@ -22,6 +22,7 @@ const typeDefs = gql`
     username: String
     climateControl: Boolean
     location: Location
+    active: Boolean
   }
 
   type Auth {
@@ -53,6 +54,7 @@ const typeDefs = gql`
       width: Float
       depth: Float
       location: locationInput
+      distance: Int
     ): [Listing]
   }
 

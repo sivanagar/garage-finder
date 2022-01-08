@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/client";
+import { useQuery } from '@apollo/client';
 import {
   Box,
   Button,
@@ -7,14 +7,14 @@ import {
   Heading,
   Skeleton,
   Stack,
-} from "@chakra-ui/react";
-import _ from "lodash";
-import { useState } from "react";
-import { Link as ReactLink, useHistory } from "react-router-dom";
-import ResultHome from "../components/ResultHome";
-import SearchAutoComplete from "../components/SearchAutoComplete";
-import Auth from "../utils/auth";
-import { QUERY_ALL_LISTINGS, QUERY_ME } from "../utils/queries";
+} from '@chakra-ui/react';
+import _ from 'lodash';
+import { useState } from 'react';
+import { Link as ReactLink, useHistory } from 'react-router-dom';
+import ResultHome from '../components/ResultHome';
+import SearchAutoComplete from '../components/SearchAutoComplete';
+import Auth from '../utils/auth';
+import { QUERY_LISTINGS, QUERY_ME } from '../utils/queries';
 
 const Home = () => {
   const history = useHistory();
@@ -24,7 +24,7 @@ const Home = () => {
     state: null,
     zip: null,
     location: {
-      type: "Point",
+      type: 'Point',
       coordinates: [0, 0],
     },
   });
@@ -33,8 +33,16 @@ const Home = () => {
     data: listingsData,
     loading: listingsLoading,
     error: listingsError,
-  } = useQuery(QUERY_ALL_LISTINGS);
-
+  } = useQuery(QUERY_LISTINGS, {
+    variables: {
+      location: {
+        type: 'Point',
+        coordinates: [-139.4711, -32.5336], //addressResult.location.coordinates,
+      },
+      distance: 0, //if 0 returns all listings, else need coordinates
+    },
+  });
+  console.log(listingsData);
   const { data: userData } = useQuery(QUERY_ME);
 
   const loggedIn = Auth.loggedIn();
@@ -58,22 +66,22 @@ const Home = () => {
 
   function handleClickSearch() {
     history.push({
-      pathname: "/results",
+      pathname: '/results',
       state: { addressResult },
     });
   }
 
   return (
     <>
-      <Flex w="100%" mt="20" justify={["center", "flex-start"]}>
+      <Flex w="100%" mt="20" justify={['center', 'flex-start']}>
         <Heading>Get your space now </Heading>
       </Flex>
       <Flex
         w="100%"
         mt="4"
-        direction={["column", "row"]}
-        justify={["center", "flex-start"]}
-        alignItems={["center", "flex-start"]}
+        direction={['column', 'row']}
+        justify={['center', 'flex-start']}
+        alignItems={['center', 'flex-start']}
       >
         {randomListings.map((listing) => (
           <ResultHome result={listing} key={listing._id} />
@@ -93,12 +101,12 @@ const Home = () => {
       <Flex
         w="100%"
         my="6"
-        direction={["column", "row"]}
-        justify={["center"]}
-        alignItems={["center", "flex-start"]}
+        direction={['column', 'row']}
+        justify={['center']}
+        alignItems={['center', 'flex-start']}
       >
         <Box
-          minW={[300, "50%"]}
+          minW={[300, '50%']}
           minH={[300]}
           borderWidth="1px"
           borderRadius="lg"
@@ -126,7 +134,7 @@ const Home = () => {
           </Flex>
         </Box>
         <Box
-          minW={[300, "50%"]}
+          minW={[300, '50%']}
           minH={[300]}
           borderWidth="1px"
           borderRadius="lg"

@@ -67,17 +67,21 @@ const listingSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
     location: {
       type: {
-        type: String, 
-        enum: ['Point'], 
-        required: true
+        type: String,
+        enum: ['Point'],
+        required: true,
       },
       coordinates: {
         type: [Number],
-        required: true
-      }
-    }
+        required: true,
+      },
+    },
   },
   {
     // toJSON: {
@@ -93,6 +97,7 @@ const listingSchema = new Schema(
 //     return (this.height * this.width * this.depth)
 //     }
 //   );
+listingSchema.index({ location: '2dsphere' });
 
 const Listing = model('Listing', listingSchema);
 
