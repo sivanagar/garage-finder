@@ -24,8 +24,8 @@ const Profile = () => {
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/profile" />;
   }
-  console.log(data);
   const user = data?.me || data?.user || {};
+  console.log(user);
 
   function handleClickCreateListing() {
     history.push(`/searchCreate`);
@@ -81,6 +81,34 @@ const Profile = () => {
           </Flex>
         </Box>
       </Center>
+
+      {
+        <Center>
+          <Box mt="4" p="4" w={[320, 1024]} borderWidth="1px" borderRadius="lg">
+            <Flex
+              w="100%"
+              alignItems="center"
+              justify="center"
+              direction="column"
+            >
+              <Heading>My Listings</Heading>
+              <Flex
+                w="100%"
+                direction="row"
+                wrap="wrap"
+                justifyContent="center"
+                alignItems="center"
+                m="2"
+              >
+                {user.listings.map((listing) => (
+                  <Result key={listing._id} result={listing} />
+                ))}
+              </Flex>
+            </Flex>
+          </Box>
+        </Center>
+      }
+
     </>
   );
 };
