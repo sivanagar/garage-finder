@@ -79,7 +79,7 @@ const Home = () => {
         alignItems={["center", "flex-start"]}
       >
         {randomListings.map((listing) => (
-          <ResultHome listing={listing} key={listing._id} />
+          <ResultHome result={listing} key={listing._id} />
         ))}
       </Flex>
       <Box w="100%" mt="20">
