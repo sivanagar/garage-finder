@@ -3,11 +3,16 @@ import { ButtonStyles as Button } from "./components/ButtonStyles";
 
 export const myTheme = extendTheme({
   colors: {
-    primary: "#805ad5",
+    primary: "#8F93D9",
     secondary: "#FF6F91",
     warning: "#FFC75F",
     success: "#4caf50",
     danger: "#f44336",
+    primarydark: "#514EA6",
+    secondarydark: "#303473",
+    warningdark: "#FFC75F",
+    successdark: "#4caf50",
+    dangerdark: "#f44336",
   },
   components: {
     Button,

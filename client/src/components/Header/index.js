@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, useColorMode } from "@chakra-ui/react";
+import { Button, Flex, Heading, useColorMode, Image } from "@chakra-ui/react";
 import React from "react";
 import { Link as ReactLink } from "react-router-dom";
 import Auth from "../../utils/auth";
@@ -14,7 +14,7 @@ const Header = () => {
     <Flex
       borderBottom="1px"
       borderColor="gray.200"
-      bg={colorMode === "light" ? "primary" : "gray.900"}
+      bg={colorMode === "light" ? "primary" : "primarydark"}
       color="white"
       fontSize="lg"
       fontWeight="semibold"
@@ -22,13 +22,17 @@ const Header = () => {
       justify="space-between"
     >
       <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
-        <Heading as={ReactLink} to="/" size="md">
-          Cache App
-        </Heading>
+        <Image
+          // boxSize='100px'
+          objectFit='cover'
+          src='../../../cache_logo.svg'
+          alt='Cache'
+        />
       </Flex>
-      <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
+      <Flex m="2" p="2" direction="row" align={["end", "flex-center"]} justify={["center", "flex-end"]} >
         {Auth.loggedIn() ? (
           <>
+
             <Button
               as={ReactLink}
               variant="secondary"
@@ -48,6 +52,7 @@ const Header = () => {
               onClick={toggleColorMode}
             >
               {colorMode === "light" ? "🌙" : "☀️"}
+
             </Button>
           </>
         ) : (
@@ -55,26 +60,29 @@ const Header = () => {
             <Button
               as={ReactLink}
               variant="secondary"
-              size="sm"
+              size="lg"
               m="0.5"
               to="/login"
+              size="lg"
             >
               Login
             </Button>
             <Button
               as={ReactLink}
               variant="secondary"
-              size="sm"
+              size="lg"
               m="0.5"
               to="/signup"
+              size="lg"
             >
               Signup
             </Button>
             <Button
               variant="primary"
-              size="sm"
+              size="lg"
               m="0.5"
               onClick={toggleColorMode}
+              size="lg"
             >
               {colorMode === "light" ? "🌙" : "☀️"}
             </Button>
