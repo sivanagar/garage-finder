@@ -4,6 +4,7 @@ import Auth from '../utils/auth';
 
 import {
   Box,
+  Button,
   Container,
   Flex,
   VStack,
@@ -28,6 +29,7 @@ const SingleListing = () => {
   });
 
   const listing = data ? data.listing : {};
+  const listingOwner = Auth.getProfile().data.username === listing.username;
 
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
@@ -114,7 +116,11 @@ const SingleListing = () => {
         >
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan="2">
-              {loggedIn ? (
+              {listingOwner ? (
+                <Button variant="primary" size="lg">
+                  EDIT
+                </Button>
+              ) : loggedIn ? (
                 <ContactHost listing={listing} />
               ) : (
                 <p>You must be logged in to contact a host</p>
