@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
@@ -91,6 +91,7 @@ const typeDefs = gql`
       rate: Float
       climateControl: Boolean
     ): Listing
+    contactHost(hostUsername: String!, listingId: ID!, message: String!): String
   }
 `;
 

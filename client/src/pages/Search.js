@@ -1,7 +1,7 @@
-import { Box, Button, Center } from "@chakra-ui/react";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import SearchAutoComplete from "../components/SearchAutoComplete";
+import { Box, Button, Center } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import SearchAutoComplete from '../components/SearchAutoComplete';
 
 const Search = () => {
   const history = useHistory();
@@ -11,16 +11,16 @@ const Search = () => {
     state: null,
     zip: null,
     location: {
-      type: "Point",
+      type: 'Point',
       coordinates: [0, 0],
     },
   });
 
   function handleOnClick() {
-    console.log("Search: ", addressResult);
+    console.log('Search: ', addressResult);
 
     history.push({
-      pathname: "/results",
+      pathname: '/results',
       state: { addressResult },
     });
   }

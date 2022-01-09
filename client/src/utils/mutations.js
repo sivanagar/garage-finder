@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -105,5 +105,19 @@ export const EDIT_LISTING = gql`
       username
       climateControl
     }
+  }
+`;
+
+export const CONTACT_HOST = gql`
+  mutation contactHost(
+    $hostUsername: String!
+    $listingId: ID!
+    $message: String!
+  ) {
+    contactHost(
+      hostUsername: $hostUsername
+      listingId: $listingId
+      message: $message
+    )
   }
 `;
