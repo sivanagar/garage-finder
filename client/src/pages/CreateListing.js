@@ -29,12 +29,13 @@ const CreateListing = () => {
   const [addressResult, setAddressResult] = useState(location.state);
   //set the form values
   const [formState, setFormState] = useState({
+    title: "",
     type: "",
-    height: null,
-    width: null,
-    depth: null,
+    height: "",
+    width: "",
+    depth: "",
     description: "",
-    rate: null,
+    rate: "",
     addressLine1: "",
     addressLine2: "",
     city: "",
@@ -127,6 +128,19 @@ const CreateListing = () => {
           <Heading>Create Listing</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+          <FormControl mb="6">
+            <Input
+              placeholder="Title"
+              name="title"
+              type="text"
+              id="title"
+              size="lg"
+              _placeholder={{ color: "primary" }}
+              _focus={{ color: "primary", borderColor: "primary" }}
+              value={formState.title}
+              onChange={handleChange}
+            />
+          </FormControl>
           <FormControl mb="6">
             <Input
               placeholder="Address Line 1"
