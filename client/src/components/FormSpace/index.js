@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   Box,
   Button,
@@ -9,23 +9,23 @@ import {
   Input,
   Select,
   Textarea,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import Auth from "../../utils/auth";
-import { ADD_USER } from "../../utils/mutations";
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import Auth from '../../utils/auth';
+import { ADD_USER, ADD_LISTING } from '../../utils/mutations';
 
-const spaceTypes = ["garage", "shed", "basement", "attic"];
+const spaceTypes = ['garage', 'shed', 'basement', 'attic'];
 
 const FormSpace = (props) => {
   const [formState, setFormState] = useState({
-    username: "",
-    type: "",
-    password: "",
-    height: "",
-    width: "",
-    depth: "",
-    description: "",
-    rate: "",
+    username: '',
+    type: '',
+    password: '',
+    height: '',
+    width: '',
+    depth: '',
+    description: '',
+    rate: '',
   });
   const [addUser, { error }] = useMutation(ADD_USER);
 
@@ -36,7 +36,7 @@ const FormSpace = (props) => {
       ...formState,
       [name]: value,
     });
-    console.log("formState", formState);
+    console.log('formState', formState);
   };
 
   // submit form
@@ -56,7 +56,7 @@ const FormSpace = (props) => {
 
   return (
     <Flex
-      w={["98%", 400, 800]}
+      w={['98%', 400, 800]}
       direction="column"
       alignItems="center"
       mt="20"
@@ -73,7 +73,7 @@ const FormSpace = (props) => {
         <Flex mb="6" justify="center">
           <Heading>Create Space</Heading>
         </Flex>
-        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+        <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <FormControl mb="6">
             <Input
               placeholder="Address Line 1"
@@ -81,8 +81,8 @@ const FormSpace = (props) => {
               type="text"
               id="addressLine1"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.addressLine1}
               onChange={handleChange}
             />
@@ -95,7 +95,7 @@ const FormSpace = (props) => {
               value={formState.type}
               onChange={handleChange}
               color="primary"
-              _active={{ color: "primary", borderColor: "primary" }}
+              _active={{ color: 'primary', borderColor: 'primary' }}
             >
               {spaceTypes.map((type) => (
                 <option key={type} value={type}>
@@ -111,8 +111,8 @@ const FormSpace = (props) => {
               type="text"
               id="height"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.height}
               onChange={handleChange}
             />
@@ -124,8 +124,8 @@ const FormSpace = (props) => {
               type="text"
               id="width"
               size="lg"
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.width}
               onChange={handleChange}
             />
@@ -137,8 +137,8 @@ const FormSpace = (props) => {
               type="text"
               id="depth"
               size="lg"
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.depth}
               onChange={handleChange}
             />
@@ -150,8 +150,8 @@ const FormSpace = (props) => {
               type="text"
               id="rate"
               size="lg"
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.rate}
               onChange={handleChange}
             />
@@ -163,8 +163,8 @@ const FormSpace = (props) => {
               id="description"
               size="lg"
               h={[100, 150]}
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.description}
               onChange={handleChange}
             />
