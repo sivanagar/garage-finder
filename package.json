@@ -15,9 +15,5 @@
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^5.1.0"
-  },
-  "dependencies": {
-    "@react-icons/all-files": "^4.1.0"
-    "@apollo/react-hooks": "^4.0.0"
   }
 }
