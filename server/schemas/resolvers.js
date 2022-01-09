@@ -1,6 +1,7 @@
 const { User, Listing } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const sendContactMessage = require('../utils/sendContactEmail');
 
 const resolvers = {
   Query: {
@@ -117,6 +118,17 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    contactHost: async (parent, args, context) => {
+      const listingId = args.listingId;
+      const host = await User.findOne({ username: args.hostUsername });
+
+      const message = args.message;
+      const guest = await User.findOne({
+        username: context.user.username,
+      });
+      const info = await sendContactMessage(message, host, guest, listingId);
+      return info.response;
     },
   },
 };

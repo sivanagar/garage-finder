@@ -3,8 +3,8 @@ require('dotenv').config();
 const mailSettings = {
   service: 'gmail',
   host: process.env.MAIL_NAME,
-  debug: true,
-  logger: true,
+  // debug: true,
+  // logger: true,
   port: 587,
   secure: false, // true for 465, false for other ports
   auth: {
