@@ -12,7 +12,6 @@ const MyListing = ({ listing }) => {
     height,
     depth,
     type,
-    formattedRate,
   } = listing;
 
   const history = useHistory();
@@ -54,9 +53,22 @@ const MyListing = ({ listing }) => {
         </Box>
 
         <Box>
-          {formattedRate}
+          {`$ ${rate.toFixed(2)}`}
           <Box as="span" color="gray.600" fontSize="sm">
             / m
+          </Box>
+        </Box>
+
+        <Box>
+          Access Type:
+          <Box as="span" color="gray.600" fontSize="sm">
+            {accessType}
+          </Box>
+        </Box>
+        <Box>
+          Climate Control:
+          <Box as="span" color="gray.600" fontSize="sm">
+            {(climateControl && "Yes") || "No"}
           </Box>
         </Box>
 
