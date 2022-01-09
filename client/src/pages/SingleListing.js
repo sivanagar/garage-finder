@@ -29,7 +29,9 @@ const SingleListing = () => {
   });
 
   const listing = data ? data.listing : {};
-  const listingOwner = Auth.getProfile().data.username === listing.username;
+  const listingOwner = loggedIn
+    ? Auth.getProfile().data.username === listing.username
+    : false;
 
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
