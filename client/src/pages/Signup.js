@@ -27,7 +27,7 @@ const Signup = () => {
   const [isUsernameError, setIsUsernameError] = useState(false);
   const [errorMesage, setErrorMessage] = useState("");
 
-  const [addUser, { error }] = useMutation(ADD_USER);
+  const [addUser] = useMutation(ADD_USER);
 
   // update state based on form input changes
   const handleChange = (event) => {

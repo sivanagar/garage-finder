@@ -13,8 +13,7 @@ import { useState } from "react";
 import { Link as ReactLink, useHistory } from "react-router-dom";
 import ResultHome from "../components/ResultHome";
 import SearchAutoComplete from "../components/SearchAutoComplete";
-import Auth from "../utils/auth";
-import { QUERY_ALL_LISTINGS, QUERY_ME } from "../utils/queries";
+import { QUERY_LISTINGS } from "../utils/queries";
 
 const Home = () => {
   const history = useHistory();
@@ -33,11 +32,22 @@ const Home = () => {
     data: listingsData,
     loading: listingsLoading,
     error: listingsError,
-  } = useQuery(QUERY_ALL_LISTINGS);
-
-  const { data: userData } = useQuery(QUERY_ME);
-
-  const loggedIn = Auth.loggedIn();
+  } = useQuery(QUERY_LISTINGS, {
+    variables: {
+      location: {
+        type: "Point",
+        coordinates: [-139.4711, -32.5336], //addressResult.location.coordinates,
+      },
+      distance: 0, //if 0 returns all listings, else need coordinates
+      rate: null,
+      type: null,
+      accessType: null,
+      climateControl: null,
+      height: null,
+      width: null,
+      depth: null,
+    },
+  });
 
   if (listingsLoading) {
     return (
@@ -52,7 +62,7 @@ const Home = () => {
   }
   let randomListings = [];
 
-  if (!listingsLoading) {
+  if (!listingsLoading && !listingsError) {
     randomListings = _.sampleSize(listingsData.listings, 3);
   }
 

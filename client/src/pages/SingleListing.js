@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+
 import {Box, Button, Container, Flex, VStack, Heading, Text, SimpleGrid, GridItem, FormControl, FormLabel, Input, Textarea, Image } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -6,13 +7,8 @@ import { QUERY_LISTING } from "../utils/queries";
 import { Link as ReactLink, useHistory } from "react-router-dom";
 import { flushLayout } from "framer-motion";
 
-const SingleListing = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const logout = (event) => {
-    event.preventDefault();
-    Auth.logout();
-  };
 
+const SingleListing = () => {
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
     variables: {

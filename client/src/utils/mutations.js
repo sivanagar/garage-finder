@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
@@ -26,6 +26,7 @@ export const ADD_USER = gql`
 
 export const ADD_LISTING = gql`
   mutation addListing(
+    $title: String!
     $address: String!
     $type: String!
     $accessType: String!
@@ -38,6 +39,7 @@ export const ADD_LISTING = gql`
     $location: locationInput!
   ) {
     addListing(
+      title: $title
       address: $address
       type: $type
       accessType: $accessType
@@ -50,6 +52,7 @@ export const ADD_LISTING = gql`
       location: $location
     ) {
       _id
+      title
       address
       type
       accessType
@@ -64,6 +67,43 @@ export const ADD_LISTING = gql`
         type
         coordinates
       }
+    }
+  }
+`;
+export const EDIT_LISTING = gql`
+  mutation editListing(
+    $address: String
+    $type: String
+    $accessType: String
+    $height: Float
+    $width: Float
+    $depth: Float
+    $description: String
+    $rate: Float
+    $climateControl: Boolean
+  ) {
+    editListing(
+      address: $address
+      type: $type
+      accessType: $accessType
+      height: $height
+      width: $width
+      depth: $depth
+      description: $description
+      rate: $rate
+      climateControl: $climateControl
+    ) {
+      _id
+      address
+      type
+      accessType
+      height
+      width
+      depth
+      description
+      rate
+      username
+      climateControl
     }
   }
 `;

@@ -1,9 +1,9 @@
-const faker = require("faker");
+const faker = require('faker');
 
-const db = require("../config/connection");
-const { User, Listing } = require("../models");
+const db = require('../config/connection');
+const { User, Listing } = require('../models');
 
-db.once("open", async () => {
+db.once('open', async () => {
   await Listing.deleteMany({});
   await User.deleteMany({});
 
@@ -28,12 +28,12 @@ db.once("open", async () => {
     const title = 'title' + faker.lorem.sentence();
     const address = faker.address.streetAddress();
     const type = faker.random.arrayElement([
-      "garage",
-      "shed",
-      "basement",
-      "attic",
+      'garage',
+      'shed',
+      'basement',
+      'attic',
     ]);
-    const accessType = faker.random.arrayElement(["24hr", "scheduled"]);
+    const accessType = faker.random.arrayElement(['24hr', 'scheduled']);
     const height = faker.random.number({ min: 1, max: 20 });
     const width = faker.random.number({ min: 1, max: 20 });
     const depth = faker.random.number({ min: 1, max: 20 });
@@ -43,9 +43,10 @@ db.once("open", async () => {
     const randomUserIndex = Math.floor(Math.random() * userData.length);
     const { username, _id: userId } = createdUsers[randomUserIndex];
     const location = {
-      type: "Point",
+      type: 'Point',
       coordinates: [faker.address.longitude(), faker.address.latitude()],
     };
+    const active = faker.random.boolean();
 
     const createListing = await Listing.create({
       title,
@@ -60,6 +61,7 @@ db.once("open", async () => {
       climateControl,
       username,
       location,
+      active,
     });
     const updateUser = await User.updateOne(
       { _id: userId },
@@ -69,6 +71,6 @@ db.once("open", async () => {
     listingData.push(createListing);
   }
 
-  console.log("all done!");
+  console.log('all done!');
   process.exit(0);
 });

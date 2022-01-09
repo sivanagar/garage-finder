@@ -21,15 +21,15 @@ async function sendContactMessage(message, host, guest) {
   console.log(info);
 }
 
-module.exports = sendContactMessage;
+// module.exports = sendContactMessage;
 
-// const host = {
-//   email: 'nearby.cache@gmail.com',
-// };
+const host = {
+  email: 'nearby.cache@gmail.com',
+};
 
-// const message = 'this is a contact message';
-// const guest = {
-//   username: 'sivanagar',
-//   email: 'sivanagar@gmail.com',
-// };
-// sendContactMessage(message, host, guest);
+const message = 'this is a contact message';
+const guest = {
+  username: 'sivanagar',
+  email: 'sivanagar@gmail.com',
+};
+sendContactMessage(message, host, guest);

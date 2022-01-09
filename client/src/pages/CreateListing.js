@@ -1,42 +1,38 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Box,
   Button,
   Center,
   Flex,
   FormControl,
+  FormLabel,
   Heading,
   HStack,
   Input,
   Select,
-  Textarea,
   Switch,
-  FormLabel,
+  Textarea,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Redirect, useHistory, useLocation, useParams } from "react-router-dom";
-import Auth from "../utils/auth";
+import { useHistory, useLocation } from "react-router-dom";
 import { ADD_LISTING } from "../utils/mutations";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const spaceTypes = ["garage", "shed", "basement", "attic"];
 const accessTypes = ["24hr", "scheduled"];
 
-const CreateSpace = () => {
-  const { username: userParam } = useParams();
+const CreateListing = () => {
   const history = useHistory();
   const location = useLocation();
 
-  const [addressResult, setAddressResult] = useState(location.state);
   //set the form values
   const [formState, setFormState] = useState({
+    title: "",
     type: "",
-    password: "",
-    height: null,
-    width: null,
-    depth: null,
+    height: "",
+    width: "",
+    depth: "",
     description: "",
-    rate: null,
+    rate: "",
     addressLine1: "",
     addressLine2: "",
     city: "",
@@ -45,17 +41,9 @@ const CreateSpace = () => {
     climateControl: false,
     accessType: "",
   });
-
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
-
-  const user = data?.me || data?.user || {};
-
   const [addListing, { error }] = useMutation(ADD_LISTING);
 
   useEffect(() => {
-    setAddressResult(location.state);
     setFormState({
       ...formState,
       ...location.state.addressResult,
@@ -97,6 +85,9 @@ const CreateSpace = () => {
       const { data } = await addListing({
         variables: { ...formState },
       });
+      if (data) {
+        history.push("/profile");
+      }
     } catch (e) {
       console.error(e);
     }
@@ -123,9 +114,22 @@ const CreateSpace = () => {
         p={[4, 10]}
       >
         <Flex mb="6" justify="center">
-          <Heading>Create Space</Heading>
+          <Heading>Create Listing</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+          <FormControl mb="6">
+            <Input
+              placeholder="Title"
+              name="title"
+              type="text"
+              id="title"
+              size="lg"
+              _placeholder={{ color: "primary" }}
+              _focus={{ color: "primary", borderColor: "primary" }}
+              value={formState.title}
+              onChange={handleChange}
+            />
+          </FormControl>
           <FormControl mb="6">
             <Input
               placeholder="Address Line 1"
@@ -338,4 +342,4 @@ const CreateSpace = () => {
   );
 };
 
-export default CreateSpace;
+export default CreateListing;

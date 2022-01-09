@@ -16,7 +16,7 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     users: async () => {
-      return User.find().select('-__v -password');
+      return User.find().populate('listings').select('-__v -password');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
@@ -28,7 +28,17 @@ const resolvers = {
     },
     listings: async (
       parent,
-      { type, rate, accessType, climateControl, height, width, depth, location }
+      {
+        type,
+        rate,
+        accessType,
+        climateControl,
+        height,
+        width,
+        depth,
+        location,
+        distance,
+      }
     ) => {
       const params = {};
       type ? (params.type = type) : null;
@@ -38,7 +48,19 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
-      location ? (params.location = location) : null;
+      if ((distance = 0)) {
+        params.location = {
+          $near: {
+            $maxDistance: distance, //distance in meters
+            $geometry: {
+              type: 'Point',
+              coordinates: location.coordinates,
+            },
+          },
+        };
+      }
+      params.active = true;
+      // location ? (params.location = location) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },
@@ -75,6 +97,19 @@ const resolvers = {
         const user = await User.findByIdAndUpdate(
           { _id: context.user._id },
           { $push: { listings: listing._id } },
+          { new: true }
+        );
+
+        return listing;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    updateListing: async (parent, args, context) => {
+      if (context.user) {
+        const listing = await Listing.findOneAndUpdate(
+          { _id: args._id },
+          { $set: args },
           { new: true }
         );
 

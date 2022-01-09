@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const QUERY_USER = gql`
   query user($username: String!) {
@@ -16,6 +16,23 @@ export const QUERY_ME = gql`
       _id
       username
       email
+      listings {
+        _id
+        address
+        type
+        accessType
+        height
+        width
+        depth
+        description
+        rate
+        username
+        climateControl
+        location {
+          type
+          coordinates
+        }
+      }
     }
   }
 `;
@@ -43,8 +60,29 @@ export const QUERY_LISTING = gql`
 `;
 
 export const QUERY_LISTINGS = gql`
-  query listings($type: String) {
-    listings(type: $type) {
+  query listings(
+    $type: String
+    $rate: Float
+    $accessType: String
+    $climateControl: Boolean
+    $height: Float
+    $width: Float
+    $depth: Float
+    $location: locationInput
+    $distance: Int
+  ) {
+    listings(
+      type: $type
+      rate: $rate
+      accessType: $accessType
+      climateControl: $climateControl
+      height: $height
+      width: $width
+      depth: $depth
+
+      location: $location
+      distance: $distance
+    ) {
       _id
       address
       type

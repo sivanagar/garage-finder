@@ -3,35 +3,35 @@ import {
   ApolloProvider,
   createHttpLink,
   InMemoryCache,
-} from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-import { Container, Flex } from '@chakra-ui/react';
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Footer from './components/Footer';
-import Header from './components/Header';
-import CreateSpace from './pages/CreateSpace';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import NoMatch from './pages/NoMatch';
-import Profile from './pages/Profile';
-import Results from './pages/Results';
-import Search from './pages/Search';
-import SearchAddressCreate from './pages/SearchAddressCreate';
-import Signup from './pages/Signup';
-import Space from './pages/Space';
-import SingleListing from './pages/SingleListing';
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { Container, Flex } from "@chakra-ui/react";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
+import CreateListing from "./pages/CreateListing";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import MyListings from "./pages/MyListings";
+import NoMatch from "./pages/NoMatch";
+import Profile from "./pages/Profile";
+import Results from "./pages/Results";
+import Search from "./pages/Search";
+import SearchAddressCreate from "./pages/SearchAddressCreate";
+import Signup from "./pages/Signup";
+import SingleListing from "./pages/SingleListing";
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -59,14 +59,14 @@ function App() {
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/search" component={Search} />
               <Route exact path="/results" component={Results} />
-              <Route exact path="/space" component={Space} />
-              <Route exact path="/createSpace" component={CreateSpace} />
+              <Route exact path="/createListing" component={CreateListing} />
               <Route exact path="/listing/:id" component={SingleListing} />
               <Route
                 exact
                 path="/searchCreate"
                 component={SearchAddressCreate}
               />
+              <Route exact path="/myListings" component={MyListings} />
 
               <Route component={NoMatch} />
             </Switch>

@@ -9,17 +9,14 @@ import getAddressComponents from "../../utils/getAddressComponents";
 const SearchAutoComplete = (props) => {
   const { setResult } = props;
   const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState({
-    lat: null,
-    lng: null,
-  });
 
   const handleSelect = async (value) => {
     const results = await geocodeByAddress(value);
+    console.log(results);
     const latLng = await getLatLng(results[0]);
+    console.log(latLng);
 
     setAddress(value);
-    setCoordinates(latLng);
 
     //Get Address Components
     const street_number = getAddressComponents(
@@ -52,7 +49,7 @@ const SearchAutoComplete = (props) => {
       zip,
       location: {
         type: "Point",
-        coordinates: [latLng.lat, latLng.lng],
+        coordinates: [latLng.lng, latLng.lat],
       },
     });
     console.log("Resutls", results);

@@ -1,9 +1,9 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { Box, Flex, Text } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 const Result = ({ result }) => {
   const history = useHistory();
   function handleClick(result) {
-    console.log("clicked", result);
+    console.log('clicked', result);
     history.push({
       pathname: `/listing/${result._id}`,
     });
@@ -19,8 +19,8 @@ const Result = ({ result }) => {
       cursor="pointer"
       boxShadow="lg"
       _hover={{
-        background: "gray.50",
-        color: "purple.500",
+        background: 'gray.50',
+        color: 'purple.500',
       }}
     >
       <Flex justify="space-between">
