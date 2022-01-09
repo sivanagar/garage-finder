@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
-import { Flex, Spacer, Text } from '@chakra-ui/react';
+import { Link, Flex, Spacer, Text, Button } from '@chakra-ui/react';
+import { Link as ReactLink } from 'react-router-dom';
 
 const mapStyles = {
   width: '100%',
@@ -54,6 +55,8 @@ export class MapContainer extends Component {
           <Marker
             onClick={this.onMarkerClick}
             location={"You Are Here"}
+            linkUrl={'/'}
+            linkText={'Return Home'}
           />
           {listings.map((listing) => (
             <Marker
@@ -61,6 +64,8 @@ export class MapContainer extends Component {
               location={listing.address}
               position={{ lat: listing.location.coordinates[0], lng: listing.location.coordinates[1] }}
               description={listing.description}
+              linkUrl={`/listing/${listing._id}`}
+              linkText={'View Listing'}
             />
           ))}
           <InfoWindow
@@ -69,9 +74,12 @@ export class MapContainer extends Component {
             onClose={this.onClose}
           >
             <Flex direction="column">
-              <Text>{this.state.selectedPlace.location}</Text>
-              <Spacer mt={2} />
-              <Text>{this.state.selectedPlace.description || 'No description'}</Text>
+              <Text>{this.state.selectedPlace.location || ''}</Text>
+              <Link href={this.state.selectedPlace.linkUrl}>
+                <Text>{this.state.selectedPlace.linkText}</Text>
+              </Link>
+              <Spacer mt={2}/>
+              <Text>{this.state.selectedPlace.description || ''}</Text>
             </Flex>
           </InfoWindow>
         </Map>

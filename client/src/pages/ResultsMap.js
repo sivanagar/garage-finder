@@ -26,10 +26,6 @@ const ResultsMap = (props) => {
         <Flex>
             <GoogleApiWrapper
                 listings={results}
-                location0={'7 Lisa Ct.'}
-                lat0={'38.02'}
-                lng0={'-122.54'}
-                description0={"Seanalan's House"}
             />
         </Flex>
     );
