@@ -1,14 +1,19 @@
-import { Button, Flex, Heading, useColorMode, Image } from "@chakra-ui/react";
+import { Button, Flex, Image, useColorMode } from "@chakra-ui/react";
 import React from "react";
-import { Link as ReactLink } from "react-router-dom";
+import { Link as ReactLink, useHistory } from "react-router-dom";
 import Auth from "../../utils/auth";
 
 const Header = () => {
+  const history = useHistory();
   const { colorMode, toggleColorMode } = useColorMode();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
+
+  function handleLogoClick() {
+    history.push("/");
+  }
 
   return (
     <Flex
@@ -23,16 +28,22 @@ const Header = () => {
     >
       <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
         <Image
-          // boxSize='100px'
-          objectFit='cover'
-          src='../../../cache_logo.svg'
-          alt='Cache'
+          objectFit="cover"
+          src="../../../cache_logo.svg"
+          alt="Cache"
+          onClick={handleLogoClick}
+          cursor="pointer"
         />
       </Flex>
-      <Flex m="2" p="2" direction="row" align={["end", "flex-center"]} justify={["center", "flex-end"]} >
+      <Flex
+        m="2"
+        p="2"
+        direction="row"
+        align={["end", "flex-center"]}
+        justify={["center", "flex-end"]}
+      >
         {Auth.loggedIn() ? (
           <>
-
             <Button
               as={ReactLink}
               variant="secondary"
@@ -52,7 +63,6 @@ const Header = () => {
               onClick={toggleColorMode}
             >
               {colorMode === "light" ? "🌙" : "☀️"}
-
             </Button>
           </>
         ) : (
