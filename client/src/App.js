@@ -10,7 +10,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
-import CreateSpace from "./pages/CreateSpace";
+import CreateListing from "./pages/CreateListing";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import MyListings from "./pages/MyListings";
@@ -61,7 +61,7 @@ function App() {
               <Route exact path="/search" component={Search} />
               <Route exact path="/results" component={Results} />
               <Route exact path="/space" component={Space} />
-              <Route exact path="/createSpace" component={CreateSpace} />
+              <Route exact path="/createListing" component={CreateListing} />
               <Route exact path="/listing/:id" component={SingleListing} />
               <Route
                 exact

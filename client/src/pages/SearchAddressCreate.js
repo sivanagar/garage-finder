@@ -38,7 +38,7 @@ const SearchAddressCreate = () => {
     console.log("addressResult", addressResult);
 
     history.push({
-      pathname: "/createSpace",
+      pathname: "/createListing",
       state: { addressResult },
     });
   }
