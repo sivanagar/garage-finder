@@ -21,7 +21,6 @@ import Search from "./pages/Search";
 import SearchAddressCreate from "./pages/SearchAddressCreate";
 import Signup from "./pages/Signup";
 import SingleListing from "./pages/SingleListing";
-import Space from "./pages/Space";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -60,7 +59,6 @@ function App() {
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/search" component={Search} />
               <Route exact path="/results" component={Results} />
-              <Route exact path="/space" component={Space} />
               <Route exact path="/createListing" component={CreateListing} />
               <Route exact path="/listing/:id" component={SingleListing} />
               <Route

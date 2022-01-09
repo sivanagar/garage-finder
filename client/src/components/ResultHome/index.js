@@ -3,20 +3,7 @@ import { Badge, Box } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
 const ResultHome = ({ result }) => {
-  const {
-    rate,
-    address,
-    city,
-    state,
-    zip,
-    location,
-    accessType,
-    climateControl,
-    width,
-    height,
-    depth,
-    type,
-  } = result;
+  const { rate, width, height, depth, type } = result;
 
   const history = useHistory();
   function handleClick(result) {

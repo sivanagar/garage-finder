@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {
   Box,
   Button,
@@ -14,19 +14,16 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { ADD_LISTING } from "../utils/mutations";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const spaceTypes = ["garage", "shed", "basement", "attic"];
 const accessTypes = ["24hr", "scheduled"];
 
 const CreateListing = () => {
-  const { username: userParam } = useParams();
   const history = useHistory();
   const location = useLocation();
 
-  const [addressResult, setAddressResult] = useState(location.state);
   //set the form values
   const [formState, setFormState] = useState({
     title: "",
@@ -44,17 +41,9 @@ const CreateListing = () => {
     climateControl: false,
     accessType: "",
   });
-
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
-
-  const user = data?.me || data?.user || {};
-
   const [addListing, { error }] = useMutation(ADD_LISTING);
 
   useEffect(() => {
-    setAddressResult(location.state);
     setFormState({
       ...formState,
       ...location.state.addressResult,

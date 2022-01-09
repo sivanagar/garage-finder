@@ -5,6 +5,7 @@ import Auth from "../../utils/auth";
 
 const Header = () => {
   const history = useHistory();
+
   const { colorMode, toggleColorMode } = useColorMode();
   const logout = (event) => {
     event.preventDefault();
@@ -70,7 +71,6 @@ const Header = () => {
             <Button
               as={ReactLink}
               variant="secondary"
-              size="lg"
               m="0.5"
               to="/login"
               size="lg"
@@ -80,7 +80,6 @@ const Header = () => {
             <Button
               as={ReactLink}
               variant="secondary"
-              size="lg"
               m="0.5"
               to="/signup"
               size="lg"
@@ -89,7 +88,6 @@ const Header = () => {
             </Button>
             <Button
               variant="primary"
-              size="lg"
               m="0.5"
               onClick={toggleColorMode}
               size="lg"
