@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 
@@ -20,6 +21,7 @@ import { QUERY_LISTING } from '../utils/queries';
 
 const SingleListing = () => {
   const loggedIn = Auth.loggedIn();
+  const history = useHistory();
 
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
@@ -36,6 +38,11 @@ const SingleListing = () => {
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
 
+  function handleEdit(id) {
+    history.push({
+      pathname: `/editListing/${listing._id}`,
+    });
+  }
   return (
     <Container maxW="container.xl">
       <Flex h="200vh" py={2} px={2}>
@@ -119,7 +126,11 @@ const SingleListing = () => {
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan="2">
               {listingOwner ? (
-                <Button variant="primary" size="lg">
+                <Button
+                  onClick={() => handleEdit(listing._id)}
+                  variant="primary"
+                  size="lg"
+                >
                   EDIT
                 </Button>
               ) : loggedIn ? (
