@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import React from 'react';
+import { useQuery } from '@apollo/client';
+import Auth from '../utils/auth';
 
 import {
   Box,
-  Button,
   Container,
   Flex,
   VStack,
@@ -11,21 +11,15 @@ import {
   Text,
   SimpleGrid,
   GridItem,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
   Image,
 } from '@chakra-ui/react';
+import ContactHost from '../components/ContactHost';
 import { useParams } from 'react-router-dom';
 import { QUERY_LISTING } from '../utils/queries';
-import { CONTACT_HOST } from '../utils/mutations';
-import { Link as ReactLink, useHistory } from 'react-router-dom';
-import { flushLayout } from 'framer-motion';
 
 const SingleListing = () => {
-  const [message, setText] = useState('');
-  const [contactHost, { error }] = useMutation(CONTACT_HOST);
+  const loggedIn = Auth.loggedIn();
+
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
     variables: {
@@ -34,19 +28,10 @@ const SingleListing = () => {
   });
 
   const listing = data ? data.listing : {};
-  const [resize, setResize] = React.useState('horizontal');
 
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
-  const handleFormSubmit = async (event) => {
-    const hostUsername = listing.username;
-    event.preventDefault();
-    contactHost({
-      variables: { hostUsername, listingId, message },
-    });
-    console.log('button clicked');
-    console.log('contactText', message);
-  };
+
   return (
     <Container maxW="container.xl">
       <Flex h="200vh" py={2} px={2}>
@@ -129,23 +114,11 @@ const SingleListing = () => {
         >
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan="2">
-              <FormControl>
-                <FormLabel>Contact {listing.username}</FormLabel>
-                <Textarea
-                  value={message}
-                  onChange={(e) => setText(e.target.value)}
-                  w="100%"
-                  resize="none"
-                />
-                <Button
-                  onClick={handleFormSubmit}
-                  variant="secondary"
-                  size="sm"
-                  m="0.5"
-                >
-                  Send Message
-                </Button>
-              </FormControl>
+              {loggedIn ? (
+                <ContactHost listing={listing} />
+              ) : (
+                <p>You must be logged in to contact a host</p>
+              )}
             </GridItem>
             <GridItem colSpan="2">
               {/* <p>{listing.location.coordinates}</p> */}
