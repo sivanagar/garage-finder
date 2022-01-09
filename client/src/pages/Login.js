@@ -63,22 +63,19 @@ const Login = (props) => {
   };
 
   return (
-    <Flex w={[300, 400]} direction="column" alignItems="center" mt="20">
+    <Flex w={[300, 400]} direction="column" alignItems="center" mt="5">
       <Box
         borderWidth="1px"
         borderColor="primary"
         borderRadius="lg"
         boxShadow="lg"
         w="100%"
-        p={[4, 10]}
+        p={[4]}
       >
         <Center>
-          <Image
-            boxSize="100px"
-            src="https://www.gstatic.com/images/branding/product/1x/keep_48dp.png"
-          />
+          <Image w="160px" src="../../../cache_logo_purple.svg" mb="10" />
         </Center>
-        <Flex mb="6" justify="center">
+        <Flex mb="1" justify="center">
           <Heading>Login</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
