@@ -17,6 +17,7 @@ import MyListings from "./pages/MyListings";
 import NoMatch from "./pages/NoMatch";
 import Profile from "./pages/Profile";
 import Results from "./pages/Results";
+import ResultsMap from "./pages/ResultsMap";
 import Search from "./pages/Search";
 import SearchAddressCreate from "./pages/SearchAddressCreate";
 import Signup from "./pages/Signup";
@@ -59,6 +60,7 @@ function App() {
               <Route exact path="/profile/:username?" component={Profile} />
               <Route exact path="/search" component={Search} />
               <Route exact path="/results" component={Results} />
+              <Route exact path="/map" component={ResultsMap} />
               <Route exact path="/createListing" component={CreateListing} />
               <Route exact path="/listing/:id" component={SingleListing} />
               <Route
