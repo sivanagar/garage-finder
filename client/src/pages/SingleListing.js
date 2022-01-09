@@ -1,8 +1,12 @@
 import { useQuery } from "@apollo/client";
-import { Container, Flex, VStack } from "@chakra-ui/react";
+
+import {Box, Button, Container, Flex, VStack, Heading, Text, SimpleGrid, GridItem, FormControl, FormLabel, Input, Textarea, Image } from "@chakra-ui/react";
 import React from "react";
 import { useParams } from "react-router-dom";
 import { QUERY_LISTING } from "../utils/queries";
+import { Link as ReactLink, useHistory } from "react-router-dom";
+import { flushLayout } from "framer-motion";
+
 
 const SingleListing = () => {
   const { id: listingId } = useParams();
@@ -13,35 +17,101 @@ const SingleListing = () => {
   });
 
   const listing = data ? data.listing : {};
+  const [resize, setResize] = React.useState('horizontal');
 
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
 
   return (
     <Container maxW="container.xl">
-      <Flex h="100vh" py={20}>
-        <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start">
-          <header>{listing.title}</header>
-          <p>{listing.description}</p>
+      <Flex h="200vh" py={2} px={2}>
+        <VStack w="full" h="full" p={10} spacing={5} alignItems="flex-start" bg="gray.50">
+          <VStack  alignItems="flex-start">
+            <Heading size="2xl">{listing.title}</Heading>
+            <Text>{listing.description}</Text>
+          </VStack>
+          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
+            <GridItem colSpan={1} >
+              <Box display="flex" justifyContent="flex-end">Distance:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              distance placeholder
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Address:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.address}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Height:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.height}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Width:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.width}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Depth:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.depth}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Rate:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.rate}
+            </GridItem>
+            <GridItem colSpan={1}>
+            <Box display="flex" justifyContent="flex-end">Climate Control:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.climateControl}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Type:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.type}
+            </GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">Access:</Box>
+            </GridItem>
+            <GridItem colSpan={1}>
+              {listing.accessType}
+            </GridItem>
+          </SimpleGrid>
         </VStack>
-        <VStack
-          w="full"
-          h="full"
-          p={10}
-          spacing={10}
-          alignItems="flex-start"
-          bg="primary"
-        ></VStack>
-        <h1>{listing.address}</h1>
-        <p>{listing.rate}</p>
-        <p>{listing.climateControl}</p>
-        <p>{listing.type}</p>
-        <p>{listing.accessType}</p>
-        <p>{listing.height}</p>
-        <p>{listing.width}</p>
-        <p>{listing.depth}</p>
-        <p>{listing.username}</p>
-        <p>{listing.location.coordinates}</p>
+        <VStack w="full" h="full" p={10} spacing={10} alignItems="flex-start" bg="gray.50">
+          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
+            <GridItem colSpan="2">
+              <FormControl>
+                <FormLabel >Contact {listing.username}</FormLabel>
+                <Textarea w="100%" resize="none" />
+                <Button
+                as={ReactLink}
+                variant="secondary"
+                size="sm"
+                m="0.5"
+                to="/profile"
+                >
+                Send Message 
+                </Button>
+              </FormControl>
+            </GridItem>
+            <GridItem colSpan="2">
+              {/* <p>{listing.location.coordinates}</p> */}
+                <Image
+                  src="../../../map_placeholder.png"
+                />
+              </GridItem>
+          </SimpleGrid>
+        </VStack>
       </Flex>
     </Container>
   );
