@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, Spacer, Text } from '@chakra-ui/react';
 
 const mapStyles = {
   width: '100%',
@@ -36,13 +36,15 @@ export class MapContainer extends Component {
   };
 
   render() {
+    const listings = this.props.listings || '';
+
     return (
       <Flex direction="row" position='relative' h={500} w={1000}>
         <Map
           google={this.props.google}
           zoom={12}
           style={mapStyles}
-          initialCenter={searchLocation ||
+          initialCenter={this.props.searchLocation ||
             {
               lat: 37.7749,
               lng: -122.4194
@@ -51,20 +53,25 @@ export class MapContainer extends Component {
         >
           <Marker
             onClick={this.onMarkerClick}
-            name={'You Are Here!'}
+            location={"You Are Here"}
           />
-          <Marker
-            onClick={this.onMarkerClick}
-            name={this.props.name1}
-            position={{ lat: 37.778519, lng: -122.405640 }}
-          />
+          {listings.map((listing) => (
+            <Marker
+              onClick={this.onMarkerClick}
+              location={listing.address}
+              position={{ lat: listing.location.coordinates[0], lng: listing.location.coordinates[1] }}
+              description={listing.description}
+            />
+          ))}
           <InfoWindow
             marker={this.state.activeMarker}
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
           >
-            <Flex>
-              {this.state.selectedPlace.name}
+            <Flex direction="column">
+              <Text>{this.state.selectedPlace.location}</Text>
+              <Spacer mt={2} />
+              <Text>{this.state.selectedPlace.description || 'No description'}</Text>
             </Flex>
           </InfoWindow>
         </Map>
