@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 
 import {
   Box,
@@ -19,11 +19,13 @@ import {
 } from '@chakra-ui/react';
 import { useParams } from 'react-router-dom';
 import { QUERY_LISTING } from '../utils/queries';
+import { CONTACT_HOST } from '../utils/mutations';
 import { Link as ReactLink, useHistory } from 'react-router-dom';
 import { flushLayout } from 'framer-motion';
 
 const SingleListing = () => {
-  const [contactText, setText] = useState('');
+  const [message, setText] = useState('');
+  const [contactHost, { error }] = useMutation(CONTACT_HOST);
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
     variables: {
@@ -37,10 +39,13 @@ const SingleListing = () => {
   if (loading) return <p>Loading...</p>;
   if (!listing) return <p>Listing not found</p>;
   const handleFormSubmit = async (event) => {
+    const hostUsername = listing.username;
     event.preventDefault();
-
+    contactHost({
+      variables: { hostUsername, listingId, message },
+    });
     console.log('button clicked');
-    console.log('contactText', contactText);
+    console.log('contactText', message);
   };
   return (
     <Container maxW="container.xl">
@@ -127,7 +132,7 @@ const SingleListing = () => {
               <FormControl>
                 <FormLabel>Contact {listing.username}</FormLabel>
                 <Textarea
-                  value={contactText}
+                  value={message}
                   onChange={(e) => setText(e.target.value)}
                   w="100%"
                   resize="none"

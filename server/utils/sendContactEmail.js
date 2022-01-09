@@ -10,6 +10,7 @@ async function sendContactMessage(message, host, guest, listingId) {
   const mailContent = {
     from: '"CACHE" <nearby.cache@gmail.com>', // sender address
     to: [host.email, guest.email], // list of receivers
+    cc: 'nearby.cache@gmail.com',
     subject: `SOMEONE CONTACTED YOU ABOUT YOUR LISTING`, // Subject line- need to be event name
     text: `SOMEONE CONTACTED YOU ABOUT YOUR LISTING`, // plain text body
     html: htmlBody, // html body

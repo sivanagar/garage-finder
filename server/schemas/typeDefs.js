@@ -91,7 +91,7 @@ const typeDefs = gql`
       rate: Float
       climateControl: Boolean
     ): Listing
-    contactHost(hostUsername: String, listingId: ID, message: String): String
+    contactHost(hostUsername: String!, listingId: ID!, message: String!): String
   }
 `;
 
