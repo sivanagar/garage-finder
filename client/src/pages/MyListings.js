@@ -1,7 +1,9 @@
+import { useQuery } from "@apollo/client";
 import { Flex, Heading } from "@chakra-ui/react";
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import MyListing from "../components/MyListing";
 import Auth from "../utils/auth";
+import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const listingsData = [
   {
@@ -49,6 +51,13 @@ const listingsData = [
 ];
 
 const MyListings = () => {
+  const { username: userParam } = useParams();
+
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
+  const user = data?.me || data?.user || {};
+
   if (!Auth.loggedIn()) {
     return <Redirect to="/login" />;
   }
@@ -65,7 +74,7 @@ const MyListings = () => {
         justifyContent="center"
         alignItems="flex-start"
       >
-        {listingsData.map((listing) => (
+        {user.listings.map((listing) => (
           <MyListing key={listing._id} listing={listing} />
         ))}
       </Flex>

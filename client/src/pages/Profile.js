@@ -32,7 +32,7 @@ const Profile = () => {
     return <Redirect to="/profile" />;
   }
   const user = data?.me || data?.user || {};
-  console.log(user);
+  
 
   function handleClickCreateListing() {
     history.push(`/searchCreate`);
