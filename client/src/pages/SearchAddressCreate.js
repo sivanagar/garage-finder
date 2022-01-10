@@ -1,21 +1,23 @@
-import { Box, Button, Center, FormControl, Heading } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
-import SearchAutoComplete from "../components/SearchAutoComplete";
+import { Box, Button, Center, FormControl, Heading } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import SearchAutoComplete from '../components/SearchAutoComplete';
+import Auth from '../utils/auth';
 
 const SearchAddressCreate = () => {
+  const loggedIn = Auth.loggedIn();
   const history = useHistory();
   //Manage state address error
   const [addressError, setAddressError] = useState(true);
   //Manage state for search address result
   const [addressResult, setAddressResult] = useState({
-    address: "",
+    address: '',
     addressLine1: null,
     city: null,
     state: null,
     zip: null,
     location: {
-      type: "Point",
+      type: 'Point',
       coordinates: [0, 0],
     },
   });
@@ -35,12 +37,16 @@ const SearchAddressCreate = () => {
   }, [addressResult]);
 
   function handleClick() {
-    console.log("addressResult", addressResult);
+    console.log('addressResult', addressResult);
 
     history.push({
-      pathname: "/createListing",
+      pathname: '/createListing',
       state: { addressResult },
     });
+  }
+
+  if (!loggedIn) {
+    history.push('/login');
   }
 
   return (
