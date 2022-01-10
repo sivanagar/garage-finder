@@ -49,7 +49,7 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
-      if ((distance = 0)) {
+      if (distance !== 0) {
         params.location = {
           $near: {
             $maxDistance: distance, //distance in meters
