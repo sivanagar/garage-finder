@@ -81,7 +81,9 @@ const typeDefs = gql`
       location: locationInput!
     ): Listing
     updateListing(
-      address: String
+      _id: ID!
+      active: Boolean
+      title: String
       type: String
       accessType: String
       height: Float

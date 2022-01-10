@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_LISTING } from '../utils/queries';
 import Auth from '../utils/auth';
 import {
@@ -17,11 +17,14 @@ import {
   Switch,
   Textarea,
 } from '@chakra-ui/react';
+import { EDIT_LISTING } from '../utils/mutations';
 
 const spaceTypes = ['garage', 'shed', 'basement', 'attic'];
 const accessTypes = ['24hr', 'scheduled'];
 
 const EditListing = () => {
+  const history = useHistory();
+  const [editListing, { error }] = useMutation(EDIT_LISTING);
   const { id: listingId } = useParams();
   const loggedIn = Auth.loggedIn();
   const { data, loading } = useQuery(QUERY_LISTING, {
@@ -30,42 +33,13 @@ const EditListing = () => {
     },
   });
 
-  const [formState, setFormState] = useState({
-    title: '',
-    description: '',
-    price: '',
-    type: '',
-    height: '',
-    width: '',
-    depth: '',
-    address: '',
-    climateControl: '',
-    accessType: '',
-    rate: '',
-  });
+  const [formState, setFormState] = useState({});
 
   const listing = data ? data.listing : {};
-  console.log('listing', listing);
   const listingOwner = loggedIn
     ? Auth.getProfile().data.username === listing.username
     : false;
 
-  // if (listing !== {}) {
-  //   console.log('valid listing');
-  //   setFormState({
-  //     title: listing.title,
-  //     description: listing.description,
-  //     price: listing.price,
-  //     type: listing.type,
-  //     height: listing.height,
-  //     width: listing.width,
-  //     depth: listing.depth,
-  //     address: listing.address,
-  //     climateControl: listing.climateControl,
-  //     accessType: listing.accessType,
-  //     rate: listing.rate,
-  //   });
-  // }
   if (!listingOwner) {
     return <p>You are not authorized to edit this listing</p>;
   }
@@ -73,11 +47,41 @@ const EditListing = () => {
   if (!listing) return <p>Listing not found</p>;
 
   const handleChange = (event) => {
-    event.preventDefault();
-    console.log(event.target.name);
+    const { name, value } = event.target;
+    if (name === 'climateControl') {
+      setFormState({
+        ...formState,
+        [name]: event.target.checked,
+      });
+    } else if (
+      name === 'width' ||
+      name === 'height' ||
+      name === 'depth' ||
+      name === 'rate'
+    ) {
+      setFormState({
+        ...formState,
+        [name]: Number(value),
+      });
+    } else {
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
+    }
   };
   const handleFormSubmit = async (event) => {
-    console.log(event.target.name);
+    event.preventDefault();
+    try {
+      const { data } = await editListing({
+        variables: { ...formState, _id: listingId },
+      });
+      if (data) {
+        history.push('/profile');
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
   return (
     <Flex
@@ -101,28 +105,27 @@ const EditListing = () => {
         <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <FormControl mb="6">
             <Input
-              placeholder="Title"
+              placeholder={listing.title}
               name="title"
               type="text"
               id="title"
               size="lg"
               _placeholder={{ color: 'primary' }}
               _focus={{ color: 'primary', borderColor: 'primary' }}
-              value={listing.title}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl mb="6">
             <Input
-              placeholder="Address"
+              placeholder={listing.address}
               name="address"
               type="text"
               id="address"
               size="lg"
               _placeholder={{ color: 'primary' }}
               _focus={{ color: 'primary', borderColor: 'primary' }}
-              value={listing.address}
-              onChange={handleChange}
+              // value={listing.address}
+              // onChange={handleChange}
               //should be disabled for edits
             />
           </FormControl>
@@ -132,7 +135,7 @@ const EditListing = () => {
               id="type"
               name="type"
               size="lg"
-              value={listing.type}
+              placeholder={listing.type}
               onChange={handleChange}
               color="primary"
               _active={{ color: 'primary', borderColor: 'primary' }}
@@ -150,7 +153,7 @@ const EditListing = () => {
               id="accessType"
               name="accessType"
               size="lg"
-              value={listing.accessType}
+              placeholder={listing.accessType}
               onChange={handleChange}
               color="primary"
               _active={{ color: 'primary', borderColor: 'primary' }}
@@ -179,7 +182,6 @@ const EditListing = () => {
           <HStack mb="6">
             <FormControl>
               <Input
-                placeholder="Height (FT)"
                 name="height"
                 type="number"
                 textAlign="right"
@@ -187,13 +189,12 @@ const EditListing = () => {
                 size="lg"
                 _placeholder={{ color: 'primary' }}
                 _focus={{ color: 'primary', borderColor: 'primary' }}
-                value={listing.height}
+                placeholder={listing.height}
                 onChange={handleChange}
               />
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Width (FT)"
                 name="width"
                 type="number"
                 textAlign="right"
@@ -201,13 +202,12 @@ const EditListing = () => {
                 size="lg"
                 _focus={{ color: 'primary', borderColor: 'primary' }}
                 _placeholder={{ color: 'primary' }}
-                value={listing.width}
+                placeholder={listing.width}
                 onChange={handleChange}
               />
             </FormControl>
             <FormControl>
               <Input
-                placeholder="Depth (FT)"
                 name="depth"
                 type="number"
                 textAlign="right"
@@ -215,7 +215,7 @@ const EditListing = () => {
                 size="lg"
                 _focus={{ color: 'primary', borderColor: 'primary' }}
                 _placeholder={{ color: 'primary' }}
-                value={listing.depth}
+                placeholder={listing.depth}
                 onChange={handleChange}
               />
             </FormControl>
@@ -223,7 +223,6 @@ const EditListing = () => {
 
           <FormControl mb="6">
             <Input
-              placeholder="Monthly Rate"
               name="rate"
               type="number"
               id="rate"
@@ -231,20 +230,19 @@ const EditListing = () => {
               textAlign="right"
               _focus={{ color: 'primary', borderColor: 'primary' }}
               _placeholder={{ color: 'primary' }}
-              value={listing.rate}
+              placeholder={listing.rate}
               onChange={handleChange}
             />
           </FormControl>
           <FormControl mb="6">
             <Textarea
-              placeholder="Description"
               name="description"
               id="description"
               size="lg"
               h={[100, 150]}
               _focus={{ color: 'primary', borderColor: 'primary' }}
               _placeholder={{ color: 'primary' }}
-              value={listing.description}
+              placeholder={listing.description}
               onChange={handleChange}
             />
           </FormControl>
