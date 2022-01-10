@@ -17,6 +17,7 @@ export const QUERY_ME = gql`
       username
       email
       listings {
+        title
         _id
         address
         type
@@ -41,6 +42,7 @@ export const QUERY_LISTING = gql`
   query listing($_id: ID!) {
     listing(_id: $_id) {
       _id
+      title
       address
       type
       accessType

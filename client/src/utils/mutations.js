@@ -71,8 +71,10 @@ export const ADD_LISTING = gql`
   }
 `;
 export const EDIT_LISTING = gql`
-  mutation editListing(
-    $address: String
+  mutation updateListing(
+    $_id: ID!
+    $active: Boolean
+    $title: String
     $type: String
     $accessType: String
     $height: Float
@@ -82,8 +84,10 @@ export const EDIT_LISTING = gql`
     $rate: Float
     $climateControl: Boolean
   ) {
-    editListing(
-      address: $address
+    updateListing(
+      _id: $_id
+      active: $active
+      title: $title
       type: $type
       accessType: $accessType
       height: $height
@@ -94,6 +98,8 @@ export const EDIT_LISTING = gql`
       climateControl: $climateControl
     ) {
       _id
+      title
+      active
       address
       type
       accessType
