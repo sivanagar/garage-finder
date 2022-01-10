@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
+import GoogleApiWrapper from '../components/Map/';
 
 import {
   Box,
@@ -13,7 +14,6 @@ import {
   Text,
   SimpleGrid,
   GridItem,
-  Image,
 } from '@chakra-ui/react';
 import ContactHost from '../components/ContactHost';
 import { useParams } from 'react-router-dom';
@@ -141,7 +141,7 @@ const SingleListing = () => {
             </GridItem>
             <GridItem colSpan="2">
               {/* <p>{listing.location.coordinates}</p> */}
-              <Image src="../../../map_placeholder.png" />
+              <GoogleApiWrapper listings={[listing]} />
             </GridItem>
           </SimpleGrid>
         </VStack>
