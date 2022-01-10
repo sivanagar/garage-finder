@@ -5,8 +5,8 @@ import Auth from '../utils/auth';
 
 import {
   Box,
+  Grid,
   Button,
-  Container,
   Flex,
   VStack,
   Heading,
@@ -14,6 +14,7 @@ import {
   SimpleGrid,
   GridItem,
   Image,
+  useColorMode,
 } from '@chakra-ui/react';
 import ContactHost from '../components/ContactHost';
 import { useParams } from 'react-router-dom';
@@ -22,7 +23,7 @@ import { QUERY_LISTING } from '../utils/queries';
 const SingleListing = () => {
   const loggedIn = Auth.loggedIn();
   const history = useHistory();
-
+  const { colorMode, toggleColorMode } = useColorMode();
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
     variables: {
@@ -44,27 +45,73 @@ const SingleListing = () => {
     });
   }
   return (
-    <Container maxW="container.xl">
-      <Flex h="200vh" py={2} px={2}>
+      <Flex h="200vh" py={2} px={2}
+          direction={['column', 'row']}
+          justify={['center', 'flex-start']}
+          alignItems={['center', 'flex-start']}>
         <VStack
           w="full"
           h="full"
-          p={10}
+          p={3}
           spacing={5}
-          alignItems="flex-start"
-          bg="gray.50"
         >
-          <VStack alignItems="flex-start">
-            <Heading size="2xl">{listing.title}</Heading>
-            <Text>{listing.description}</Text>
-          </VStack>
-          <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
+          <Flex 
+                direction={['column', 'row']}
+                justify={['left', 'flex-start']}
+                alignItems={['center', 'flex-start']}>
+            <Grid 
+              columns={2} 
+              columnGap={3} 
+              rowGap={1} 
+              w="full"
+              templateRows='repeat(1, 1fr)'
+              templateColumns='repeat(5, 1fr)'>
+              <GridItem colSpan={1} w="full" colSpan="30%" py="0">
+                <Box display="flex" justifyContent="flex-start">
+                  {listing.type === "basement" ? (
+                    <Image
+                    objectFit="cover"
+                    src="../../../basement.png"
+                    alt={listing.type}
+                    />
+                    ) : listing.type === "attic" ? (
+                    <Image
+                    objectFit="cover"
+                    src="../../../attic.png"
+                    alt={listing.type}
+                    />
+                    ) : listing.type === "garage" ? (
+                      <Image
+                      objectFit="cover"
+                      src="../../../garage.png"
+                      alt={listing.type}
+                    />
+                    ) : listing.type === "shed" ? (
+                      <Image
+                      objectFit="cover"
+                      src="../../../shed.svg"
+                      alt={listing.type}
+                    />
+                    ) : (
+                      <p>Unknown listing type</p>
+                    )}
+                </Box>
+                </GridItem>
+                <GridItem colSpan={4} >
+                  <Heading size="sm" colo={colorMode === "light" ? "titlelight" : "titledark"}>{listing.title}</Heading>
+                </GridItem>
+            </Grid>
+            </Flex>
+            <GridItem colSpan={1} py="0">
+              <Text>{listing.description}</Text>
+            </GridItem>
+          <SimpleGrid columns={2} columnGap={3} rowGap={1} w="full" py="0">
             <GridItem colSpan={1}>
               <Box display="flex" justifyContent="flex-end">
-                Distance:
+                Type:
               </Box>
             </GridItem>
-            <GridItem colSpan={1}>distance placeholder</GridItem>
+            <GridItem colSpan={1}>{listing.type}</GridItem>
             <GridItem colSpan={1}>
               <Box display="flex" justifyContent="flex-end">
                 Address:
@@ -103,25 +150,24 @@ const SingleListing = () => {
             <GridItem colSpan={1}>{listing.climateControl}</GridItem>
             <GridItem colSpan={1}>
               <Box display="flex" justifyContent="flex-end">
-                Type:
-              </Box>
-            </GridItem>
-            <GridItem colSpan={1}>{listing.type}</GridItem>
-            <GridItem colSpan={1}>
-              <Box display="flex" justifyContent="flex-end">
-                Access:
+              Access:
               </Box>
             </GridItem>
             <GridItem colSpan={1}>{listing.accessType}</GridItem>
+            <GridItem colSpan={1}>
+              <Box display="flex" justifyContent="flex-end">
+                Distance:
+              </Box>
+            </GridItem>
+            <GridItem colSpan={1}>distance placeholder</GridItem>
           </SimpleGrid>
         </VStack>
         <VStack
           w="full"
           h="full"
-          p={10}
+          p={3}
           spacing={10}
           alignItems="flex-start"
-          bg="gray.50"
         >
           <SimpleGrid columns={2} columnGap={3} rowGap={6} w="full">
             <GridItem colSpan="2">
@@ -146,7 +192,6 @@ const SingleListing = () => {
           </SimpleGrid>
         </VStack>
       </Flex>
-    </Container>
   );
 };
 
