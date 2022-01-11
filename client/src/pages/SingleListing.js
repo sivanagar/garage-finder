@@ -24,7 +24,7 @@ import { QUERY_LISTING } from '../utils/queries';
 const SingleListing = () => {
   const loggedIn = Auth.loggedIn();
   const history = useHistory();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const { id: listingId } = useParams();
   const { data, loading } = useQuery(QUERY_LISTING, {
     variables: {
@@ -70,25 +70,25 @@ const SingleListing = () => {
           >
             <GridItem colSpan={1} w="full" colSpan="30%" py="0">
               <Box display="flex" justifyContent="flex-start">
-                {listing.type === 'basement' ? (
+                {listing.type === 'Basement' ? (
                   <Image
                     objectFit="cover"
                     src="../../../basement.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'attic' ? (
+                ) : listing.type === 'Attic' ? (
                   <Image
                     objectFit="cover"
                     src="../../../attic.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'garage' ? (
+                ) : listing.type === 'Garage' ? (
                   <Image
                     objectFit="cover"
                     src="../../../garage.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'shed' ? (
+                ) : listing.type === 'Shed' ? (
                   <Image
                     objectFit="cover"
                     src="../../../shed.svg"

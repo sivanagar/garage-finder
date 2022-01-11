@@ -26,6 +26,7 @@ const Header = () => {
       fontWeight="semibold"
       direction={["column", "row"]}
       justify="space-between"
+      w="100%"
     >
       <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
         <Image

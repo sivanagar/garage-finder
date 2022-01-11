@@ -12,17 +12,19 @@ import {
   Select,
   Switch,
   Textarea,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { ADD_LISTING } from "../utils/mutations";
 
-const spaceTypes = ["garage", "shed", "basement", "attic"];
-const accessTypes = ["24hr", "scheduled"];
+const spaceTypes = ["Garage", "Shed", "Basement", "Attic"];
+const accessTypes = ["24hr", "Scheduled"];
 
 const CreateListing = () => {
   const history = useHistory();
   const location = useLocation();
+  const { colorMode } = useColorMode();
 
   //set the form values
   const [formState, setFormState] = useState({
@@ -114,7 +116,7 @@ const CreateListing = () => {
         p={[4, 10]}
       >
         <Flex mb="6" justify="center">
-          <Heading>Create Listing</Heading>
+          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Listing Profile</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
           <FormControl mb="6">
@@ -236,7 +238,7 @@ const CreateListing = () => {
           </FormControl>
           <FormControl display="flex" alignItems="center" my="4">
             <FormLabel htmlFor="climateControl" mb="0">
-              Climate Control?
+              Climate Controled
             </FormLabel>
             <Switch
               colorScheme="purple"
@@ -328,7 +330,7 @@ const CreateListing = () => {
               mr="2"
               onClick={() => history.push("/searchCreate")}
             >
-              Change Address
+              Edit Address
             </Button>
             <Button variant="primary" type="submit" size="lg">
               Submit

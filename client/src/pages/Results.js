@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Flex, Heading, Link } from '@chakra-ui/react';
+import { Flex, Heading, Link, useColorMode } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Result from '../components/Result';
@@ -9,6 +9,7 @@ import GoogleApiWrapper from '../components/Map/';
 const Resutls = (props) => {
   const location = useLocation();
   console.log('location: ', location);
+  const { colorMode } = useColorMode();
 
   const searchedLocation = {
     lat: location.state.addressResult.location.coordinates[1],
@@ -37,7 +38,7 @@ const Resutls = (props) => {
 
   return (
     <>
-      <Heading mt="10" mb="4">
+      <Heading mt="10" mb="4" color={colorMode === 'light' ? "tertiarydark" : "white"}>
         Results
       </Heading>
       <Flex w={[300, 400]} mb="2" direction="row" justifyContent="space-around">

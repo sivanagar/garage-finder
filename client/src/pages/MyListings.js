@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading, useColorMode } from "@chakra-ui/react";
 import { Redirect, useParams } from "react-router-dom";
 import MyListing from "../components/MyListing";
 import Auth from "../utils/auth";
@@ -7,6 +7,7 @@ import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const MyListings = () => {
   const { username: userParam } = useParams();
+  const { colorMode } = useColorMode();
 
   const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam },
@@ -21,7 +22,7 @@ const MyListings = () => {
 
   return (
     <>
-      <Heading mt="10" mb="5">
+      <Heading mt="10" mb="5" color={colorMode === 'light' ? "tertiarydark" : "white"}>
         My Listing
       </Heading>
       <Flex

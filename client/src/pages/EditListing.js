@@ -16,13 +16,15 @@ import {
   Select,
   Switch,
   Textarea,
+  useColorMode
 } from '@chakra-ui/react';
 import { EDIT_LISTING } from '../utils/mutations';
 
-const spaceTypes = ['garage', 'shed', 'basement', 'attic'];
+const spaceTypes = ['Garage', 'Shed', 'Basement', 'Attic'];
 const accessTypes = ['24hr', 'scheduled'];
 
 const EditListing = () => {
+  const { colorMode } = useColorMode();
   const history = useHistory();
   const [editListing, { error }] = useMutation(EDIT_LISTING);
   const { id: listingId } = useParams();
@@ -100,7 +102,7 @@ const EditListing = () => {
         p={[4, 10]}
       >
         <Flex mb="6" justify="center">
-          <Heading>Edit Listing</Heading>
+          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Edit Listing</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <FormControl mb="6">

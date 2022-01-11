@@ -1,10 +1,12 @@
-import { Box, Button, Center, FormControl, Heading } from '@chakra-ui/react';
+import { Box, Button, Center, FormControl, Heading, useColorMode } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import SearchAutoComplete from '../components/SearchAutoComplete';
 import Auth from '../utils/auth';
 
 const SearchAddressCreate = () => {
+
+  const { colorMode } = useColorMode();
   const loggedIn = Auth.loggedIn();
   const history = useHistory();
   //Manage state address error
@@ -37,6 +39,7 @@ const SearchAddressCreate = () => {
   }, [addressResult]);
 
   function handleClick() {
+    
     console.log('addressResult', addressResult);
 
     history.push({
@@ -52,7 +55,7 @@ const SearchAddressCreate = () => {
   return (
     <Box w="100%" mt="20">
       <Center>
-        <Heading mb="6">Search for an address to create a space</Heading>
+        <Heading mb="6" color={colorMode === 'light' ? "tertiarydark" : "white"}>Search for an address to create a space</Heading>
       </Center>
       <FormControl mb="6">
         <SearchAutoComplete setResult={setAddressResult} />
