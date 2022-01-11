@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Text,
+  useColorMode
 } from "@chakra-ui/react";
 import React from "react";
 import {
@@ -21,6 +22,8 @@ import Auth from "../utils/auth";
 import { QUERY_ME, QUERY_USER } from "../utils/queries";
 
 const Profile = () => {
+
+  const { colorMode } = useColorMode();
   const history = useHistory();
   const { username: userParam } = useParams();
 
@@ -97,7 +100,7 @@ const Profile = () => {
               justify="center"
               direction="column"
             >
-              <Heading>My Listings</Heading>
+              <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>My Listings</Heading>
               <Flex
                 w="100%"
                 direction="row"

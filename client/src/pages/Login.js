@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { LockIcon } from "@chakra-ui/icons";
+import { LockIcon} from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   Heading,
   Image,
   Input,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Auth from "../utils/auth";
@@ -18,7 +19,7 @@ import { LOGIN_USER } from "../utils/mutations";
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
   const [login, { error }] = useMutation(LOGIN_USER);
-
+  const { colorMode } = useColorMode();
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -63,8 +64,10 @@ const Login = (props) => {
   };
 
   return (
+
     <Flex w={[300, 400]} direction="column" alignItems="center" mt="5">
       <Box
+
         borderWidth="1px"
         borderColor="primary"
         borderRadius="lg"
@@ -72,11 +75,11 @@ const Login = (props) => {
         w="100%"
         p={[4]}
       >
-        <Center>
-          <Image w="160px" src="../../../cache_logo_purple.svg" mb="10" />
+          <Center>
+          <Image w="80px" src={colorMode === 'light' ? "../../../H_dark_purple.svg" : "../../../H.svg"} mb="10" />
         </Center>
         <Flex mb="1" justify="center">
-          <Heading>Login</Heading>
+          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Welcome to Cache</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
           <FormControl mb="6" isInvalid={isEmailError}>

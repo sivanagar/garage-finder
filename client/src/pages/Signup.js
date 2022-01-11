@@ -11,6 +11,7 @@ import {
   Heading,
   Image,
   Input,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Auth from "../utils/auth";
@@ -26,8 +27,8 @@ const Signup = () => {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isUsernameError, setIsUsernameError] = useState(false);
   const [errorMesage, setErrorMessage] = useState("");
-
   const [addUser] = useMutation(ADD_USER);
+  const { colorMode } = useColorMode();
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -93,10 +94,10 @@ const Signup = () => {
         p={[4]}
       >
         <Center>
-          <Image w="160px" src="../../../cache_logo_purple.svg" mb="10" />
+        <Image w="80px" src={colorMode === 'light' ? "../../../H_dark_purple.svg" : "../../../H.svg"} mb="10" />
         </Center>
         <Flex mb="6" justify="center">
-          <Heading>Signup</Heading>
+          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Sign up</Heading>
         </Flex>
         <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
           <FormControl mb="6" isInvalid={isUsernameError}>

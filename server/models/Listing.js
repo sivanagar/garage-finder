@@ -13,7 +13,7 @@ const listingSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ["garage", "shed", "basement", "attic"],
+      enum: ["Garage", "Shed", "Basement", "Attic"],
     },
     accessType: {
       type: String,

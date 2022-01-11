@@ -75,9 +75,12 @@ const Home = () => {
 
   return (
     <>
+    <Center>
       <Flex w="100%" mt="20" justify={['center', 'flex-start']}>
-        <Heading>Get your space now </Heading>
+        <Heading>Featured Spaces</Heading>
       </Flex>
+    </Center>
+    <Center>
       <Flex
         w="100%"
         mt="4"
@@ -89,9 +92,10 @@ const Home = () => {
           <ResultHome result={listing} key={listing._id} />
         ))}
       </Flex>
+      </Center>
       <Box w="100%" mt="20">
         <Center mb="2">
-          <Heading>Find a space</Heading>
+          <Heading>Find a Space</Heading>
         </Center>
         <SearchAutoComplete setResult={setAddressResult} />
         <Center mt="4">
@@ -120,10 +124,8 @@ const Home = () => {
           bgGradient="url('https://sanfrancisco.cbslocal.com/wp-content/uploads/sites/15116056/2015/03/cnn-single-mom-garage.jpg?w=701')"
           bgSize="cover"
         >
-          <Flex w="100%" justify="flex-start" p="4">
-            <Heading color="white">You need aditional space</Heading>
-          </Flex>
-          <Flex w="100%" justify="flex-end">
+          <Center>
+          <Flex w="100%" justify="flex-end" alignContent="bottom">
             <Button
               as={ReactLink}
               to="search"
@@ -134,6 +136,7 @@ const Home = () => {
               I need to rent space
             </Button>
           </Flex>
+          </Center>
         </Box>
         <Box
           minW={[300, '50%']}
@@ -148,9 +151,7 @@ const Home = () => {
           bgGradient="url('https://cdn.motor1.com/images/mgl/b0ql3/s1/4x3/gearhead-home-offers-6-car-garage-with-bonus-room-for-under-400k.webp')"
           bgSize="cover"
         >
-          <Flex w="100%" justify="flex-start" p="4">
-            <Heading color="white">I Have Extra Space at home</Heading>
-          </Flex>
+          <Center>
           <Flex w="100%" justify="flex-end">
             <Button
               as={ReactLink}
@@ -162,6 +163,7 @@ const Home = () => {
               I have space to rent
             </Button>
           </Flex>
+          </Center>
         </Box>
       </Flex>
     </>

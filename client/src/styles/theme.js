@@ -14,7 +14,7 @@ export const myTheme = extendTheme({
     backgroundlight: "#303473",
     primarydark: "#514EA6",
     secondarydark: "#303473",
-    tertiarydark: "##5B5FA6",
+    tertiarydark: "#5B5FA6",
     titledark: "#A0A9D9",
     warningdark: "#FFC75F",
     successdark: "#4caf50",
