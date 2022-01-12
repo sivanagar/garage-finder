@@ -46,7 +46,7 @@ export class MapContainer extends Component {
       <Map
         google={this.props.google}
         zoom={9}
-        style={mapStyles}
+        // style={mapStyles}
         initialCenter={this.props.searchLocation || centerMap}
       >
         {this.props.searchLocation && (

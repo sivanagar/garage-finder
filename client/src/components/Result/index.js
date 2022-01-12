@@ -1,9 +1,9 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { useHistory } from "react-router-dom";
+import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
 const Result = ({ result }) => {
   const history = useHistory();
   function handleClick(result) {
-    console.log("clicked", result);
+    console.log('clicked', result);
     history.push({
       pathname: `/listing/${result._id}`,
     });
@@ -19,8 +19,8 @@ const Result = ({ result }) => {
       cursor="pointer"
       boxShadow="lg"
       _hover={{
-        background: "gray.50",
-        color: "purple.500",
+        background: 'gray.50',
+        color: 'purple.500',
       }}
     >
       <Flex justify="space-between">
@@ -28,25 +28,25 @@ const Result = ({ result }) => {
       </Flex>
       <Flex justify="space-between">
         <Box w="16" h="16" display="flex" justifyContent="flex-start">
-          {result.type === "Basement" ? (
+          {result.type === 'Basement' ? (
             <Image
               objectFit="cover"
               src="../../../basement.png"
               alt={result.type}
             />
-          ) : result.type === "Attic" ? (
+          ) : result.type === 'Attic' ? (
             <Image
               objectFit="cover"
               src="../../../attic.png"
               alt={result.type}
             />
-          ) : result.type === "Garage" ? (
+          ) : result.type === 'Garage' ? (
             <Image
               objectFit="cover"
               src="../../../garage.png"
               alt={result.type}
             />
-          ) : result.type === "Shed" ? (
+          ) : result.type === 'Shed' ? (
             <Image
               objectFit="cover"
               src="../../../shed.svg"
