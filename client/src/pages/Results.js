@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Flex, Heading, Link, useColorMode } from '@chakra-ui/react';
+import { Flex, Heading, useColorMode } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Result from '../components/Result';
@@ -30,23 +30,18 @@ const Resutls = (props) => {
   }, [location]);
   const results = data ? data.listings : [];
 
-  function handleSort(sortBy) {
-    console.log('sortBy', sortBy);
-  }
-
   if (loading) return <div>Loading...</div>;
 
   return (
     <>
-      <Heading mt="10" mb="4" color={colorMode === 'light' ? "tertiarydark" : "white"}>
+      <Heading
+        mt="10"
+        mb="4"
+        color={colorMode === 'light' ? 'tertiarydark' : 'white'}
+      >
         Results
       </Heading>
-      <Flex w={[300, 400]} mb="2" direction="row" justifyContent="space-around">
-        <Link onClick={() => handleSort('price')}>Price</Link>
-        <Link onClick={() => handleSort('size')}>Size</Link>
-        <Link onClick={() => handleSort('distance')}>Distance</Link>
-        <Link>View Map</Link>
-      </Flex>
+      {results.length === 0 && <Heading>No results found</Heading>}
       <Flex w="100%">
         <Flex
           w="50%"
@@ -60,10 +55,12 @@ const Resutls = (props) => {
             <Result key={result._id} result={result} />
           ))}
         </Flex>
-        <GoogleApiWrapper
-          listings={results}
-          searchLocation={searchedLocation}
-        />
+        {results.length > 0 && (
+          <GoogleApiWrapper
+            listings={results}
+            searchLocation={searchedLocation}
+          />
+        )}
       </Flex>
     </>
   );

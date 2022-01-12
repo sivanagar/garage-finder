@@ -69,33 +69,58 @@ const SingleListing = () => {
           >
             <GridItem colSpan={1} w="full" colSpan="30%" py="0">
               <Box display="flex" justifyContent="flex-start">
-                {listing.type === 'basement' ? (
+                <Image
+                  objectFit="cover"
+                  src={
+                    colorMode === 'light'
+                      ? `../../../${listing.type}_indigo.svg`
+                      : `../../../${listing.type}_periwinkle.svg`
+                  }
+                  alt={listing.type}
+                />
+                {/* {listing.type === 'basement' ? (
                   <Image
                     objectFit="cover"
-                    src={colorMode === 'light' ? "../../../basement_indigo.svg" : "../../../basement_periwinkle.svg"}
+                    src={
+                      colorMode === 'light'
+                        ? '../../../basement_indigo.svg'
+                        : '../../../basement_periwinkle.svg'
+                    }
                     alt={listing.type}
                   />
-                ) : listing.type === 'attic' ? (
+                ) : listing.type.toLowerCase() === 'attic' ? (
                   <Image
                     objectFit="cover"
-                    src={colorMode === 'light' ? "../../../attic_indigo.svg" : "../../../attic_periwinkle.svg"}
+                    src={
+                      colorMode === 'light'
+                        ? '../../../attic_indigo.svg'
+                        : '../../../attic_periwinkle.svg'
+                    }
                     alt={listing.type}
                   />
-                ) : listing.type === 'garage' ? (
+                ) : listing.type.toLowerCase() === 'garage' ? (
                   <Image
                     objectFit="cover"
-                    src={colorMode === 'light' ? "../../../garage_indigo.svg" : "../../../garage_periwinkle.svg"}
+                    src={
+                      colorMode === 'light'
+                        ? '../../../garage_indigo.svg'
+                        : '../../../garage_periwinkle.svg'
+                    }
                     alt={listing.type}
                   />
-                ) : listing.type === 'shed' ? (
+                ) : listing.type.toLowerCase() === 'shed' ? (
                   <Image
                     objectFit="cover"
-                    src={colorMode === 'light' ? "../../../shed_indigo.svg" : "../../../shed_periwinkle.svg"}
+                    src={
+                      colorMode === 'light'
+                        ? '../../../shed_indigo.svg'
+                        : '../../../shed_periwinkle.svg'
+                    }
                     alt={listing.type}
                   />
                 ) : (
                   <p>Unknown listing type</p>
-                )}
+                )} */}
               </Box>
             </GridItem>
             <GridItem colSpan={4}>
@@ -129,8 +154,11 @@ const SingleListing = () => {
               Dimensions:
             </Box>
           </GridItem>
-          <GridItem colSpan={1}> {listing.height} x {listing.width} x {listing.depth} ft</GridItem>
-          
+          <GridItem colSpan={1}>
+            {' '}
+            {listing.height} x {listing.width} x {listing.depth} ft
+          </GridItem>
+
           <GridItem colSpan={1}>
             <Box display="flex" justifyContent="flex-end">
               Rate:

@@ -6,7 +6,7 @@ import { CONTACT_HOST } from '../../utils/mutations';
 
 const ContactHost = ({ listing }) => {
   const listingId = listing._id;
-  const [contactHost, { error }] = useMutation(CONTACT_HOST);
+  const [contactHost] = useMutation(CONTACT_HOST);
   const [message, setText] = useState('');
   const [sentMessage, setMessage] = useState(false);
 
