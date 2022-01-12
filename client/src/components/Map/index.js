@@ -1,4 +1,10 @@
-import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  Link,
+  Spacer,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import React, { Component } from 'react';
 
@@ -77,7 +83,7 @@ export class MapContainer extends Component {
             visible={this.state.showingInfoWindow}
             onClose={this.onClose}
           >
-            <Flex direction="column">
+            <Flex direction="column" color="black">
               <Text>{this.state.selectedPlace.location || ''}</Text>
               <Link href={this.state.selectedPlace.linkUrl}>
                 <Text>{this.state.selectedPlace.linkText}</Text>
