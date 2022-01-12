@@ -1,10 +1,10 @@
-const { Schema, model, Types } = require("mongoose");
+const { Schema, model, Types } = require('mongoose');
 
 const listingSchema = new Schema(
   {
     title: {
       type: String,
-      required: "Title is required",
+      required: 'Title is required',
       trim: true,
     },
     address: {
@@ -13,11 +13,11 @@ const listingSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ["Garage", "Shed", "Basement", "Attic"],
+      enum: ['Garage', 'Shed', 'Basement', 'Attic'],
     },
     accessType: {
       type: String,
-      enum: ["24hr", "scheduled"],
+      enum: ['24hr', 'Scheduled'],
     },
     height: {
       type: Number,
@@ -33,7 +33,7 @@ const listingSchema = new Schema(
     },
     description: {
       type: String,
-      required: "Description is required",
+      required: 'Description is required',
       trim: true,
     },
     rate: {
@@ -55,7 +55,7 @@ const listingSchema = new Schema(
     location: {
       type: {
         type: String,
-        enum: ["Point"],
+        enum: ['Point'],
         required: true,
       },
       coordinates: {
@@ -79,8 +79,8 @@ const listingSchema = new Schema(
 //     }
 //   );
 
-listingSchema.index({ location: "2dsphere" });
+listingSchema.index({ location: '2dsphere' });
 
-const Listing = model("Listing", listingSchema);
+const Listing = model('Listing', listingSchema);
 
 module.exports = Listing;
