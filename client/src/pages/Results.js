@@ -1,10 +1,10 @@
 import { useQuery } from '@apollo/client';
-import { Flex, Heading, useColorMode } from '@chakra-ui/react';
+import { Box, Flex, Heading, useColorMode } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import GoogleApiWrapper from '../components/Map/';
 import Result from '../components/Result';
 import { QUERY_LISTINGS } from '../utils/queries';
-import GoogleApiWrapper from '../components/Map/';
 
 const Resutls = (props) => {
   const location = useLocation();
@@ -34,33 +34,33 @@ const Resutls = (props) => {
 
   return (
     <>
-      <Heading
-        mt="10"
-        mb="4"
-        color={colorMode === 'light' ? 'tertiarydark' : 'white'}
+      <Flex
+        direction={['column', 'row']}
+        justify="flex-start"
+        w="100vw"
+        h={[640, '100vh']}
       >
-        Results
-      </Heading>
-      {results.length === 0 && <Heading>No results found</Heading>}
-      <Flex w="100%">
-        <Flex
-          w="50%"
-          direction="row"
-          wrap="wrap"
-          justifyContent="center"
-          alignItems="center"
-          m="2"
-        >
+        <Box flex="1" display="flex" alignItems="center" flexDirection="column">
+          <Heading
+            m="2"
+            color={colorMode === 'light' ? 'tertiarydark' : 'white'}
+          >
+            Results
+          </Heading>
+          {results.length === 0 && <Heading>No results found</Heading>}
+
           {results.map((result) => (
             <Result key={result._id} result={result} />
           ))}
-        </Flex>
-        {results.length > 0 && (
-          <GoogleApiWrapper
-            listings={results}
-            searchLocation={searchedLocation}
-          />
-        )}
+        </Box>
+        <Box flex="2" bg="tomato">
+          {results.length > 0 && (
+            <GoogleApiWrapper
+              listings={results}
+              searchLocation={searchedLocation}
+            />
+          )}
+        </Box>
       </Flex>
     </>
   );

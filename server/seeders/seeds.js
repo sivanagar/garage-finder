@@ -28,12 +28,12 @@ db.once('open', async () => {
     const title = 'title' + faker.lorem.sentence();
     const address = faker.address.streetAddress();
     const type = faker.random.arrayElement([
-      'garage',
-      'shed',
-      'basement',
-      'attic',
+      'Garage',
+      'Shed',
+      'Basement',
+      'Attic',
     ]);
-    const accessType = faker.random.arrayElement(['24hr', 'scheduled']);
+    const accessType = faker.random.arrayElement(['24hr', 'Scheduled']);
     const height = faker.random.number({ min: 1, max: 20 });
     const width = faker.random.number({ min: 1, max: 20 });
     const depth = faker.random.number({ min: 1, max: 20 });

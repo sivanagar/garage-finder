@@ -16,12 +16,12 @@ const ResultsMap = (props) => {
   });
 
   const results = data ? data.listings : [];
-  console.log('results', results);
+  console.log("results", results);
   const markerInfo = results[0];
-  console.log('markerInfo', markerInfo);
+  console.log("markerInfo", markerInfo);
 
   return (
-    <Flex>
+    <Flex w="100vw" h="100vh">
       <GoogleApiWrapper listings={results} />
     </Flex>
   );
