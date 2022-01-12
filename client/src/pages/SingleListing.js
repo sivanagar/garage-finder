@@ -70,28 +70,28 @@ const SingleListing = () => {
           >
             <GridItem colSpan={1} w="full" colSpan="30%" py="0">
               <Box display="flex" justifyContent="flex-start">
-                {listing.type === 'Basement' ? (
+                {listing.type === 'basement' ? (
                   <Image
                     objectFit="cover"
-                    src="../../../basement.png"
+                    src={colorMode === 'light' ? "../../../basement_indigo.svg" : "../../../basement_periwinkle.svg"}
                     alt={listing.type}
                   />
-                ) : listing.type === 'Attic' ? (
+                ) : listing.type === 'attic' ? (
                   <Image
                     objectFit="cover"
-                    src="../../../attic.png"
+                    src={colorMode === 'light' ? "../../../attic_indigo.svg" : "../../../attic_periwinkle.svg"}
                     alt={listing.type}
                   />
-                ) : listing.type === 'Garage' ? (
+                ) : listing.type === 'garage' ? (
                   <Image
                     objectFit="cover"
-                    src="../../../garage.png"
+                    src={colorMode === 'light' ? "../../../garage_indigo.svg" : "../../../garage_periwinkle.svg"}
                     alt={listing.type}
                   />
-                ) : listing.type === 'Shed' ? (
+                ) : listing.type === 'shed' ? (
                   <Image
                     objectFit="cover"
-                    src="../../../shed.svg"
+                    src={colorMode === 'light' ? "../../../shed_indigo.svg" : "../../../shed_periwinkle.svg"}
                     alt={listing.type}
                   />
                 ) : (
