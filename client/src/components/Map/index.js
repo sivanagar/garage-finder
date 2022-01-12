@@ -1,10 +1,4 @@
-import {
-  Flex,
-  Link,
-  Spacer,
-  Text,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Flex, Link, Spacer, Text, useColorMode } from '@chakra-ui/react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import React, { Component } from 'react';
 
@@ -76,6 +70,11 @@ export class MapContainer extends Component {
               linkUrl={`/listing/${listing._id}`}
               linkText={'View Listing'}
               key={listing._id}
+              icon={{
+                url: '../../../garage_indigo.svg',
+                anchor: new window.google.maps.Point(20, 20),
+                scaledSize: new window.google.maps.Size(30, 30),
+              }}
             />
           ))}
           <InfoWindow
