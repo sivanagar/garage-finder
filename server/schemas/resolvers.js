@@ -1,6 +1,7 @@
 const { User, Listing } = require('../models');
 const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
+const sendContactMessage = require('../utils/sendContactEmail');
 
 const resolvers = {
   Query: {
@@ -16,7 +17,7 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     users: async () => {
-      return User.find().select('-__v -password');
+      return User.find().populate('listings').select('-__v -password');
     },
     user: async (parent, { username }) => {
       return User.findOne({ username })
@@ -28,7 +29,17 @@ const resolvers = {
     },
     listings: async (
       parent,
-      { type, rate, accessType, climateControl, height, width, depth }
+      {
+        type,
+        rate,
+        accessType,
+        climateControl,
+        height,
+        width,
+        depth,
+        location,
+        distance,
+      }
     ) => {
       const params = {};
       type ? (params.type = type) : null;
@@ -38,6 +49,19 @@ const resolvers = {
       height ? (params.height = height) : null;
       width ? (params.width = width) : null;
       depth ? (params.depth = depth) : null;
+      if (distance !== 0) {
+        params.location = {
+          $near: {
+            $maxDistance: distance, //distance in meters
+            $geometry: {
+              type: 'Point',
+              coordinates: location.coordinates,
+            },
+          },
+        };
+      }
+      params.active = true;
+      // location ? (params.location = location) : null;
       return Listing.find(params).sort({ createdAt: -1 });
     },
   },
@@ -81,6 +105,30 @@ const resolvers = {
       }
 
       throw new AuthenticationError('You need to be logged in!');
+    },
+    updateListing: async (parent, args, context) => {
+      if (context.user) {
+        const listing = await Listing.findOneAndUpdate(
+          { _id: args._id },
+          { $set: args },
+          { new: true }
+        );
+
+        return listing;
+      }
+
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    contactHost: async (parent, args, context) => {
+      const listingId = args.listingId;
+      const host = await User.findOne({ username: args.hostUsername });
+
+      const message = args.message;
+      const guest = await User.findOne({
+        username: context.user.username,
+      });
+      const info = await sendContactMessage(message, host, guest, listingId);
+      return info.response;
     },
   },
 };
