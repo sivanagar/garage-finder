@@ -1,9 +1,10 @@
 import { useMutation } from "@apollo/client";
-import { LockIcon} from "@chakra-ui/icons";
+import { LockIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
   Center,
+  Container,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -13,6 +14,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
+import Footer from "../components/Footer";
 import Auth from "../utils/auth";
 import { LOGIN_USER } from "../utils/mutations";
 
@@ -64,56 +66,69 @@ const Login = (props) => {
   };
 
   return (
+    <>
+      <Container maxW="container.lg" centerContent>
+        <Flex w={[300, 400]} direction="column" alignItems="center" mt="5">
+          <Box
+            borderWidth="1px"
+            borderColor="primary"
+            borderRadius="lg"
+            boxShadow="lg"
+            w="100%"
+            p={[4]}
+          >
+            <Center>
+              <Image
+                w="80px"
+                src={
+                  colorMode === "light"
+                    ? "../../../H_dark_purple.svg"
+                    : "../../../H.svg"
+                }
+                mb="10"
+              />
+            </Center>
+            <Flex mb="1" justify="center">
+              <Heading color={colorMode === "light" ? "tertiarydark" : "white"}>
+                Welcome to Cache
+              </Heading>
+            </Flex>
+            <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+              <FormControl mb="6" isInvalid={isEmailError}>
+                <Input
+                  placeholder="Your email"
+                  name="email"
+                  type="email"
+                  id="email"
+                  value={formState.email}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+              <FormControl mb="6" isInvalid={isPasswordError}>
+                <Input
+                  placeholder="Your password"
+                  name="password"
+                  type="password"
+                  id="password"
+                  value={formState.password}
+                  onChange={handleChange}
+                />
+              </FormControl>
 
-    <Flex w={[300, 400]} direction="column" alignItems="center" mt="5">
-      <Box
+              <Center>
+                <Button variant="primary" size="lg" type="submit">
+                  <LockIcon /> Login
+                </Button>
+              </Center>
+            </form>
 
-        borderWidth="1px"
-        borderColor="primary"
-        borderRadius="lg"
-        boxShadow="lg"
-        w="100%"
-        p={[4]}
-      >
-          <Center>
-          <Image w="80px" src={colorMode === 'light' ? "../../../H_dark_purple.svg" : "../../../H.svg"} mb="10" />
-        </Center>
-        <Flex mb="1" justify="center">
-          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Welcome to Cache</Heading>
+            {error && <div>Signup failed</div>}
+          </Box>
         </Flex>
-        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
-          <FormControl mb="6" isInvalid={isEmailError}>
-            <Input
-              placeholder="Your email"
-              name="email"
-              type="email"
-              id="email"
-              value={formState.email}
-              onChange={handleChange}
-            />
-          </FormControl>
-          <FormErrorMessage>Email is required.</FormErrorMessage>
-          <FormControl mb="6" isInvalid={isPasswordError}>
-            <Input
-              placeholder="Your password"
-              name="password"
-              type="password"
-              id="password"
-              value={formState.password}
-              onChange={handleChange}
-            />
-          </FormControl>
-
-          <Center>
-            <Button variant="primary" size="lg" type="submit">
-              <LockIcon /> Login
-            </Button>
-          </Center>
-        </form>
-
-        {error && <div>Signup failed</div>}
-      </Box>
-    </Flex>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

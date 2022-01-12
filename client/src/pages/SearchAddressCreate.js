@@ -1,11 +1,19 @@
-import { Box, Button, Center, FormControl, Heading, useColorMode } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import SearchAutoComplete from '../components/SearchAutoComplete';
-import Auth from '../utils/auth';
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  FormControl,
+  Heading,
+  useColorMode,
+} from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import Footer from "../components/Footer";
+import SearchAutoComplete from "../components/SearchAutoComplete";
+import Auth from "../utils/auth";
 
 const SearchAddressCreate = () => {
-
   const { colorMode } = useColorMode();
   const loggedIn = Auth.loggedIn();
   const history = useHistory();
@@ -13,13 +21,13 @@ const SearchAddressCreate = () => {
   const [addressError, setAddressError] = useState(true);
   //Manage state for search address result
   const [addressResult, setAddressResult] = useState({
-    address: '',
+    address: "",
     addressLine1: null,
     city: null,
     state: null,
     zip: null,
     location: {
-      type: 'Point',
+      type: "Point",
       coordinates: [0, 0],
     },
   });
@@ -39,35 +47,44 @@ const SearchAddressCreate = () => {
   }, [addressResult]);
 
   function handleClick() {
-    
-    console.log('addressResult', addressResult);
+    console.log("addressResult", addressResult);
 
     history.push({
-      pathname: '/createListing',
+      pathname: "/createListing",
       state: { addressResult },
     });
   }
 
   if (!loggedIn) {
-    history.push('/login');
+    history.push("/login");
   }
 
   return (
-    <Box w="100%" mt="20">
-      <Center>
-        <Heading mb="6" color={colorMode === 'light' ? "tertiarydark" : "white"}>Search for an address to create a space</Heading>
-      </Center>
-      <FormControl mb="6">
-        <SearchAutoComplete setResult={setAddressResult} />
-      </FormControl>
-      {!addressError && (
-        <Center>
-          <Button variant="primary" type="button" onClick={handleClick}>
-            Select Address
-          </Button>
-        </Center>
-      )}
-    </Box>
+    <>
+      <Container maxW="container.lg" centerContent>
+        <Box w="100%" mt="20">
+          <Center>
+            <Heading
+              mb="6"
+              color={colorMode === "light" ? "tertiarydark" : "white"}
+            >
+              Search for an address to create a space
+            </Heading>
+          </Center>
+          <FormControl mb="6">
+            <SearchAutoComplete setResult={setAddressResult} />
+          </FormControl>
+          {!addressError && (
+            <Center>
+              <Button variant="primary" type="button" onClick={handleClick}>
+                Select Address
+              </Button>
+            </Center>
+          )}
+        </Box>
+      </Container>
+      <Footer />
+    </>
   );
 };
 
