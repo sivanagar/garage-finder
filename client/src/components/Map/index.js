@@ -1,11 +1,11 @@
-import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import React, { Component } from 'react';
+import { Flex, Link, Spacer, Text } from "@chakra-ui/react";
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
+import React, { Component } from "react";
 
 const mapStyles = {
-  width: '50%',
-  height: '50%',
-  position: 'relative',
+  width: "50%",
+  height: "50%",
+  position: "relative",
 };
 
 // CHANGE TO ADDRESS SEARCHED
@@ -36,8 +36,8 @@ export class MapContainer extends Component {
   };
 
   render() {
-    const listings = this.props.listings || '';
-    console.log('listings', listings);
+    const listings = this.props.listings || "";
+    console.log("listings", listings);
 
     const centerMap = {
       lat: listings[0].location.coordinates[1],
@@ -48,15 +48,15 @@ export class MapContainer extends Component {
       <Flex direction="row" position="relative" h={500} w={1000}>
         <Map
           google={this.props.google}
-          zoom={10}
+          zoom={8}
           style={mapStyles}
           initialCenter={this.props.searchLocation || centerMap}
         >
           <Marker
             onClick={this.onMarkerClick}
-            location={'You Are Here'}
-            linkUrl={'/'}
-            linkText={'Return Home'}
+            location={"You Are Here"}
+            linkUrl={"/"}
+            linkText={"Return Home"}
           />
           {listings.map((listing) => (
             <Marker
@@ -68,7 +68,7 @@ export class MapContainer extends Component {
               }}
               description={listing.description}
               linkUrl={`/listing/${listing._id}`}
-              linkText={'View Listing'}
+              linkText={"View Listing"}
               key={listing._id}
             />
           ))}
@@ -78,12 +78,12 @@ export class MapContainer extends Component {
             onClose={this.onClose}
           >
             <Flex direction="column">
-              <Text>{this.state.selectedPlace.location || ''}</Text>
+              <Text>{this.state.selectedPlace.location || ""}</Text>
               <Link href={this.state.selectedPlace.linkUrl}>
                 <Text>{this.state.selectedPlace.linkText}</Text>
               </Link>
               <Spacer mt={2} />
-              <Text>{this.state.selectedPlace.description || ''}</Text>
+              <Text>{this.state.selectedPlace.description || ""}</Text>
             </Flex>
           </InfoWindow>
         </Map>

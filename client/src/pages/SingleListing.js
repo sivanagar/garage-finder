@@ -1,25 +1,23 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import Auth from '../utils/auth';
-import GoogleApiWrapper from '../components/Map/';
-
+import { useQuery } from "@apollo/client";
 import {
   Box,
-  Grid,
   Button,
   Flex,
-  VStack,
-  Heading,
-  Text,
-  SimpleGrid,
+  Grid,
   GridItem,
+  Heading,
   Image,
+  SimpleGrid,
+  Text,
   useColorMode,
-} from '@chakra-ui/react';
-import ContactHost from '../components/ContactHost';
-import { useParams } from 'react-router-dom';
-import { QUERY_LISTING } from '../utils/queries';
+  VStack,
+} from "@chakra-ui/react";
+import React from "react";
+import { useHistory, useParams } from "react-router-dom";
+import ContactHost from "../components/ContactHost";
+import GoogleApiWrapper from "../components/Map/";
+import Auth from "../utils/auth";
+import { QUERY_LISTING } from "../utils/queries";
 
 const SingleListing = () => {
   const loggedIn = Auth.loggedIn();
@@ -47,18 +45,17 @@ const SingleListing = () => {
   }
   return (
     <Flex
-      h="200vh"
       py={2}
       px={2}
-      direction={['column', 'row']}
-      justify={['center', 'flex-start']}
-      alignItems={['center', 'flex-start']}
+      direction={["column", "row"]}
+      justify={["center", "flex-start"]}
+      alignItems={["center", "flex-start"]}
     >
       <VStack w="full" h="full" p={3} spacing={5}>
         <Flex
-          direction={['column', 'row']}
-          justify={['left', 'flex-start']}
-          alignItems={['center', 'flex-start']}
+          direction={["column", "row"]}
+          justify={["left", "flex-start"]}
+          alignItems={["center", "flex-start"]}
         >
           <Grid
             columns={2}
@@ -70,25 +67,25 @@ const SingleListing = () => {
           >
             <GridItem colSpan={1} w="full" colSpan="30%" py="0">
               <Box display="flex" justifyContent="flex-start">
-                {listing.type === 'Basement' ? (
+                {listing.type === "Basement" ? (
                   <Image
                     objectFit="cover"
                     src="../../../basement.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'Attic' ? (
+                ) : listing.type === "Attic" ? (
                   <Image
                     objectFit="cover"
                     src="../../../attic.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'Garage' ? (
+                ) : listing.type === "Garage" ? (
                   <Image
                     objectFit="cover"
                     src="../../../garage.png"
                     alt={listing.type}
                   />
-                ) : listing.type === 'Shed' ? (
+                ) : listing.type === "Shed" ? (
                   <Image
                     objectFit="cover"
                     src="../../../shed.svg"
@@ -102,7 +99,7 @@ const SingleListing = () => {
             <GridItem colSpan={4}>
               <Heading
                 size="sm"
-                colo={colorMode === 'light' ? 'titlelight' : 'titledark'}
+                colo={colorMode === "light" ? "titlelight" : "titledark"}
               >
                 {listing.title}
               </Heading>

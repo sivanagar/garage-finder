@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useQuery } from "@apollo/client";
 import {
   Box,
   Button,
@@ -7,13 +7,13 @@ import {
   Heading,
   Skeleton,
   Stack,
-} from '@chakra-ui/react';
-import _ from 'lodash';
-import { useState } from 'react';
-import { Link as ReactLink, useHistory } from 'react-router-dom';
-import ResultHome from '../components/ResultHome';
-import SearchAutoComplete from '../components/SearchAutoComplete';
-import { QUERY_LISTINGS } from '../utils/queries';
+} from "@chakra-ui/react";
+import _ from "lodash";
+import { useState } from "react";
+import { Link as ReactLink, useHistory } from "react-router-dom";
+import Result from "../components/Result";
+import SearchAutoComplete from "../components/SearchAutoComplete";
+import { QUERY_LISTINGS } from "../utils/queries";
 
 const Home = () => {
   const history = useHistory();
@@ -23,7 +23,7 @@ const Home = () => {
     state: null,
     zip: null,
     location: {
-      type: 'Point',
+      type: "Point",
       coordinates: [0, 0],
     },
   });
@@ -35,7 +35,7 @@ const Home = () => {
   } = useQuery(QUERY_LISTINGS, {
     variables: {
       location: {
-        type: 'Point',
+        type: "Point",
         coordinates: [-139.4711, -32.5336], //addressResult.location.coordinates,
       },
       distance: 0, //if 0 returns all listings, else need coordinates
@@ -68,30 +68,30 @@ const Home = () => {
 
   function handleClickSearch() {
     history.push({
-      pathname: '/results',
+      pathname: "/results",
       state: { addressResult },
     });
   }
 
   return (
     <>
-    <Center>
-      <Flex w="100%" mt="20" justify={['center', 'flex-start']}>
-        <Heading>Featured Spaces</Heading>
-      </Flex>
-    </Center>
-    <Center>
-      <Flex
-        w="100%"
-        mt="4"
-        direction={['column', 'row']}
-        justify={['center', 'flex-start']}
-        alignItems={['center', 'flex-start']}
-      >
-        {randomListings.map((listing) => (
-          <ResultHome result={listing} key={listing._id} />
-        ))}
-      </Flex>
+      <Center>
+        <Flex w="100%" mt="20" justify={["center", "flex-start"]}>
+          <Heading>Featured Spaces</Heading>
+        </Flex>
+      </Center>
+      <Center>
+        <Flex
+          w="100%"
+          mt="4"
+          direction={["column", "column", "row"]}
+          justify={["center", "flex-start"]}
+          alignItems={["center", "flex-start"]}
+        >
+          {randomListings.map((listing) => (
+            <Result result={listing} key={listing._id} />
+          ))}
+        </Flex>
       </Center>
       <Box w="100%" mt="20">
         <Center mb="2">
@@ -107,12 +107,12 @@ const Home = () => {
       <Flex
         w="100%"
         my="6"
-        direction={['column', 'row']}
-        justify={['center']}
-        alignItems={['center', 'flex-start']}
+        direction={["column", "row"]}
+        justify={["center"]}
+        alignItems={["center", "flex-start"]}
       >
         <Box
-          minW={[300, '50%']}
+          minW={[300, "50%"]}
           minH={[300]}
           borderWidth="1px"
           borderRadius="lg"
@@ -125,21 +125,21 @@ const Home = () => {
           bgSize="cover"
         >
           <Center>
-          <Flex w="100%" justify="flex-end" alignContent="bottom">
-            <Button
-              as={ReactLink}
-              to="search"
-              variant="primary"
-              m="4"
-              size="lg"
-            >
-              I need to rent space
-            </Button>
-          </Flex>
+            <Flex w="100%" justify="flex-end" alignContent="bottom">
+              <Button
+                as={ReactLink}
+                to="search"
+                variant="primary"
+                m="4"
+                size="lg"
+              >
+                I need to rent space
+              </Button>
+            </Flex>
           </Center>
         </Box>
         <Box
-          minW={[300, '50%']}
+          minW={[300, "50%"]}
           minH={[300]}
           borderWidth="1px"
           borderRadius="lg"
@@ -152,17 +152,17 @@ const Home = () => {
           bgSize="cover"
         >
           <Center>
-          <Flex w="100%" justify="flex-end">
-            <Button
-              as={ReactLink}
-              to="/searchCreate"
-              variant="primary"
-              m="4"
-              size="lg"
-            >
-              I have space to rent
-            </Button>
-          </Flex>
+            <Flex w="100%" justify="flex-end">
+              <Button
+                as={ReactLink}
+                to="/searchCreate"
+                variant="primary"
+                m="4"
+                size="lg"
+              >
+                I have space to rent
+              </Button>
+            </Flex>
           </Center>
         </Box>
       </Flex>
