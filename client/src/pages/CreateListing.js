@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation } from '@apollo/client';
 import {
   Box,
   Button,
@@ -13,13 +13,13 @@ import {
   Switch,
   Textarea,
   useColorMode,
-} from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { ADD_LISTING } from "../utils/mutations";
+} from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { ADD_LISTING } from '../utils/mutations';
 
-const spaceTypes = ["Garage", "Shed", "Basement", "Attic"];
-const accessTypes = ["24hr", "Scheduled"];
+const spaceTypes = ['Garage', 'Shed', 'Basement', 'Attic'];
+const accessTypes = ['24hr', 'Scheduled'];
 
 const CreateListing = () => {
   const history = useHistory();
@@ -28,43 +28,43 @@ const CreateListing = () => {
 
   //set the form values
   const [formState, setFormState] = useState({
-    title: "",
-    type: "",
-    height: "",
-    width: "",
-    depth: "",
-    description: "",
-    rate: "",
-    addressLine1: "",
-    addressLine2: "",
-    city: "",
-    state: "",
-    zip: "",
+    title: '',
+    type: '',
+    height: '',
+    width: '',
+    depth: '',
+    description: '',
+    rate: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    zip: '',
     climateControl: false,
-    accessType: "",
+    accessType: '',
   });
   const [addListing, { error }] = useMutation(ADD_LISTING);
 
   useEffect(() => {
-    setFormState({
+    setFormState((prevState) => ({
       ...formState,
       ...location.state.addressResult,
-    });
+    }));
   }, [location]);
 
   // update state based on form input changes
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === "climateControl") {
+    if (name === 'climateControl') {
       setFormState({
         ...formState,
         [name]: event.target.checked,
       });
     } else if (
-      name === "width" ||
-      name === "height" ||
-      name === "depth" ||
-      name === "rate"
+      name === 'width' ||
+      name === 'height' ||
+      name === 'depth' ||
+      name === 'rate'
     ) {
       setFormState({
         ...formState,
@@ -81,14 +81,14 @@ const CreateListing = () => {
   // submit form
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("formState", formState);
+    console.log('formState', formState);
 
     try {
       const { data } = await addListing({
         variables: { ...formState },
       });
       if (data) {
-        history.push("/profile");
+        history.push('/profile');
       }
     } catch (e) {
       console.error(e);
@@ -101,7 +101,7 @@ const CreateListing = () => {
 
   return (
     <Flex
-      w={["98%", 400, 800]}
+      w={['98%', 400, 800]}
       direction="column"
       alignItems="center"
       mt="20"
@@ -116,9 +116,11 @@ const CreateListing = () => {
         p={[4, 10]}
       >
         <Flex mb="6" justify="center">
-          <Heading color={colorMode === 'light' ? "tertiarydark" : "white"}>Listing Profile</Heading>
+          <Heading color={colorMode === 'light' ? 'tertiarydark' : 'white'}>
+            Listing Profile
+          </Heading>
         </Flex>
-        <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+        <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
           <FormControl mb="6">
             <Input
               placeholder="Title"
@@ -126,8 +128,8 @@ const CreateListing = () => {
               type="text"
               id="title"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.title}
               onChange={handleChange}
             />
@@ -139,8 +141,8 @@ const CreateListing = () => {
               type="text"
               id="addressLine1"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.addressLine1}
               onChange={handleChange}
             />
@@ -152,8 +154,8 @@ const CreateListing = () => {
               type="text"
               id="addressLine2"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.addressLine2}
               onChange={handleChange}
             />
@@ -165,8 +167,8 @@ const CreateListing = () => {
               type="text"
               id="city"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.city}
               onChange={handleChange}
             />
@@ -179,8 +181,8 @@ const CreateListing = () => {
               type="text"
               id="state"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.state}
               onChange={handleChange}
             />
@@ -193,8 +195,8 @@ const CreateListing = () => {
               type="text"
               id="zip"
               size="lg"
-              _placeholder={{ color: "primary" }}
-              _focus={{ color: "primary", borderColor: "primary" }}
+              _placeholder={{ color: 'primary' }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
               value={formState.zip}
               onChange={handleChange}
             />
@@ -208,7 +210,7 @@ const CreateListing = () => {
               value={formState.type}
               onChange={handleChange}
               color="primary"
-              _active={{ color: "primary", borderColor: "primary" }}
+              _active={{ color: 'primary', borderColor: 'primary' }}
             >
               <option value="">--Select Listing Type--</option>
               {spaceTypes.map((type) => (
@@ -226,7 +228,7 @@ const CreateListing = () => {
               value={formState.accessType}
               onChange={handleChange}
               color="primary"
-              _active={{ color: "primary", borderColor: "primary" }}
+              _active={{ color: 'primary', borderColor: 'primary' }}
             >
               <option value="">--Select Access Type--</option>
               {accessTypes.map((type) => (
@@ -258,8 +260,8 @@ const CreateListing = () => {
                 textAlign="right"
                 id="height"
                 size="lg"
-                _placeholder={{ color: "primary" }}
-                _focus={{ color: "primary", borderColor: "primary" }}
+                _placeholder={{ color: 'primary' }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
                 value={formState.height}
                 onChange={handleChange}
               />
@@ -272,8 +274,8 @@ const CreateListing = () => {
                 textAlign="right"
                 id="width"
                 size="lg"
-                _focus={{ color: "primary", borderColor: "primary" }}
-                _placeholder={{ color: "primary" }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
+                _placeholder={{ color: 'primary' }}
                 value={formState.width}
                 onChange={handleChange}
               />
@@ -286,8 +288,8 @@ const CreateListing = () => {
                 textAlign="right"
                 id="depth"
                 size="lg"
-                _focus={{ color: "primary", borderColor: "primary" }}
-                _placeholder={{ color: "primary" }}
+                _focus={{ color: 'primary', borderColor: 'primary' }}
+                _placeholder={{ color: 'primary' }}
                 value={formState.depth}
                 onChange={handleChange}
               />
@@ -302,8 +304,8 @@ const CreateListing = () => {
               id="rate"
               size="lg"
               textAlign="right"
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.rate}
               onChange={handleChange}
             />
@@ -315,8 +317,8 @@ const CreateListing = () => {
               id="description"
               size="lg"
               h={[100, 150]}
-              _focus={{ color: "primary", borderColor: "primary" }}
-              _placeholder={{ color: "primary" }}
+              _focus={{ color: 'primary', borderColor: 'primary' }}
+              _placeholder={{ color: 'primary' }}
               value={formState.description}
               onChange={handleChange}
             />
@@ -328,7 +330,7 @@ const CreateListing = () => {
               type="button"
               size="lg"
               mr="2"
-              onClick={() => history.push("/searchCreate")}
+              onClick={() => history.push('/searchCreate')}
             >
               Edit Address
             </Button>

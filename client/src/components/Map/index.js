@@ -1,4 +1,4 @@
-import { Flex, Link, Spacer, Text, useColorMode } from '@chakra-ui/react';
+import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import React, { Component } from 'react';
 
@@ -9,7 +9,6 @@ const mapStyles = {
 };
 
 // CHANGE TO ADDRESS SEARCHED
-let searchLocation;
 
 export class MapContainer extends Component {
   state = {
@@ -37,7 +36,6 @@ export class MapContainer extends Component {
 
   render() {
     const listings = this.props.listings || '';
-    console.log('listings', listings);
 
     const centerMap = {
       lat: listings[0].location.coordinates[1],
@@ -48,16 +46,19 @@ export class MapContainer extends Component {
       <Flex direction="row" position="relative" h={500} w={1000}>
         <Map
           google={this.props.google}
-          zoom={10}
+          zoom={9}
           style={mapStyles}
           initialCenter={this.props.searchLocation || centerMap}
         >
-          <Marker
-            onClick={this.onMarkerClick}
-            location={'You Are Here'}
-            linkUrl={'/'}
-            linkText={'Return Home'}
-          />
+          {this.props.searchLocation && (
+            <Marker
+              onClick={this.onMarkerClick}
+              location={'You Are Here'}
+              linkUrl={'/'}
+              linkText={'Return Home'}
+            />
+          )}
+
           {listings.map((listing) => (
             <Marker
               onClick={this.onMarkerClick}
@@ -71,7 +72,7 @@ export class MapContainer extends Component {
               linkText={'View Listing'}
               key={listing._id}
               icon={{
-                url: '../../../garage_indigo.svg',
+                url: '../../../shed_indigo.svg',
                 anchor: new window.google.maps.Point(20, 20),
                 scaledSize: new window.google.maps.Size(30, 30),
               }}

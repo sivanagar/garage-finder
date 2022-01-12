@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import { Flex, Heading, Link, useColorMode } from '@chakra-ui/react';
+import { Flex, Heading, useColorMode } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Result from '../components/Result';
@@ -29,10 +29,6 @@ const Resutls = (props) => {
     console.log('search Info', location.state.search);
   }, [location]);
   const results = data ? data.listings : [];
-
-  function handleSort(sortBy) {
-    console.log('sortBy', sortBy);
-  }
 
   if (loading) return <div>Loading...</div>;
 
