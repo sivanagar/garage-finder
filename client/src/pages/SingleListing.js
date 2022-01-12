@@ -47,7 +47,6 @@ const SingleListing = () => {
   }
   return (
     <Flex
-      h="200vh"
       py={2}
       px={2}
       direction={['column', 'row']}
@@ -127,28 +126,17 @@ const SingleListing = () => {
           <GridItem colSpan={1}>{listing.address}</GridItem>
           <GridItem colSpan={1}>
             <Box display="flex" justifyContent="flex-end">
-              Height:
+              Dimensions:
             </Box>
           </GridItem>
-          <GridItem colSpan={1}>{listing.height}</GridItem>
-          <GridItem colSpan={1}>
-            <Box display="flex" justifyContent="flex-end">
-              Width:
-            </Box>
-          </GridItem>
-          <GridItem colSpan={1}>{listing.width}</GridItem>
-          <GridItem colSpan={1}>
-            <Box display="flex" justifyContent="flex-end">
-              Depth:
-            </Box>
-          </GridItem>
-          <GridItem colSpan={1}>{listing.depth}</GridItem>
+          <GridItem colSpan={1}> {listing.height} x {listing.width} x {listing.depth} ft</GridItem>
+          
           <GridItem colSpan={1}>
             <Box display="flex" justifyContent="flex-end">
               Rate:
             </Box>
           </GridItem>
-          <GridItem colSpan={1}>{listing.rate}</GridItem>
+          <GridItem colSpan={1}>${listing.rate}/month</GridItem>
           <GridItem colSpan={1}>
             <Box display="flex" justifyContent="flex-end">
               Climate Control:
@@ -161,12 +149,12 @@ const SingleListing = () => {
             </Box>
           </GridItem>
           <GridItem colSpan={1}>{listing.accessType}</GridItem>
-          <GridItem colSpan={1}>
+          {/* <GridItem colSpan={1}>
             <Box display="flex" justifyContent="flex-end">
               Distance:
             </Box>
           </GridItem>
-          <GridItem colSpan={1}>distance placeholder</GridItem>
+          <GridItem colSpan={1}>distance placeholder</GridItem> */}
         </SimpleGrid>
       </VStack>
       <VStack w="full" h="full" p={3} spacing={10} alignItems="flex-start">
