@@ -49,18 +49,18 @@ const Header = () => {
             <Button
               as={ReactLink}
               variant="secondary"
-              size="sm"
+              size="lg"
               m="0.5"
               to="/profile"
             >
               Me
             </Button>
-            <Button variant="secondary" size="sm" m="0.5" onClick={logout}>
+            <Button variant="secondary" size="lg" m="0.5" onClick={logout}>
               Logout
             </Button>
             <Button
               variant="primary"
-              size="sm"
+              size="lg"
               m="0.5"
               onClick={toggleColorMode}
             >
