@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { AddIcon, DragHandleIcon } from "@chakra-ui/icons";
+import { AddIcon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -12,12 +12,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
-import {
-  Link as ReactLink,
-  Redirect,
-  useHistory,
-  useParams,
-} from "react-router-dom";
+import { Redirect, useHistory, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Result from "../components/Result";
 import Auth from "../utils/auth";
@@ -76,16 +71,6 @@ const Profile = () => {
                 >
                   <AddIcon />
                   &nbsp;Create Listing
-                </Button>
-                <Button
-                  as={ReactLink}
-                  to={`/myListings`}
-                  variant="primary"
-                  size="lg"
-                  onClick={handleClickCreateListing}
-                >
-                  <DragHandleIcon />
-                  &nbsp;My Listings
                 </Button>
               </Flex>
             </Flex>
