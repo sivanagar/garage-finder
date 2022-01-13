@@ -32,6 +32,7 @@ const Resutls = (props) => {
   useEffect(() => {
     setWindowDimensions(getWindowDimensions());
     setContainerHeight(windowDimensions.height - 173);
+    if (windowDimensions.width <= 480) setContainerHeight(1000);
     console.log("heigth: ", windowDimensions.height);
   }, [location, windowDimensions.height]);
 
@@ -50,7 +51,7 @@ const Resutls = (props) => {
   return (
     <>
       <Flex
-        direction={["column", "row"]}
+        direction={["column-reverse", "row"]}
         justify="flex-start"
         w="100vw"
         h={containerHeight}
