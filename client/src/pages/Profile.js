@@ -11,21 +11,24 @@ import {
   Text,
   useColorMode,
 } from "@chakra-ui/react";
-import React from "react";
-import { Redirect, useHistory, useParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Redirect, useHistory, useLocation, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Result from "../components/Result";
 import Auth from "../utils/auth";
-import { QUERY_ME, QUERY_USER } from "../utils/queries";
+import { QUERY_ME } from "../utils/queries";
 
 const Profile = () => {
   const { colorMode } = useColorMode();
   const history = useHistory();
+  const location = useLocation();
   const { username: userParam } = useParams();
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
+  const { loading, data, refetch } = useQuery(QUERY_ME);
+
+  useEffect(() => {
+    refetch();
+  }, [location]);
 
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/profile" />;
