@@ -51,7 +51,7 @@ const Resutls = (props) => {
             <Result key={result._id} result={result} />
           ))}
         </Box>
-        <Box flex="2" bg="tomato" position="relative" minH={[400]}>
+        <Box flex="2" position="relative" minH={[400]}>
           <GoogleApiWrapper
             listings={results}
             searchLocation={searchedLocation}
