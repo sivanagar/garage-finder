@@ -19,7 +19,7 @@ const Result = ({ result }) => {
     <Box
       onClick={() => handleClick(result)}
       w={[300, 300, 220, 300, 400]}
-      h={[205, 205, 235, 205, 215]}
+      h={[205, 205, 240, 205, 215]}
       borderWidth="1px"
       borderRadius="lg"
       m="2"
