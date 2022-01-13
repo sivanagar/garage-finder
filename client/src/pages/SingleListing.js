@@ -129,7 +129,9 @@ const SingleListing = () => {
                   Climate Control:
                 </Box>
               </GridItem>
-              <GridItem colSpan={1}>{listing.climateControl}</GridItem>
+              <GridItem colSpan={1}>
+                {listing.climateControl ? 'YES' : 'NO'}
+              </GridItem>
               <GridItem colSpan={1}>
                 <Box display="flex" justifyContent="flex-end">
                   Access:

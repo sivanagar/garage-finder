@@ -1,5 +1,5 @@
-import { useMutation } from "@apollo/client";
-import { LockIcon } from "@chakra-ui/icons";
+import { useMutation } from '@apollo/client';
+import { LockIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -12,14 +12,14 @@ import {
   Image,
   Input,
   useColorMode,
-} from "@chakra-ui/react";
-import React, { useState } from "react";
-import Footer from "../components/Footer";
-import Auth from "../utils/auth";
-import { LOGIN_USER } from "../utils/mutations";
+} from '@chakra-ui/react';
+import React, { useState } from 'react';
+import Footer from '../components/Footer';
+import Auth from '../utils/auth';
+import { LOGIN_USER } from '../utils/mutations';
 
 const Login = (props) => {
-  const [formState, setFormState] = useState({ email: "", password: "" });
+  const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN_USER);
   const { colorMode } = useColorMode();
   // update state based on form input changes
@@ -40,10 +40,10 @@ const Login = (props) => {
     event.preventDefault();
 
     //Validate Form Values
-    if (formState.email === "") {
+    if (formState.email === '') {
       setIsEmailError(true);
       return;
-    } else if (formState.password === "") {
+    } else if (formState.password === '') {
       setIsPasswordError(true);
       return;
     }
@@ -60,8 +60,8 @@ const Login = (props) => {
 
     // clear form values
     setFormState({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     });
   };
 
@@ -81,19 +81,19 @@ const Login = (props) => {
               <Image
                 w="80px"
                 src={
-                  colorMode === "light"
-                    ? "../../../H_dark_purple.svg"
-                    : "../../../H.svg"
+                  colorMode === 'light'
+                    ? '../../../H_dark_purple.svg'
+                    : '../../../H.svg'
                 }
                 mb="10"
               />
             </Center>
             <Flex mb="1" justify="center">
-              <Heading color={colorMode === "light" ? "tertiarydark" : "white"}>
+              <Heading color={colorMode === 'light' ? 'tertiarydark' : 'white'}>
                 Welcome to Cache
               </Heading>
             </Flex>
-            <form onSubmit={handleFormSubmit} style={{ width: "100%" }}>
+            <form onSubmit={handleFormSubmit} style={{ width: '100%' }}>
               <FormControl mb="6" isInvalid={isEmailError}>
                 <Input
                   placeholder="Your email"
@@ -111,6 +111,7 @@ const Login = (props) => {
                   name="password"
                   type="password"
                   id="password"
+                  autoComplete="on"
                   value={formState.password}
                   onChange={handleChange}
                 />

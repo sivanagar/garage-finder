@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import GoogleApiWrapper from '../components/Map/';
 import Result from '../components/Result';
+import Footer from '../components/Footer';
 import { QUERY_LISTINGS } from '../utils/queries';
 
 const Resutls = (props) => {
@@ -53,15 +54,16 @@ const Resutls = (props) => {
             <Result key={result._id} result={result} />
           ))}
         </Box>
-        <Box flex="2" bg="tomato">
-          {results.length > 0 && (
+        {results.length > 0 && (
+          <Box flex="2">
             <GoogleApiWrapper
               listings={results}
               searchLocation={searchedLocation}
             />
-          )}
-        </Box>
+          </Box>
+        )}
       </Flex>
+      <Footer />
     </>
   );
 };
