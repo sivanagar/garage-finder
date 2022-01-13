@@ -123,7 +123,7 @@ const Login = (props) => {
               </Center>
             </form>
 
-            {error && <div>Signup failed</div>}
+            {error && <div>Login Failed</div>}
           </Box>
         </Flex>
       </Container>

@@ -344,7 +344,7 @@ const CreateListing = () => {
               </Center>
             </form>
 
-            {error && <div>Signup failed</div>}
+            {error && <div>Listing Creation Failed</div>}
           </Box>
         </Flex>
       </Container>
