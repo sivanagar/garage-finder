@@ -1,13 +1,19 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react';
+import { Box, Flex, Text, Image, useColorMode, VStack, StackDivider} from '@chakra-ui/react';
 import { useHistory } from 'react-router-dom';
 const Result = ({ result }) => {
+  const { colorMode } = useColorMode();
   const history = useHistory();
   function handleClick(result) {
-    console.log('clicked', result);
-    history.push({
-      pathname: `/listing/${result._id}`,
-    });
-  }
+      console.log('clicked', result);
+      history.push({
+        pathname: `/listing/${result._id}`,
+      });
+    }
+
+  var addresses = result.address.split(',').map(function (address, index) {
+      return <p key={index}>{ address }</p>; 
+  });
+
   return (
     <Box
       onClick={() => handleClick(result)}
@@ -28,44 +34,68 @@ const Result = ({ result }) => {
       </Flex>
       <Flex justify="space-between">
         <Box w="16" h="16" display="flex" justifyContent="flex-start">
-          {result.type === 'Basement' ? (
-            <Image
-              objectFit="cover"
-              src="../../../basement.png"
-              alt={result.type}
-            />
-          ) : result.type === 'Attic' ? (
-            <Image
-              objectFit="cover"
-              src="../../../attic.png"
-              alt={result.type}
-            />
-          ) : result.type === 'Garage' ? (
-            <Image
-              objectFit="cover"
-              src="../../../garage.png"
-              alt={result.type}
-            />
-          ) : result.type === 'Shed' ? (
-            <Image
-              objectFit="cover"
-              src="../../../shed.svg"
-              alt={result.type}
-            />
-          ) : (
-            <p>Unknown listing type</p>
-          )}
-        </Box>
-        <Text fontWeight="bold">${result.rate}/m</Text>
+                {result.type === 'Basement' ? (
+                  <Image
+                    objectFit="cover"
+                    src={
+                      colorMode === 'light'
+                        ? '../../../basement_indigo.svg'
+                        : '../../../basement_periwinkle.svg'
+                    }
+                    alt={result.type}
+                  />
+                ) : result.type === 'Attic' ? (
+                  <Image
+                    objectFit="cover"
+                    src={
+                      colorMode === 'light'
+                        ? '../../../attic_indigo.svg'
+                        : '../../../attic_periwinkle.svg'
+                    }
+                    alt={result.type}
+                  />
+                ) : result.type === 'Garage' ? (
+                  <Image
+                    objectFit="cover"
+                    src={
+                      colorMode === 'light'
+                        ? '../../../garage_indigo.svg'
+                        : '../../../garage_periwinkle.svg'
+                    }
+                    alt={result.type}
+                  />
+                ) : result.type === 'Shed' ? (
+                  <Image
+                    objectFit="cover"
+                    src={
+                      colorMode === 'light'
+                        ? '../../../shed_indigo.svg'
+                        : '../../../shed_periwinkle.svg'
+                    }
+                    alt={result.type}
+                  />
+                ) : (
+                  <p>Unknown listing type</p>
+                )}
+              </Box>
+        <VStack
+          spacing={0}
+          align='stretch'
+          alignItems="flex-end"
+          >
+          <Box>
+            <Text fontWeight="bold">${result.rate}/m</Text>
+          </Box>
+          <Box>
+            <Text >{result.height} x {result.width} x {result.depth} ft</Text>
+          </Box>
+          <Box>
+          <Text pl="2">{result.accessType} access</Text>
+          </Box>
+        </VStack>
       </Flex>
-      <Flex h="24px">
-        <Text pl="2">{result.address}</Text>
-      </Flex>
-      <Flex h="24px">
-        <Text pl="2">{result.size}</Text>
-      </Flex>
-      <Flex h="24px" justify="start">
-        <Text pl="2">{result.accessType} access</Text>
+      <Flex h="75px" py="3" >
+        <div className="address">{addresses}</div>
       </Flex>
     </Box>
   );

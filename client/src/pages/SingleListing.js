@@ -60,7 +60,17 @@ const SingleListing = () => {
               direction={['column', 'row']}
               justify={['left', 'flex-start']}
               alignItems={['center', 'flex-start']}
-            >
+            ><Box display="flex" justifyContent="flex-start">
+                    <Image
+                      objectFit="cover"
+                      src={
+                        colorMode === 'light'
+                          ? `../../../${listing.type}_indigo.svg`
+                          : `../../../${listing.type}_periwinkle.svg`
+                      }
+                      alt={listing.type}
+                    />
+                  </Box>
               <Grid
                 columns={2}
                 columnGap={3}
