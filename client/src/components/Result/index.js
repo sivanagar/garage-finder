@@ -1,11 +1,9 @@
 import { Box, Flex, Image, Text, useColorMode, VStack } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 const Result = ({ result }) => {
-  console.log(result);
   const { colorMode } = useColorMode();
   const history = useHistory();
   function handleClick(result) {
-    console.log("clicked", result);
     history.push({
       pathname: `/listing/${result._id}`,
     });
