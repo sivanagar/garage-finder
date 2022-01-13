@@ -27,6 +27,7 @@ const Result = ({ result }) => {
     <Box
       onClick={() => handleClick(result)}
       w={[300, 300, 220, 300, 400]}
+      h={[205, 205, 235, 205, 215]}
       borderWidth="1px"
       borderRadius="lg"
       m="2"
@@ -39,7 +40,7 @@ const Result = ({ result }) => {
       }}
     >
       <Flex justify="space-between">
-        <Text fontWeight="bold">{result.title}</Text>
+        <Text fontWeight="bold">{result.title.substring(0, 27)}</Text>
       </Flex>
       <Flex justify="space-between">
         <Box w="16" h="16" display="flex" justifyContent="flex-start">
