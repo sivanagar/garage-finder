@@ -123,7 +123,7 @@ const SingleListing = () => {
                   Rate:
                 </Box>
               </GridItem>
-              <GridItem colSpan={1}>${listing.rate}/month</GridItem>
+              <GridItem colSpan={1}>${listing.rate} /month</GridItem>
               <GridItem colSpan={1}>
                 <Box display="flex" justifyContent="flex-end">
                   Climate Control:
