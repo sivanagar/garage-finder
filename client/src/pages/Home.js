@@ -123,7 +123,7 @@ const Home = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="flex-end"
             bgGradient="url('https://sanfrancisco.cbslocal.com/wp-content/uploads/sites/15116056/2015/03/cnn-single-mom-garage.jpg?w=701')"
             bgSize="cover"
           >
@@ -150,7 +150,7 @@ const Home = () => {
             display="flex"
             flexDirection="column"
             alignItems="center"
-            justifyContent="space-between"
+            justifyContent="flex-end"
             bgGradient="url('https://cdn.motor1.com/images/mgl/b0ql3/s1/4x3/gearhead-home-offers-6-car-garage-with-bonus-room-for-under-400k.webp')"
             bgSize="cover"
           >
