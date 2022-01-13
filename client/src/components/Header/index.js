@@ -1,38 +1,104 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-import Auth from '../../utils/auth';
+import { Button, Flex, Image, useColorMode } from "@chakra-ui/react";
+import React from "react";
+import { Link as ReactLink, useHistory } from "react-router-dom";
+import Auth from "../../utils/auth";
 
 const Header = () => {
+  const history = useHistory();
+
+  const { colorMode, toggleColorMode } = useColorMode();
   const logout = (event) => {
     event.preventDefault();
     Auth.logout();
   };
 
-  return (
-    <header className="bg-secondary mb-4 py-2 flex-row align-center">
-      <div className="container flex-row justify-space-between-lg justify-center align-center">
-        <Link to="/">
-          <h1>Garage Finder</h1>
-        </Link>
+  function handleLogoClick() {
+    history.push("/");
+  }
 
-        <nav className="text-center">
-          {Auth.loggedIn() ? (
-            <>
-              <Link to="/profile">Me</Link>
-              <a href="/" onClick={logout}>
-                Logout
-              </a>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Signup</Link>
-            </>
-          )}
-        </nav>
-      </div>
-    </header>
+  return (
+    <Flex
+      borderBottom="1px"
+      borderColor="gray.200"
+      bg={colorMode === "light" ? "primary" : "primarydark"}
+      color="white"
+      fontSize="lg"
+      fontWeight="semibold"
+      direction={["column", "row"]}
+      justify="space-between"
+      w="100%"
+    >
+      <Flex m="2" p="2" direction="row" justify={["center", "flex-end"]}>
+        <Image
+          objectFit="cover"
+          src="../../../cache_logo.svg"
+          alt="Cache"
+          onClick={handleLogoClick}
+          cursor="pointer"
+        />
+      </Flex>
+      <Flex
+        m="2"
+        p="2"
+        direction="row"
+        align={["end", "flex-center"]}
+        justify={["center", "flex-end"]}
+      >
+        {Auth.loggedIn() ? (
+          <>
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              size="lg"
+              m="0.5"
+              to="/profile"
+            >
+              Me
+            </Button>
+            <Button variant="secondary" size="lg" m="0.5" onClick={logout}>
+              Logout
+            </Button>
+            <Button
+              variant="primary"
+              size="lg"
+              m="0.5"
+              onClick={toggleColorMode}
+            >
+              {colorMode === "light" ? "🌙" : "☀️"}
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              m="0.5"
+              to="/login"
+              size="lg"
+            >
+              Login
+            </Button>
+            <Button
+              as={ReactLink}
+              variant="secondary"
+              m="0.5"
+              to="/signup"
+              size="lg"
+            >
+              Signup
+            </Button>
+            <Button
+              variant="primary"
+              m="0.5"
+              onClick={toggleColorMode}
+              size="lg"
+            >
+              {colorMode === "light" ? "🌙" : "☀️"}
+            </Button>
+          </>
+        )}
+      </Flex>
+    </Flex>
   );
 };
 

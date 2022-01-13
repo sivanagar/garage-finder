@@ -25,14 +25,15 @@ db.once('open', async () => {
 
   const listingData = [];
   for (let i = 0; i < 100; i += 1) {
+    const title = 'title' + faker.lorem.sentence();
     const address = faker.address.streetAddress();
     const type = faker.random.arrayElement([
-      'garage',
-      'shed',
-      'basement',
-      'attic',
+      'Garage',
+      'Shed',
+      'Basement',
+      'Attic',
     ]);
-    const accessType = faker.random.arrayElement(['24hr', 'scheduled']);
+    const accessType = faker.random.arrayElement(['24hr', 'Scheduled']);
     const height = faker.random.number({ min: 1, max: 20 });
     const width = faker.random.number({ min: 1, max: 20 });
     const depth = faker.random.number({ min: 1, max: 20 });
@@ -41,8 +42,14 @@ db.once('open', async () => {
     const climateControl = faker.random.boolean();
     const randomUserIndex = Math.floor(Math.random() * userData.length);
     const { username, _id: userId } = createdUsers[randomUserIndex];
+    const location = {
+      type: 'Point',
+      coordinates: [faker.address.longitude(), faker.address.latitude()],
+    };
+    const active = faker.random.boolean();
 
     const createListing = await Listing.create({
+      title,
       address,
       type,
       accessType,
@@ -53,6 +60,8 @@ db.once('open', async () => {
       rate,
       climateControl,
       username,
+      location,
+      active,
     });
     const updateUser = await User.updateOne(
       { _id: userId },

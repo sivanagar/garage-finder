@@ -1,42 +1,23 @@
 const { Schema, model, Types } = require('mongoose');
 
-// the following block of code tests address geocoding
-// const NodeGeocoder = require('node-geocoder');
-
-// const options = {
-//   provider: 'google',
-
-//   apiKey: '', // for Mapquest, OpenCage, Google Premier
-//   formatter: null // 'gpx', 'string', ...
-// };
-
-// const geocoder = NodeGeocoder(options);
-
-// ( async function () {
-// // Using callback
-// const res = await geocoder.geocode('227 mangels ave san francisco ca');
-// console.log(res);
-// }
-// ()
-// )
-
 const listingSchema = new Schema(
   {
-    // listingId: {
-    //   type: Schema.Types.ObjectId,
-    //   default: () => new Types.ObjectId()
-    // },
+    title: {
+      type: String,
+      required: 'Title is required',
+      trim: true,
+    },
     address: {
       type: String,
       required: true,
     },
     type: {
       type: String,
-      enum: ['garage', 'shed', 'basement', 'attic'],
+      enum: ['Garage', 'Shed', 'Basement', 'Attic'],
     },
     accessType: {
       type: String,
-      enum: ['24hr', 'scheduled'],
+      enum: ['24hr', 'Scheduled'],
     },
     height: {
       type: Number,
@@ -67,6 +48,21 @@ const listingSchema = new Schema(
       type: Boolean,
       required: true,
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+    },
   },
   {
     // toJSON: {
@@ -82,6 +78,8 @@ const listingSchema = new Schema(
 //     return (this.height * this.width * this.depth)
 //     }
 //   );
+
+listingSchema.index({ location: '2dsphere' });
 
 const Listing = model('Listing', listingSchema);
 
