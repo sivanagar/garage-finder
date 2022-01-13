@@ -4,7 +4,7 @@ let transporter = nodemailer.createTransport(mailSettings);
 
 async function sendContactMessage(message, host, guest, listingId) {
   const htmlBody = `<h2>${guest.username} HAS CONTACT YOU ABOUT YOUR LISTING</h2>
-  <p> LISTING DETAILS: <a href='http://localhost:3000/listing/${listingId}'>http://localhost:3000/listing/${listingId} </a></p>
+  <p> LISTING DETAILS: <a href='https://cache-project.herokuapp.com/listing/${listingId}'>https://cache-project.herokuapp.com/listing/${listingId} </a></p>
   <p>${message}  </p>`;
 
   const mailContent = {
