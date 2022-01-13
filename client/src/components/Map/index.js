@@ -35,12 +35,12 @@ export class MapContainer extends Component {
   };
 
   render() {
+    let centerMap = {};
     const listings = this.props.listings || '';
-
-    const centerMap = {
-      lat: listings[0].location.coordinates[1],
-      lng: listings[0].location.coordinates[0],
-    };
+    if (listings[0]) {
+      centerMap.lat = listings[0].location.coordinates[1];
+      centerMap.lng = listings[0].location.coordinates[0];
+    }
 
     return (
       <Map
