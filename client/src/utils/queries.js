@@ -86,6 +86,7 @@ export const QUERY_LISTINGS = gql`
       distance: $distance
     ) {
       _id
+      title
       address
       type
       accessType
