@@ -1,11 +1,11 @@
-import { Flex, Link, Spacer, Text } from '@chakra-ui/react';
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import React, { Component } from 'react';
+import { Flex, Link, Spacer } from "@chakra-ui/react";
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
+import React, { Component } from "react";
 
 const mapStyles = {
-  width: '100%',
-  height: '100%',
-  position: 'relative',
+  width: "100%",
+  height: "100%",
+  position: "relative",
 };
 
 // CHANGE TO ADDRESS SEARCHED
@@ -36,7 +36,7 @@ export class MapContainer extends Component {
 
   render() {
     let centerMap = {};
-    const listings = this.props.listings || '';
+    const listings = this.props.listings || "";
     if (listings[0]) {
       centerMap.lat = listings[0].location.coordinates[1];
       centerMap.lng = listings[0].location.coordinates[0];
@@ -52,9 +52,9 @@ export class MapContainer extends Component {
         {this.props.searchLocation && (
           <Marker
             onClick={this.onMarkerClick}
-            location={'You Are Here'}
-            linkUrl={'/'}
-            linkText={'Return Home'}
+            location={"You Are Here"}
+            linkUrl={"/"}
+            linkText={"Return Home"}
           />
         )}
 
@@ -68,10 +68,10 @@ export class MapContainer extends Component {
             }}
             description={listing.description}
             linkUrl={`/listing/${listing._id}`}
-            linkText={'View Listing'}
+            linkText={"View Listing"}
             key={listing._id}
             icon={{
-              url: '../../../shed_indigo.svg',
+              url: `../../../${listing.type}_indigo.svg`,
               anchor: new window.google.maps.Point(20, 20),
               scaledSize: new window.google.maps.Size(30, 30),
             }}
@@ -83,12 +83,21 @@ export class MapContainer extends Component {
           onClose={this.onClose}
         >
           <Flex direction="column">
-            <Text>{this.state.selectedPlace.location || ''}</Text>
-            <Link href={this.state.selectedPlace.linkUrl}>
-              <Text>{this.state.selectedPlace.linkText}</Text>
+            <p style={{ color: "black" }}>
+              {this.state.selectedPlace.location || ""}
+            </p>
+            <Link
+              style={{ color: "black" }}
+              href={this.state.selectedPlace.linkUrl}
+            >
+              <p style={{ color: "black" }}>
+                {this.state.selectedPlace.linkText}
+              </p>
             </Link>
             <Spacer mt={2} />
-            <Text>{this.state.selectedPlace.description || ''}</Text>
+            <p style={{ color: "black" }}>
+              {this.state.selectedPlace.description || ""}
+            </p>
           </Flex>
         </InfoWindow>
       </Map>
