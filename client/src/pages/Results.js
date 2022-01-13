@@ -33,7 +33,6 @@ const Resutls = (props) => {
     setWindowDimensions(getWindowDimensions());
     setContainerHeight(windowDimensions.height - 173);
     if (windowDimensions.width <= 480) setContainerHeight(1000);
-    console.log("heigth: ", windowDimensions.height);
   }, [location, windowDimensions.height]);
 
   const results = data ? data.listings : [];

@@ -8,8 +8,6 @@ const mapStyles = {
   position: "relative",
 };
 
-// CHANGE TO ADDRESS SEARCHED
-
 export class MapContainer extends Component {
   state = {
     showingInfoWindow: false,
