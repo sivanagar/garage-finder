@@ -74,16 +74,15 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 1. Acquire a Google Maps API key
-2. Acquire a React API key
 
 ### Installation
 
 1. Clone the repo
 2. Install client side NPM packages at /client
-    `npm install`
+    `npm i`
 3. Install server side NPM packages at /server
-    `npm install`
-4. Run `npm install` at project root
+    `npm i`
+4. Run `npm run install` at project root
 5. Enter your API keys in `.env`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
