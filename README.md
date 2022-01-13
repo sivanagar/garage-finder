@@ -122,7 +122,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Contributors
+## Acknowledgments
 
 * joseduardo15062005 - [https://github.com/joseduardo15062005](https://github.com/joseduardo15062005)
 * sivanagar - [https://github.com/sivanagar](https://github.com/sivanagar)
