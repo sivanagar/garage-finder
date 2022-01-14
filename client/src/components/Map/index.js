@@ -1,11 +1,11 @@
-import { Flex, Link, Spacer } from "@chakra-ui/react";
-import { GoogleApiWrapper, InfoWindow, Map, Marker } from "google-maps-react";
-import React, { Component } from "react";
+import { Flex, Link, Spacer } from '@chakra-ui/react';
+import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
+import React, { Component } from 'react';
 
 const mapStyles = {
-  width: "100%",
-  height: "100%",
-  position: "relative",
+  width: '100%',
+  height: '100%',
+  position: 'relative',
 };
 
 export class MapContainer extends Component {
@@ -34,7 +34,7 @@ export class MapContainer extends Component {
 
   render() {
     let centerMap = {};
-    const listings = this.props.listings || "";
+    const listings = this.props.listings || '';
     if (listings[0]) {
       centerMap.lat = listings[0].location.coordinates[1];
       centerMap.lng = listings[0].location.coordinates[0];
@@ -50,9 +50,9 @@ export class MapContainer extends Component {
         {this.props.searchLocation && (
           <Marker
             onClick={this.onMarkerClick}
-            location={"You Are Here"}
-            linkUrl={"/"}
-            linkText={"Return Home"}
+            location={'You Are Here'}
+            linkUrl={'/'}
+            linkText={'Return Home'}
           />
         )}
 
@@ -66,10 +66,10 @@ export class MapContainer extends Component {
             }}
             description={listing.description}
             linkUrl={`/listing/${listing._id}`}
-            linkText={"View Listing"}
+            linkText={'View Listing'}
             key={listing._id}
             icon={{
-              url: `../../../${listing.type}_indigo.svg`,
+              url: `../../../${listing.type.toLowerCase()}_indigo.svg`,
               anchor: new window.google.maps.Point(20, 20),
               scaledSize: new window.google.maps.Size(30, 30),
             }}
@@ -81,20 +81,20 @@ export class MapContainer extends Component {
           onClose={this.onClose}
         >
           <Flex direction="column">
-            <p style={{ color: "black" }}>
-              {this.state.selectedPlace.location || ""}
+            <p style={{ color: 'black' }}>
+              {this.state.selectedPlace.location || ''}
             </p>
             <Link
-              style={{ color: "black" }}
+              style={{ color: 'black' }}
               href={this.state.selectedPlace.linkUrl}
             >
-              <p style={{ color: "black" }}>
+              <p style={{ color: 'black' }}>
                 {this.state.selectedPlace.linkText}
               </p>
             </Link>
             <Spacer mt={2} />
-            <p style={{ color: "black" }}>
-              {this.state.selectedPlace.description || ""}
+            <p style={{ color: 'black' }}>
+              {this.state.selectedPlace.description || ''}
             </p>
           </Flex>
         </InfoWindow>
