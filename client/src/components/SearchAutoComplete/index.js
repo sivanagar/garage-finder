@@ -65,6 +65,7 @@ const SearchAutoComplete = (props) => {
         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
           <div>
             <Input
+              id="enter-address"
               size="lg"
               _placeholder={{ color: "primary" }}
               _focus={{ color: "primary", borderColor: "primary" }}
